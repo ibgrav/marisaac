@@ -14,12 +14,12 @@ async function initialize() {
 
   const target = document.getElementById("app")!;
 
-  const posts = await contentfulFetch<PostEntry>({
+  contentfulFetch<PostEntry>({
     content_type: "post",
     select: "sys.id,fields.title,fields.slug"
+  }).then((result) => {
+    store.update((p) => ({ ...p, posts: result.items }));
   });
-
-  store.update((p) => ({ ...p, posts: posts.items }));
 
   if (location.pathname === "/") {
     new Home({ target });
