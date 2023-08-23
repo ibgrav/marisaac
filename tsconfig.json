@@ -1,11 +1,17 @@
 {
-  "include": ["**/*.ts"],
+  "extends": "@tsconfig/svelte/tsconfig.json",
+
+  "include": ["**/*.ts", "**/*.svelte"],
   "exclude": ["node_modules", "dist"],
+
   "compilerOptions": {
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "bundler",
 
-    "strict": true
+    "allowJs": true,
+    "checkJs": true,
+    "isolatedModules": true,
+    "useDefineForClassFields": true
   }
 }
