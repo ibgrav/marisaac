@@ -2,6 +2,12 @@ import type { ContentfulLivePreview as ContentfulLivePreviewType } from "@conten
 import type { PostEntry } from "../types";
 import { store } from "../store";
 
+declare global {
+  interface Window {
+    contentfulPreviewMode: boolean;
+  }
+}
+
 interface ContentfulLivePreviewMessage<T> {
   action?: "ENTRY_UPDATED";
   entity?: T;
@@ -11,6 +17,8 @@ let ContentfulLivePreview: typeof ContentfulLivePreviewType;
 
 export async function initializeLivePreview() {
   if (window.self !== window.top && !ContentfulLivePreview) {
+    window.contentfulPreviewMode = true;
+
     await import("@contentful/live-preview/style.css");
 
     const livePreviewModules = await import("@contentful/live-preview");
