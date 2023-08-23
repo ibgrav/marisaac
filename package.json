@@ -2,19 +2,15 @@
   "name": "blog",
   "private": true,
   "scripts": {
-    "dev": "vite"
+    "dev": "vite dev",
+    "build": "vite build"
   },
   "dependencies": {
-    "@contentful/rich-text-react-renderer": "15.17.1",
-    "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "@contentful/live-preview": "2.7.1",
+    "@contentful/rich-text-react-renderer": "15.17.1"
   },
   "devDependencies": {
-    "@contentful/live-preview": "2.7.1",
     "@types/node": "20.4.9",
-    "@types/react": "18.2.20",
-    "@types/react-dom": "18.2.7",
-    "@vitejs/plugin-react": "4.0.4",
     "typescript": "5.1.6",
     "vite": "4.4.9"
   }
