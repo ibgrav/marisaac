@@ -3,24 +3,11 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite dev --host",
-    "preview": "vite preview",
-    "build": "pnpm typecheck && vite build",
-    "typecheck": "svelte-check --tsconfig ./tsconfig.json"
-  },
-  "dependencies": {
-    "@contentful/live-preview": "2.9.1",
-    "@contentful/rich-text-html-renderer": "16.1.1",
-    "@contentful/rich-text-react-renderer": "15.17.1",
-    "svelte": "4.2.0"
+    "dev": "serve -Cusn src"
   },
   "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "2.4.5",
-    "@tsconfig/svelte": "5.0.2",
-    "@types/node": "20.4.9",
-    "svelte-check": "3.5.0",
-    "tslib": "2.6.2",
-    "typescript": "5.1.6",
-    "vite": "4.4.9"
+    "prettier": "3.0.3",
+    "serve": "14.2.1",
+    "typescript": "5.1.6"
   }
 }
