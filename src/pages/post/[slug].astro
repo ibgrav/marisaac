@@ -1,0 +1,50 @@
+---
+import "src/styles/index.css";
+
+import type { PostEntry } from "src/types";
+import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+import { createContentfulClient } from "src/contentful-client";
+
+export async function getStaticPaths() {
+  const client = createContentfulClient(true);
+
+  const entries = await client.getEntries<PostEntry>({
+    include: 0,
+    content_type: "post",
+    select: ["sys.id", "fields.title", "fields.slug"]
+  });
+
+  return entries.items.map((entry) => ({ params: { slug: entry.fields.slug } }));
+}
+
+const { slug } = Astro.params;
+
+const client = createContentfulClient(true);
+
+const entries = await client.getEntries<PostEntry>({
+  limit: 1,
+  include: 10,
+  content_type: "post", //@ts-ignore
+  "fields.slug": slug
+});
+
+const post = entries?.items?.[0];
+
+if (!post) return new Response(null, { status: 404 });
+
+console.log(post);
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Astro</title>
+  </head>
+  <body>
+    <h1>{post.fields.title}</h1>
+    <article set:html={documentToHtmlString(post.fields.content)} />
+  </body>
+</html>

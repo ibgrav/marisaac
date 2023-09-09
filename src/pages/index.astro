@@ -1,0 +1,34 @@
+---
+import "src/styles/index.css";
+import type { PostEntry } from "src/types";
+import { createContentfulClient } from "src/contentful-client";
+
+const client = createContentfulClient(true);
+
+const entries = await client.getEntries<PostEntry>({
+  include: 1,
+  content_type: "post",
+  select: ["sys.id", "fields.title", "fields.slug"]
+});
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Astro</title>
+  </head>
+  <body>
+    {
+      entries?.items?.map((entry) => (
+        <section>
+          <h2>
+            <a href={`/post/${entry.fields.slug}`}>{entry.fields.title}</a>
+          </h2>
+        </section>
+      ))
+    }
+  </body>
+</html>

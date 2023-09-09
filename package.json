@@ -1,13 +1,22 @@
 {
-  "name": "blog",
+  "name": "@ibgrav/blog",
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "serve -Cusn src"
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@contentful/rich-text-html-renderer": "16.1.1",
+    "astro": "3.0.12",
+    "contentful": "10.5.1"
   },
   "devDependencies": {
+    "@contentful/rich-text-types": "16.2.1",
     "prettier": "3.0.3",
-    "serve": "14.2.1",
-    "typescript": "5.1.6"
+    "typescript": "5.2.2"
   }
 }
