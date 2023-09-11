@@ -3,14 +3,16 @@ import "styles/index.css";
 
 import { getEntries } from "src/lib/contentful";
 import type { PostEntry } from "src/types";
-import { Home } from "src/components/home";
 
-const entries = await getEntries<PostEntry>({
-  include: 1,
-  content_type: "post",
-  order: "-fields.publishDate",
-  select: ["sys.id", "fields.title", "fields.slug", "fields.publishDate", "fields.image"]
-});
+export async function getStaticPaths() {
+  const { items: posts } = await getEntries<PostEntry>({
+    include: 0,
+    content_type: "post",
+    select: ["sys.id", "fields.slug"]
+  });
+
+  return posts.map((post) => ({ params: { slug: post.fields.slug } }));
+}
 ---
 
 <html lang="en">
@@ -22,6 +24,6 @@ const entries = await getEntries<PostEntry>({
     <title>Astro</title>
   </head>
   <body>
-    <Home posts={entries.items} includes={entries.includes} />
+    <h1>{Astro.props.slug}</h1>
   </body>
 </html>

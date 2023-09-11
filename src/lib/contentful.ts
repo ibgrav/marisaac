@@ -1,7 +1,8 @@
-import type { Entry } from "src/types";
+import type { Entry, Includes } from "src/types";
 
 export type GetEntriesResponse<E extends Entry> = {
   items: E[];
+  includes: Includes;
 };
 
 type GetEntriesParams = {
@@ -35,6 +36,6 @@ export async function getEntries<E extends Entry>(params: GetEntriesParams): Pro
     return (await res.json()) as GetEntriesResponse<E>;
   } catch (e) {
     console.error(e);
-    return { items: [] };
+    return { items: [], includes: { Asset: [], Entries: [] } };
   }
 }

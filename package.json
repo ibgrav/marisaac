@@ -9,11 +9,13 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@contentful/rich-text-react-renderer": "15.17.1",
     "@preact/signals": "1.2.1",
     "preact": "10.17.1"
   },
   "devDependencies": {
     "@astrojs/preact": "3.0.0",
+    "@contentful/rich-text-types": "16.2.1",
     "astro": "3.0.12",
     "autoprefixer": "10.4.15",
     "postcss": "8.4.29",

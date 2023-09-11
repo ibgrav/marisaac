@@ -1,4 +1,4 @@
 import { signal } from "@preact/signals";
-import { PostEntry } from "./types";
+import type { PostEntry } from "./types";
 
 export const posts = signal<PostEntry[]>([]);
