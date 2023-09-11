@@ -3,13 +3,9 @@
 @tailwind utilities;
 
 body {
+  font-family: "Nanum Myeongjo", serif;
   margin: 0;
-  padding: 0.5em;
   min-height: 100vh;
-  display: flex;
-  flex-flow: column;
-  gap: 1em;
-  justify-content: space-between;
 }
 
 main {

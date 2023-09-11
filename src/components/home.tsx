@@ -12,7 +12,7 @@ export function Home({ posts, includes }: HomeProps) {
     <main className="flex flex-row flex-wrap gap-8 justify-around">
       {posts.map((post) => {
         const asset = resolveAsset(includes, post.fields.image);
-        const src = image(asset?.fields.file.url, { width: 300, height: 480, fit: "fill" });
+        const src = image(asset?.fields.file.url, { width: 300, height: 480, fit: "fill", focus: "faces" });
 
         return (
           <a
@@ -21,7 +21,7 @@ export function Home({ posts, includes }: HomeProps) {
             target="_self"
           >
             <img src={src} className="w-full hover:scale-105 transition-transform duration-1000" />
-            <span className="bg-gradient-to-t from-gray-500 absolute bottom-0 p-4 w-full text-3xl text-white">
+            <span className="bg-gradient-to-t font-bold from-gray-500 absolute bottom-0 p-4 w-full text-3xl text-white">
               {post.fields.title}
             </span>
           </a>
