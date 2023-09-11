@@ -1,10 +1,9 @@
-import { type Document } from "@contentful/rich-text-types";
-
-export type PostEntry = {
-  contentTypeId: "post";
-  fields: {
-    slug: string;
-    title: string;
-    content: Document;
+export type Entry<Id extends string = string, F extends Record<string, unknown> = Record<string, unknown>> = {
+  fields: F;
+  sys: {
+    id: string;
+    contentType: { sys: { id: Id } };
   };
 };
+
+export type PostEntry = Entry<"post", { title: string; slug: string }>;

@@ -1,15 +1,5 @@
 ---
-import "src/styles/index.css";
-import type { PostEntry } from "src/types";
-import { createContentfulClient } from "src/contentful-client";
-
-const client = createContentfulClient(true);
-
-const entries = await client.getEntries<PostEntry>({
-  include: 1,
-  content_type: "post",
-  select: ["sys.id", "fields.title", "fields.slug"]
-});
+import "styles/index.css";
 ---
 
 <html lang="en">
@@ -21,14 +11,6 @@ const entries = await client.getEntries<PostEntry>({
     <title>Astro</title>
   </head>
   <body>
-    {
-      entries?.items?.map((entry) => (
-        <section>
-          <h2>
-            <a href={`/post/${entry.fields.slug}`}>{entry.fields.title}</a>
-          </h2>
-        </section>
-      ))
-    }
+    <h1>Astro</h1>
   </body>
 </html>
