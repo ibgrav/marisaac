@@ -1,5 +1,13 @@
 import type { Document } from "@contentful/rich-text-types";
 
+declare global {
+  interface Window {
+    map: any;
+    // mapkit: any;
+    initMapKit: (value: unknown) => void;
+  }
+}
+
 export type Includes = {
   Asset: Array<Asset>;
   Entries: Array<Entry>;
@@ -32,5 +40,13 @@ export type PostEntry = Entry<
     publishDate: string;
     content: Document;
     image: Link;
+  }
+>;
+
+export type LocationEntry = Entry<
+  "location",
+  {
+    title: string;
+    coordinates: { lat: number; lon: number };
   }
 >;
