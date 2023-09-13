@@ -1,4 +1,5 @@
-import type { Entry, Includes } from "src/types";
+import type { Entry, Includes } from "$lib/types";
+import { SPACE_ID, PREVIEW, PREVIEW_TOKEN, DELIVERY_TOKEN } from "$env/static/private";
 
 export type GetEntriesResponse<E extends Entry> = {
   items: E[];
@@ -16,13 +17,11 @@ type GetEntriesParams = {
 
 export async function getEntries<E extends Entry>(params: GetEntriesParams): Promise<GetEntriesResponse<E>> {
   try {
-    const preview = Boolean(import.meta.env.VITE_PREVIEW);
-
-    const token = preview ? import.meta.env.VITE_PREVIEW_TOKEN : import.meta.env.VITE_DELIVERY_TOKEN;
+    const token = PREVIEW ? PREVIEW_TOKEN : DELIVERY_TOKEN;
 
     const url = new URL(
-      `/spaces/${import.meta.env.VITE_SPACE_ID}/environments/master/entries`,
-      `https://${preview ? "preview" : "cdn"}.contentful.com`
+      `/spaces/${SPACE_ID}/environments/master/entries`,
+      `https://${PREVIEW ? "preview" : "cdn"}.contentful.com`
     );
 
     Object.entries(params).forEach(([key, value]) => {

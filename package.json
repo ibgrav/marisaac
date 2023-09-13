@@ -1,24 +1,23 @@
 {
   "name": "@ibgrav/marisaac",
-  "type": "module",
   "private": true,
+  "type": "module",
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
-  },
-  "dependencies": {
-    "@contentful/rich-text-react-renderer": "15.17.1",
-    "@preact/signals": "1.2.1",
-    "preact": "10.17.1"
+    "wrangle": "wrangler pages dev .svelte-kit/cloudflare",
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
   },
   "devDependencies": {
-    "@astrojs/preact": "3.0.0",
-    "@contentful/rich-text-types": "16.2.1",
-    "astro": "3.0.12",
-    "autoprefixer": "10.4.15",
-    "postcss": "8.4.29",
-    "tailwindcss": "3.3.3"
+    "@sveltejs/adapter-auto": "2.1.0",
+    "@sveltejs/adapter-cloudflare": "2.3.3",
+    "@sveltejs/kit": "1.24.1",
+    "svelte": "4.2.0",
+    "svelte-check": "3.5.1",
+    "tslib": "2.6.2",
+    "typescript": "5.2.2",
+    "vite": "4.4.9"
   }
 }
