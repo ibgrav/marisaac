@@ -43,6 +43,6 @@ export async function getEntries<E extends Entry>(
 }
 
 export function getPreview(headers: Headers): boolean {
-  const host = headers.get("X-Forwarded-For") || headers.get("X-Forwarded-Host") || headers.get("Host") || "localhost";
+  const host = headers.get("X-Forwarded-Host") || headers.get("Host") || "localhost";
   return host.includes("preview.") || host.includes("localhost");
 }
