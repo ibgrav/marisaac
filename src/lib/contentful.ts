@@ -1,5 +1,5 @@
 import type { Entry, Includes } from "$lib/types";
-import { SPACE_ID, PREVIEW, PREVIEW_TOKEN, DELIVERY_TOKEN } from "$env/static/private";
+import { SPACE_ID, PREVIEW_TOKEN, DELIVERY_TOKEN } from "$env/static/private";
 
 export type GetEntriesResponse<E extends Entry> = {
   items: E[];
@@ -7,21 +7,24 @@ export type GetEntriesResponse<E extends Entry> = {
 };
 
 type GetEntriesParams = {
-  content_type: string;
+  content_type?: string;
   limit?: number;
   select?: string[];
   include?: number;
   order?: string;
-  [key: `fields.${string}`]: string;
+  [key: `fields.${string}`]: string | undefined;
 };
 
-export async function getEntries<E extends Entry>(params: GetEntriesParams): Promise<GetEntriesResponse<E>> {
+export async function getEntries<E extends Entry>(
+  preview: boolean = false,
+  params: GetEntriesParams = {}
+): Promise<GetEntriesResponse<E>> {
   try {
-    const token = PREVIEW ? PREVIEW_TOKEN : DELIVERY_TOKEN;
+    const token = preview ? PREVIEW_TOKEN : DELIVERY_TOKEN;
 
     const url = new URL(
       `/spaces/${SPACE_ID}/environments/master/entries`,
-      `https://${PREVIEW ? "preview" : "cdn"}.contentful.com`
+      `https://${preview ? "preview" : "cdn"}.contentful.com`
     );
 
     Object.entries(params).forEach(([key, value]) => {
