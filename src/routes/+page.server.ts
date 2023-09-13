@@ -8,7 +8,7 @@ export const load: PageServerLoad = async (ctx) => {
     ctx.request.headers.get("X-Forwarded-Host") ||
     ctx.request.headers.get("Host");
 
-  const preview = host?.includes(".preview");
+  const preview = host?.includes("preview.");
 
   console.log(ctx.request.headers);
 
