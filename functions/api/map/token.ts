@@ -1,8 +1,8 @@
-import { APPLE_MAP_TOKEN } from "$env/static/private";
-import type { RequestHandler } from "./$types";
 // import * as jwt from "jsonwebtoken";
 
-export const GET: RequestHandler = (ctx) => {
+import { ServerContext } from "src/types";
+
+export const onRequest = (ctx: ServerContext) => {
   //   const payload = {
   //     iss: APPLE_TEAM_ID,
   //     iat: Date.now(),
@@ -19,5 +19,5 @@ export const GET: RequestHandler = (ctx) => {
 
   //   const token = jwt.sign(payload, APPLE_MAP_TOKEN, { header });
 
-  return new Response(APPLE_MAP_TOKEN);
+  return new Response(ctx.env.APPLE_MAP_TOKEN);
 };

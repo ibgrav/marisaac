@@ -1,12 +1,28 @@
 import type { Document } from "@contentful/rich-text-types";
+import type { PagesFunction } from "@cloudflare/workers-types";
 
-declare global {
-  interface Window {
-    map: any;
-    // mapkit: any;
-    initMapKit: (value: unknown) => void;
-  }
+export interface Env {
+  PREVIEW: string;
+  SPACE_ID: string;
+  PREVIEW_TOKEN: string;
+  DELIVERY_TOKEN: string;
+  APPLE_KEY_ID: string;
+  APPLE_TEAM_ID: string;
+  APPLE_MAP_TOKEN: string;
 }
+
+export type ServerFunction<P extends string = "", D extends Record<string, unknown> = Record<string, unknown>> = PagesFunction<
+  Env,
+  P,
+  D
+>;
+
+export type ServerContext = Parameters<ServerFunction>[0];
+
+export type BlogApi = {
+  includes: Includes;
+  posts: PostEntry[];
+};
 
 export type Includes = {
   Asset: Array<Asset>;
@@ -48,5 +64,10 @@ export type LocationEntry = Entry<
   {
     title: string;
     coordinates: { lat: number; lon: number };
+    cameraDistance: number;
+    subtitle: string;
+    symbol: string;
+    color: string;
+    date: string;
   }
 >;

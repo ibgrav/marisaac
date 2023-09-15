@@ -1,25 +1,19 @@
-import type { Entry, Includes } from "$lib/types";
-import { SPACE_ID, PREVIEW_TOKEN, DELIVERY_TOKEN } from "$env/static/private";
+import type { Entry, Includes, ServerContext } from "src/types";
 
 export type GetEntriesResponse<E extends Entry> = {
   items: E[];
   includes: Includes;
 };
 
-type GetEntriesParams = {
-  content_type?: string;
-  limit?: number;
-  select?: string[];
-  include?: number;
-  order?: string;
-  [key: `fields.${string}`]: string | undefined;
-};
+type GetEntriesParams = Record<string, string | number | string[] | undefined>;
 
 export async function getEntries<E extends Entry>(
-  preview: boolean = false,
+  ctx: ServerContext,
   params: GetEntriesParams = {}
 ): Promise<GetEntriesResponse<E>> {
   try {
+    const { SPACE_ID, PREVIEW_TOKEN, DELIVERY_TOKEN, PREVIEW } = ctx.env;
+    const preview = Boolean(PREVIEW) || getPreview(ctx);
     const token = preview ? PREVIEW_TOKEN : DELIVERY_TOKEN;
 
     const url = new URL(
@@ -42,7 +36,10 @@ export async function getEntries<E extends Entry>(
   }
 }
 
-export function getPreview(headers: Headers): boolean {
-  const host = headers.get("X-Forwarded-Host") || headers.get("Host") || "localhost";
+export function getPreview(ctx: ServerContext): boolean {
+  const host = ctx.request.headers.get("X-Forwarded-Host") || ctx.request.headers.get("Host") || "localhost";
+
+  console.log(ctx.request);
+
   return host.includes("preview.") || host.includes("localhost");
 }
