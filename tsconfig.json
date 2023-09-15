@@ -2,6 +2,10 @@
   "include": ["**/*.ts", "**/*.tsx"],
   "exclude": ["dist", "node_modules"],
 
+  "ts-node": {
+    "esm": true
+  },
+
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
@@ -15,6 +19,7 @@
 
     "skipLibCheck": true,
     "useDefineForClassFields": true,
+    "allowImportingTsExtensions": true,
 
     "moduleResolution": "bundler",
     "resolveJsonModule": true,

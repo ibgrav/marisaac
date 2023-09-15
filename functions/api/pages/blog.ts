@@ -15,8 +15,8 @@ export const onRequest = async (ctx: ServerContext) => {
       select: ["fields.slug", "fields.title", "fields.image"]
     });
 
-    data.includes = entries.includes;
-    data.posts = entries.items;
+    if (entries.items) data.posts = entries.items;
+    if (entries.includes) data.includes = entries.includes;
   } catch (e) {
     console.error(e);
   }
