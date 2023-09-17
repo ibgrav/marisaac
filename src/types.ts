@@ -1,5 +1,4 @@
 import type { Document } from "@contentful/rich-text-types";
-import type { PagesFunction } from "@cloudflare/workers-types";
 
 export interface Env {
   PREVIEW: string;
@@ -10,14 +9,6 @@ export interface Env {
   APPLE_TEAM_ID: string;
   APPLE_MAP_TOKEN: string;
 }
-
-export type ServerFunction<P extends string = "", D extends Record<string, unknown> = Record<string, unknown>> = PagesFunction<
-  Env,
-  P,
-  D
->;
-
-export type ServerContext = Parameters<ServerFunction>[0];
 
 export type BlogApi = {
   includes: Includes;

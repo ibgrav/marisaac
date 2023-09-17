@@ -1,28 +1,23 @@
 {
-  "name": "vite-project",
+  "name": "@ibgrav/marisaac",
   "private": true,
-  "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "wrangler pages dev --compatibility-date=2023-09-04 -- vite",
-    "build": "tsc && vite build",
-    "generate": "ts-node -r dotenv/config bin/generate.ts dotenv_config_path=.dev.vars dotenv_config_debug=true"
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
   },
   "dependencies": {
-    "@preact/signals": "1.2.1",
-    "preact": "10.17.1"
+    "@astrojs/tailwind": "5.0.0",
+    "astro": "3.1.0",
+    "tailwindcss": "3.3.3"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "4.20230904.0",
+    "@astrojs/vercel": "5.0.0",
     "@contentful/rich-text-types": "16.3.0",
-    "@preact/preset-vite": "2.5.0",
-    "@types/apple-mapkit-js-browser": "5.65.3",
-    "@types/node": "20.6.0",
-    "dotenv": "16.3.1",
-    "ts-node": "10.9.1",
-    "typescript": "5.2.2",
-    "vite": "4.4.9",
-    "wrangler": "3.8.0",
-    "zx": "7.2.3"
+    "prettier": "3.0.3",
+    "typescript": "5.2.2"
   }
 }

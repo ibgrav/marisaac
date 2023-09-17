@@ -1,4 +1,4 @@
-import type { Entry, Includes, ServerContext } from "src/types";
+import type { Entry, Includes } from "src/types";
 
 export type GetEntriesResponse<E extends Entry> = {
   items: E[];
@@ -8,12 +8,12 @@ export type GetEntriesResponse<E extends Entry> = {
 type GetEntriesParams = Record<string, string | number | string[] | undefined>;
 
 export async function getEntries<E extends Entry>(
-  ctx: ServerContext,
+  previewUrl: string,
   params: GetEntriesParams = {}
 ): Promise<GetEntriesResponse<E>> {
   try {
-    const { SPACE_ID, PREVIEW_TOKEN, DELIVERY_TOKEN, PREVIEW } = ctx.env;
-    const preview = Boolean(PREVIEW) || getPreview(ctx);
+    const { SPACE_ID, PREVIEW_TOKEN, DELIVERY_TOKEN, PREVIEW } = import.meta.env;
+    const preview = Boolean(PREVIEW) || getPreview(previewUrl);
     const token = preview ? PREVIEW_TOKEN : DELIVERY_TOKEN;
 
     const url = new URL(
@@ -36,10 +36,6 @@ export async function getEntries<E extends Entry>(
   }
 }
 
-export function getPreview(ctx: ServerContext): boolean {
-  const host = ctx.request.headers.get("X-Forwarded-Host") || ctx.request.headers.get("Host") || "localhost";
-
-  console.log(ctx.request);
-
-  return host.includes("preview.") || host.includes("localhost");
+export function getPreview(url: string): boolean {
+  return url.includes("preview.") || url.includes("localhost");
 }
