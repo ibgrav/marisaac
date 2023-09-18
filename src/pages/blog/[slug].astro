@@ -17,6 +17,6 @@ const blocks = await notion.blocks.children.list({ block_id: id });
 
 <Layout title={title}>
   <h1 class="text-4xl">{title}</h1>
-  {image && <Image alt="" src={image} width={1920} height={400} />}
+  {image && <Image alt="" src={image} width={1920} height={400} quality={40} />}
   <RenderBlocks blocks={blocks.results} />
 </Layout>
