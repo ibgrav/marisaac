@@ -1,0 +1,27 @@
+---
+import type { BlockObjectResponse, PartialBlockObjectResponse } from "@notionhq/client/build/src/api-endpoints";
+import { isFullBlock } from "@notionhq/client";
+import { richTextToString } from "./rich-text";
+
+type Props = {
+  blocks: Array<PartialBlockObjectResponse | BlockObjectResponse>;
+};
+
+const { blocks } = Astro.props;
+---
+
+{
+  blocks.map((block) => {
+    if (isFullBlock(block)) {
+      if (block.type === "heading_1") {
+        return <h1 class="text-4xl">{richTextToString(block.heading_1.rich_text)}</h1>;
+      }
+      if (block.type === "heading_2") {
+        return <h2 class="text-3xl">{richTextToString(block.heading_2.rich_text)}</h2>;
+      }
+      if (block.type === "paragraph") {
+        return <p>{richTextToString(block.paragraph.rich_text)}</p>;
+      }
+    }
+  })
+}

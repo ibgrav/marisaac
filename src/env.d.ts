@@ -1,10 +1,8 @@
 /// <reference types="astro/client" />
 
 interface ImportMetaEnv {
-  readonly PREVIEW: string;
-  readonly SPACE_ID: string;
-  readonly PREVIEW_TOKEN: string;
-  readonly DELIVERY_TOKEN: string;
+  readonly NOTION_TOKEN: string;
+  readonly NOTION_BLOG_DB_ID: string;
 }
 
 interface ImportMeta {

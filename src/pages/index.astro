@@ -1,33 +1,23 @@
 ---
-import "src/index.css";
+import Layout from "src/layout.astro";
+import { getPosts } from "src/notion/post";
+import { Image } from "astro:assets";
+import { richTextToString } from "src/notion/rich-text";
 
-import { getEntries } from "src/lib/contentful";
-import type { PostEntry } from "src/types";
-
-const posts = await getEntries<PostEntry>(Astro.request.url, {
-  include: 0,
-  content_type: "post",
-  select: ["fields.slug", "fields.title"]
-});
+const posts = await getPosts();
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Marisaac Worldly Adventures</title>
-  </head>
-  <body>
-    {
-      posts.items.map((post) => (
-        <a class="block" href={`/post/${post.fields.slug}`}>
-          {post.fields.title}
-        </a>
-      ))
-    }
-
-    <pre>{JSON.stringify(Astro, null, 2)}</pre>
-  </body>
-</html>
+<Layout title="Marissa & Isaac">
+  {
+    posts.map((post) => {
+      if (post.slug) {
+        return (
+          <a href={`blog/${post.slug}`}>
+            {post.title}
+            {post.image && <Image src={post.image} alt="" width={200} height={200} />}
+          </a>
+        );
+      }
+    })
+  }
+</Layout>

@@ -1,7 +1,6 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { defineConfig } from "astro/config";
-import vercel from "@astrojs/vercel/serverless";
 import tailwind from "@astrojs/tailwind";
 import ts from "./tsconfig.json";
 
@@ -9,12 +8,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export default defineConfig({
-  output: "server",
-  adapter: vercel({
-    webAnalytics: { enabled: true },
-    speedInsights: { enabled: true }
-  }),
   integrations: [tailwind()],
+  image: {
+    remotePatterns: [{ hostname: "**.amazonaws.com" }]
+  },
   vite: {
     resolve: {
       alias: Object.entries(ts.compilerOptions.paths).map(([absolute, relative]) => ({

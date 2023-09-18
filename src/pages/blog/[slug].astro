@@ -1,0 +1,22 @@
+---
+import Layout from "src/layout.astro";
+import { notion } from "src/notion/client";
+import { getPosts, type Post } from "src/notion/post";
+import { Image } from "astro:assets";
+import RenderBlocks from "src/notion/blocks.astro";
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post) => ({ params: { slug: post.slug }, props: post }));
+}
+
+const { id, title, image } = Astro.props as Post;
+
+const blocks = await notion.blocks.children.list({ block_id: id });
+---
+
+<Layout title={title}>
+  <h1 class="text-4xl">{title}</h1>
+  {image && <Image alt="" src={image} width={1920} height={400} />}
+  <RenderBlocks blocks={blocks.results} />
+</Layout>
