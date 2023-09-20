@@ -2,6 +2,7 @@
 import type { BlockObjectResponse, PartialBlockObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 import { isFullBlock } from "@notionhq/client";
 import { richTextToString } from "./rich-text";
+import { Image } from "astro:assets";
 
 type Props = {
   blocks: Array<PartialBlockObjectResponse | BlockObjectResponse>;
@@ -27,6 +28,10 @@ const { blocks } = Astro.props;
 
       if (block.type === "paragraph") {
         return <p>{richTextToString(block.paragraph.rich_text)}</p>;
+      }
+
+      if (block.type === "image" && block.image.type === "file") {
+        return <Image src={block.image.file.url} width={500} height={500} alt="" />;
       }
     }
   })
