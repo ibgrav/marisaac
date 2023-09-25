@@ -1,4 +1,4 @@
-name: Deploy
+name: Deno Deploy
 
 on: push
 
