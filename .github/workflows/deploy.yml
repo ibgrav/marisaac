@@ -1,0 +1,32 @@
+name: Deploy
+
+on: push
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v3
+
+      - uses: denoland/setup-deno@v1
+        with:
+          deno-version: v1.x
+      
+      - name: sync
+        run: deno task sync
+        env:
+          NOTION_TOKEN=${{ secrets.NOTION_TOKEN }}
+          NOTION_BLOG_ID=${{ secrets.NOTION_BLOG_ID }}
+          NOTION_GALLERIES_ID=${{ secrets.NOTION_GALLERIES_ID }}
+
+      - name: Deploy to Deno Deploy
+        uses: denoland/deployctl@v1
+        with:
+          project: marisaac
+          entrypoint: server/main.ts
