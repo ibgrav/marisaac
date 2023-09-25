@@ -9,15 +9,15 @@ export async function resolveImage(src?: string): Promise<string | undefined> {
   if (!src) return undefined;
 
   const url = new URL(src);
+
   let name = url.pathname.split("/").pop();
-  name = name?.replace(".jpeg", ".jpg").replace(".jpg", ".webp");
-
   if (!name) return undefined;
+  name = name.replace(".jpg", "").replace(".jpeg", "").replace(".png", "");
 
-  const dir = "static/notion/images";
+  const dir = "static/assets/images";
   await ensureDir(dir);
 
-  const path = `${dir}/${name}`;
+  let path = `${dir}/${encodeURIComponent(name)}`;
 
   try {
     await Deno.stat(path);
@@ -29,11 +29,36 @@ export async function resolveImage(src?: string): Promise<string | undefined> {
       const res = await fetch(src);
       const data = new Uint8Array(await res.arrayBuffer());
 
-      await ImageMagick.read(data, async (img: IMagickImage) => {
-        img.resize(200, 100);
+      // const write = async (img: IMagickImage, path: string) => {
+      //   await img.write(MagickFormat.Webp, (data: Uint8Array) => {
+      //     path += `_w${img.width}_h${img.height}_.webp`;
+      //     return Deno.writeFile(path, data);
+      //   });
+      // };
 
-        await img.write(MagickFormat.Jpeg, (data: Uint8Array) => {
+      await ImageMagick.read(data, async (img: IMagickImage) => {
+        img.quality = 90;
+
+        await img.write(MagickFormat.Webp, (data: Uint8Array) => {
+          path += `_w${img.width}_h${img.height}_.webp`;
           return Deno.writeFile(path, data);
+        });
+
+        /** --- THUMBNAIL --- */
+        img.quality = 80;
+        img.resize(img.width / 3, img.height / 3);
+
+        await img.write(MagickFormat.Webp, (data: Uint8Array) => {
+          return Deno.writeFile(path.replace(".webp", "thumb_.webp"), data);
+        });
+
+        /** --- BLUR --- */
+
+        img.quality = 1;
+        img.blur(100, 100);
+
+        await img.write(MagickFormat.Webp, (data: Uint8Array) => {
+          return Deno.writeFile(path.replace(".webp", "blur_.webp"), data);
         });
       });
     }

@@ -9,20 +9,28 @@ export class Page {
 
   constructor() {}
 
-  document(): string {
-    return html`<!DOCTYPE html>
+  document(): Response {
+    const body = html`<!DOCTYPE html>
       <html>
         <head>
           <title>${this.title}</title>
           <meta name="description" content="${this.description}" />
 
-          <link rel="preload" href="/static/styles/main.css" as="style" />
-          <link rel="stylesheet" href="/static/styles/main.css" />
+          <link rel="icon" href="/favicon.ico" sizes="any" />
+          <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+
+          <link rel="preload" href="/styles/main.css" as="style" />
+          <link rel="stylesheet" href="/styles/main.css" />
         </head>
         <body>
           ${this.render()}
         </body>
       </html>`;
+
+    return new Response(body, {
+      status: 200,
+      headers: { "content-type": "text/html" }
+    });
   }
 }
 

@@ -43,7 +43,7 @@ export async function writePosts() {
         });
 
         if (post.id && post.slug && post.title) {
-          const dir = "static/notion/posts";
+          const dir = "data/notion/posts";
           const encoder = new TextEncoder();
           const data = encoder.encode(JSON.stringify(post, null, 2));
 

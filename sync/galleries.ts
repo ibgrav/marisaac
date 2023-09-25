@@ -39,7 +39,7 @@ export async function writeGalleries() {
         });
 
         if (gallery.id && gallery.slug && gallery.title) {
-          const dir = "static/notion/galleries";
+          const dir = "data/notion/galleries";
           const encoder = new TextEncoder();
           const data = encoder.encode(JSON.stringify(gallery, null, 2));
 

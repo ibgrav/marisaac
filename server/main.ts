@@ -1,27 +1,16 @@
-import { serveDir, serveFile } from "std/http/file_server.ts";
+import { serveDir } from "std/http/file_server.ts";
 import { home } from "./templates/home.ts";
 
+const staticFiles = Array.from(Deno.readDirSync("static"));
+
 Deno.serve((req: Request) => {
-  const pathname = new URL(req.url).pathname;
+  const url = new URL(req.url);
 
-  if (pathname === "/robots.txt") return serveFile(req, "static/robots.txt");
-  if (pathname === "/favicon.ico") return serveFile(req, "static/favicon.ico");
-  if (pathname.startsWith("/static")) {
-    return serveDir(req, {
-      fsRoot: "static",
-      urlRoot: "static",
-      headers: ["cache-control:max-age=31536000"] // 1 year
-    });
+  if (url.pathname === "/") return home.document();
+
+  if (staticFiles.some((f) => url.pathname.slice(1).startsWith(f.name))) {
+    return serveDir(req, { fsRoot: "static", headers: ["cache-control:max-age=31536000"] });
   }
 
-  if (pathname === "/") {
-    return new Response(home.document(), {
-      status: 200,
-      headers: { "content-type": "text/html" }
-    });
-  }
-
-  return new Response("404: Not Found", {
-    status: 404
-  });
+  return new Response(null, { status: 404 });
 });
