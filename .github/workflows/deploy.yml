@@ -21,9 +21,9 @@ jobs:
       - name: sync
         run: deno task sync
         env:
-          NOTION_TOKEN=${{ secrets.NOTION_TOKEN }}
-          NOTION_BLOG_ID=${{ secrets.NOTION_BLOG_ID }}
-          NOTION_GALLERIES_ID=${{ secrets.NOTION_GALLERIES_ID }}
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NOTION_BLOG_ID: ${{ secrets.NOTION_BLOG_ID }}
+          NOTION_GALLERIES_ID: ${{ secrets.NOTION_GALLERIES_ID }}
 
       - name: Deploy to Deno Deploy
         uses: denoland/deployctl@v1
