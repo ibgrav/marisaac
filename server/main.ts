@@ -6,7 +6,13 @@ Deno.serve((req: Request) => {
 
   if (pathname === "/robots.txt") return serveFile(req, "static/robots.txt");
   if (pathname === "/favicon.ico") return serveFile(req, "static/favicon.ico");
-  if (pathname.startsWith("/static")) return serveDir(req, { fsRoot: "static", urlRoot: "static" });
+  if (pathname.startsWith("/static")) {
+    return serveDir(req, {
+      fsRoot: "static",
+      urlRoot: "static",
+      headers: ["cache-control:max-age=31536000"] // 1 year
+    });
+  }
 
   if (pathname === "/") {
     return new Response(home.document(), {
