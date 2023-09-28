@@ -31,7 +31,7 @@ Deno.serve(async (req: Request) => {
   }
 
   if (staticFiles.some((f) => url.pathname.slice(1).startsWith(f.name))) {
-    return serveDir(req, { fsRoot: "static", headers: ["cache-control:no-cache"] });
+    return serveDir(req, { fsRoot: "static", headers: ["cache-control:max-age=31536000"] });
   }
 
   return new Response(null, { status: 404 });

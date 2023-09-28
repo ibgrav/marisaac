@@ -5,7 +5,14 @@ interface DocumentProps {
   children: ComponentChild;
 }
 
-const styles = Array.from(Deno.readDirSync("static/styles")).filter((f) => f.isFile);
+const styles = await Promise.all(
+  Array.from(Deno.readDirSync("static/styles"))
+    .filter((f) => f.isFile)
+    .map(async (f) => {
+      const stats = await Deno.stat(`static/styles/${f.name}`);
+      return "/styles/" + f.name + "?v=" + stats.mtime?.getTime();
+    })
+);
 
 export function Document({ children, title }: DocumentProps) {
   return (
@@ -29,10 +36,10 @@ export function Document({ children, title }: DocumentProps) {
         />
 
         {styles.map((file) => (
-          <link rel="preload" href={`/styles/${file.name}`} as="style" />
+          <link rel="preload" href={file} as="style" />
         ))}
         {styles.map((file) => (
-          <link href={`/styles/${file.name}`} rel="stylesheet" />
+          <link href={file} rel="stylesheet" />
         ))}
       </head>
 
