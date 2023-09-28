@@ -7,8 +7,15 @@ type Image = {
   placeholder: string;
 };
 
-export function image(asset?: ContentfulAsset, full?: boolean): Image | undefined {
+interface ImageArgs {
+  full?: boolean;
+  ratio?: "4:3" | "3:4" | "16:9";
+}
+
+export function image(asset?: ContentfulAsset, args?: ImageArgs): Image | undefined {
   if (typeof asset?.fields.file?.url !== "string") return undefined;
+
+  const { full, ratio } = args || {};
 
   const md: Image = { src: asset.fields.file.url, placeholder: asset.fields.file.url, width: 1, height: 1 };
 
@@ -20,13 +27,22 @@ export function image(asset?: ContentfulAsset, full?: boolean): Image | undefine
   const url = new URL("https:" + md.src);
 
   url.searchParams.set("fm", "webp");
-  url.searchParams.set("q", full ? "80" : "60");
   url.searchParams.set("f", "faces");
   url.searchParams.set("fit", "fill");
+  url.searchParams.set("q", full ? "80" : "60");
 
   const width = full ? 1200 : 400;
 
-  md.height = Math.floor(md.height * (width / md.width));
+  if (ratio === "4:3") {
+    md.height = width * 0.75;
+  } else if (ratio === "3:4") {
+    md.height = width * 1.33;
+  } else if (ratio === "16:9") {
+    md.height = width * 0.5625;
+  } else {
+    md.height = Math.floor(md.height * (width / md.width));
+  }
+
   md.width = width;
 
   url.searchParams.set("h", md.height.toString());

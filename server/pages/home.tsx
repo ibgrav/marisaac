@@ -21,7 +21,7 @@ export async function home() {
           const asset = resolveAsset(includes, link);
           const featured = (i + 1) % 3 === 0;
 
-          const tf = image(asset, featured);
+          const tf = image(asset, { full: featured, ratio: "3:4" });
           if (!tf) return null;
 
           return (
