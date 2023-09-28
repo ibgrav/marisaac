@@ -19,7 +19,7 @@ export async function home() {
           const asset = resolveAsset(includes, link);
           const featured = (i + 1) % 3 === 0;
 
-          const thumb = image(asset, "thumb");
+          const thumb = image(asset, featured ? "full" : "thumb");
 
           if (!thumb) return null;
 
