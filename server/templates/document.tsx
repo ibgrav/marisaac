@@ -12,8 +12,10 @@ export function Document({ children, title }: DocumentProps) {
     <html lang="en">
       <head>
         <meta charSet="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        <title>{title || "Marissa & Isaac"}</title>
+        <title>{title || "Marissa & Isaac's Adventure"}</title>
+        <meta name="description" content="Marissa & Isaac's Adventure" />
 
         <link rel="preconnect" href="https://images.ctfassets.net" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
