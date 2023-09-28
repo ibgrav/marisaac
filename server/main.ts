@@ -1,9 +1,11 @@
-import "std/dotenv/load.ts";
+import { load } from "std/dotenv/mod.ts";
 import { serveDir } from "std/http/file_server.ts";
 import render from "preact-render-to-string";
 import { home } from "./pages/home.tsx";
 
-const IS_DEV = Boolean(Deno.env.get("DENO_DEV"));
+await load({ allowEmptyValues: true });
+
+const IS_DEV = Deno.env.get("DENO_DEV") === "true";
 const staticFiles = Array.from(Deno.readDirSync("static"));
 
 Deno.serve(async (req: Request) => {
