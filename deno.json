@@ -1,12 +1,15 @@
 {
+  "tasks": {
+    "start": "deno run --allow-read --allow-net --allow-env --watch server/main.ts"
+  },
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact"
+  },
   "imports": {
     "std/": "https://deno.land/std@0.202.0/",
-    "imagemagick_deno": "https://deno.land/x/imagemagick_deno@0.0.25/mod.ts",
-    "@notionhq/client": "npm:@notionhq/client@2.2.13",
-    "@notionhq/client/api-endpoints": "npm:@notionhq/client@2.2.13/build/src/api-endpoints"
-  },
-  "tasks": {
-    "server": "deno run --allow-read --allow-net --watch server/main.ts",
-    "sync": "deno run --allow-read --allow-write --allow-env --allow-net sync/main.ts"
+    "preact": "https://esm.sh/preact@10.17.1",
+    "preact/": "https://esm.sh/preact@10.17.1/",
+    "preact-render-to-string": "https://esm.sh/*preact-render-to-string@6.2.1"
   }
 }

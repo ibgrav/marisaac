@@ -1,0 +1,30 @@
+.gallery {
+  display: grid;
+  background-size: cover;
+  grid-template-columns: repeat(12, 1fr);
+  justify-items: stretch;
+  align-items: stretch;
+  padding: 1px;
+  gap: 1px;
+}
+
+@media (min-width: 1200px) {
+  .gallery {
+    padding: 2px;
+    gap: 2px;
+    grid-template-columns: repeat(24, 1fr);
+  }
+}
+
+.gallery img {
+  object-fit: cover;
+  object-position: center;
+  border-radius: 0.25em;
+  grid-column: span 3;
+  grid-row: span 3;
+}
+
+.gallery img.featured {
+  grid-column: span 6;
+  grid-row: span 6;
+}
