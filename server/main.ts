@@ -3,11 +3,18 @@ import { serveDir } from "std/http/file_server.ts";
 import render from "preact-render-to-string";
 import { home } from "./pages/home.tsx";
 
-// const IS_DEV = Deno.env.get("DENO_DEV") === "true";
 const staticFiles = Array.from(Deno.readDirSync("static"));
 
 Deno.serve(async (req: Request) => {
   const url = new URL(req.url);
+
+  if (url.pathname === "/debug") {
+    console.log(url);
+    return new Response(JSON.stringify({ url, headers: Array.from(req.headers.entries()) }), {
+      status: 200,
+      headers: { "content-type": "application/json" }
+    });
+  }
 
   if (url.pathname === "/") {
     const body = render(await home());
@@ -18,11 +25,13 @@ Deno.serve(async (req: Request) => {
     });
   }
 
+  if (url.pathname === "/robots.txt") {
+    const allow = url.hostname === "marisaac.site";
+    return new Response(["User-agent: *", `${allow ? "Allow" : "Disallow"}: /`].join("\n"), { status: 200 });
+  }
+
   if (staticFiles.some((f) => url.pathname.slice(1).startsWith(f.name))) {
-    return serveDir(req, {
-      fsRoot: "static",
-      headers: ["cache-control:no-cache"]
-    });
+    return serveDir(req, { fsRoot: "static", headers: ["cache-control:no-cache"] });
   }
 
   return new Response(null, { status: 404 });

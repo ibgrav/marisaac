@@ -13,9 +13,11 @@ export function Document({ children, title }: DocumentProps) {
       <head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="Marissa & Isaac's Adventure" />
 
         <title>{title || "Marissa & Isaac's Adventure"}</title>
-        <meta name="description" content="Marissa & Isaac's Adventure" />
+
+        <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
 
         <link rel="preconnect" href="https://images.ctfassets.net" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
