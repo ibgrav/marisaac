@@ -18,6 +18,13 @@ Deno.serve(async (req: Request) => {
     });
   }
 
+  if (url.pathname === "/env") {
+    return new Response(JSON.stringify(Deno.env.toObject()), {
+      status: 200,
+      headers: { "content-type": "application/json" }
+    });
+  }
+
   if (staticFiles.some((f) => url.pathname.slice(1).startsWith(f.name))) {
     return serveDir(req, {
       fsRoot: "static",
