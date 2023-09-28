@@ -1,11 +1,19 @@
+.title {
+  margin: 0;
+  text-align: center;
+  font-size: 2em;
+  padding: 1em;
+  font-weight: 400;
+}
+
 .gallery {
   display: grid;
   background-size: cover;
   grid-template-columns: repeat(12, 1fr);
   justify-items: stretch;
   align-items: stretch;
-  padding: 1px;
-  gap: 1px;
+  padding: 0 0.5em;
+  gap: 0.25em;
 }
 
 @media (min-width: 1200px) {
@@ -17,8 +25,6 @@
 }
 
 .gallery img {
-  object-fit: cover;
-  object-position: center;
   border-radius: 0.25em;
   grid-column: span 3;
   grid-row: span 3;

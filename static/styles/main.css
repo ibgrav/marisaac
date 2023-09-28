@@ -1,3 +1,12 @@
+:root {
+  --c-pink: 255, 173, 198;
+  --c-purple: 145, 77, 118;
+  --c-wine: 105, 153, 63;
+  --c-vanilla: 233, 227, 193;
+  --c-brown: 82, 79, 67;
+  --c-drab: 64, 60, 45;
+}
+
 @keyframes fade-in {
   from {
     opacity: 0;
@@ -7,8 +16,15 @@
   }
 }
 
+html {
+  font-size: 16px;
+}
+
 body {
   margin: 0;
+  font-family: "Playfair Display", serif;
+  color: rgb(var(--c-vanilla));
+  background-color: rgb(var(--c-drab));
 }
 
 img {
@@ -16,8 +32,11 @@ img {
   width: 100%;
   height: auto;
   display: block;
+  object-fit: cover;
+  object-position: center;
+  background-size: cover;
   animation-name: fade-in;
-  animation-duration: 250ms;
+  animation-duration: 500ms;
   animation-fill-mode: forwards;
 }
 

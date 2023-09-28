@@ -9,8 +9,8 @@ export async function query<T extends ContentfulEntry>(
   };
 
   try {
+    const preview = true;
     const spaceId = Deno.env.get("CONTENTFUL_SPACE_ID");
-    const preview = Boolean(Deno.env.get("CONTENTFUL_PREVIEW"));
     const accessToken = preview ? Deno.env.get("CONTENTFUL_PREVIEW_TOKEN") : Deno.env.get("CONTENTFUL_DELIVERY_TOKEN");
 
     const url = new URL(
@@ -18,17 +18,14 @@ export async function query<T extends ContentfulEntry>(
       `https://${preview ? "preview" : "cdn"}.contentful.com`
     );
 
+    url.searchParams.set("access_token", accessToken!);
+
     for (const [key, value] of Object.entries(params)) {
       if (value) url.searchParams.set(key, String(value));
     }
 
-    const res = await fetch(url, {
-      headers: { Authorization: `Bearer ${accessToken}` }
-    });
-
+    const res = await fetch(url);
     const data = await res.json();
-
-    console.log(url);
 
     if (data.items) result.items = data.items;
     if (data.includes) result.includes = data.includes;

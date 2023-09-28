@@ -16,6 +16,13 @@ export function Document({ children, title }: DocumentProps) {
         <title>{title || "Marissa & Isaac"}</title>
 
         <link rel="preconnect" href="https://images.ctfassets.net" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="crossorigin" />
+
+        <link
+          href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+          rel="stylesheet"
+        />
 
         {styles.map((file) => (
           <link rel="preload" href={`/styles/${file.name}`} as="style" />

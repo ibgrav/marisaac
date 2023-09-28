@@ -14,24 +14,25 @@ export async function home() {
 
   return (
     <Document>
+      <h1 class="title">Marissa & Isaac's Adventure</h1>
+
       <main className="gallery">
         {images.map((link, i) => {
           const asset = resolveAsset(includes, link);
           const featured = (i + 1) % 3 === 0;
 
-          const thumb = image(asset, featured ? "full" : "thumb");
-
-          if (!thumb) return null;
+          const tf = image(asset, featured);
+          if (!tf) return null;
 
           return (
             <img
               key={i}
               loading="lazy"
-              src={thumb.src}
-              width={thumb.width + "px"}
-              height={thumb.height + "px"}
+              src={tf.src}
+              width={tf.width + "px"}
+              height={tf.height + "px"}
               className={featured ? "featured" : ""}
-              style={{ animationDelay: `${i * 100}ms` }}
+              style={{ animationDelay: `${i * 100}ms`, backgroundImage: `url(${tf.placeholder})` }}
             />
           );
         })}
