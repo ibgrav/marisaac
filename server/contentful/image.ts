@@ -13,17 +13,17 @@ interface ImageArgs {
   ratio?: "4:3" | "3:4" | "16:9";
 }
 
-const imageCache: Map<string, Image> = new Map();
+// const imageCache: Map<string, Image> = new Map();
 
-await ensureDir("static/assets/images");
+// await ensureDir("static/assets/images");
 
 export function image(asset?: ContentfulAsset, args?: ImageArgs): Image | undefined {
   if (typeof asset?.fields.file?.url !== "string") return undefined;
 
-  const cacheKey = JSON.stringify({ asset, args });
-  const cachedImage = imageCache.get(cacheKey);
+  // const cacheKey = JSON.stringify({ asset, args });
+  // const cachedImage = imageCache.get(cacheKey);
 
-  if (cachedImage) return cachedImage;
+  // if (cachedImage) return cachedImage;
 
   const { full, ratio } = args || {};
 
@@ -66,33 +66,33 @@ export function image(asset?: ContentfulAsset, args?: ImageArgs): Image | undefi
   md.src = url.href;
   md.placeholder = placeHolderUrl.href;
 
-  cacheImages(cacheKey, md);
+  // cacheImages(cacheKey, md);
 
   return md;
 }
 
-async function cacheImages(cacheKey: string, md: Image) {
-  try {
-    const data = new TextEncoder().encode(cacheKey);
-    const hashArray = Array.from(new Uint8Array(await crypto.subtle.digest("SHA-256", data)));
-    const filename = hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
+// async function cacheImages(cacheKey: string, md: Image) {
+//   try {
+//     const data = new TextEncoder().encode(cacheKey);
+//     const hashArray = Array.from(new Uint8Array(await crypto.subtle.digest("SHA-256", data)));
+//     const filename = hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
 
-    const src = await writeImage(filename, md.src);
-    const placeholder = await writeImage(filename + "placeholder", md.placeholder);
+//     const src = await writeImage(filename, md.src);
+//     const placeholder = await writeImage(filename + "placeholder", md.placeholder);
 
-    imageCache.set(cacheKey, { ...md, src, placeholder });
-  } catch (e) {
-    console.error(e);
-  }
-}
+//     imageCache.set(cacheKey, { ...md, src, placeholder });
+//   } catch (e) {
+//     console.error(e);
+//   }
+// }
 
-async function writeImage(filename: string, src: string) {
-  const res = await fetch(src);
+// async function writeImage(filename: string, src: string) {
+//   const res = await fetch(src);
 
-  const path = `/assets/images/${filename}`;
-  console.log("writing image from", src, "to", path);
+//   const path = `/assets/images/${filename}`;
+//   console.log("writing image from", src, "to", path);
 
-  await Deno.writeFile(`static/${path}`, new Uint8Array(await res.arrayBuffer()));
+//   await Deno.writeFile(`static/${path}`, new Uint8Array(await res.arrayBuffer()));
 
-  return path;
-}
+//   return path;
+// }
