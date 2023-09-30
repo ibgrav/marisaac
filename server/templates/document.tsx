@@ -9,6 +9,10 @@ const styles = Array.from(Deno.readDirSync("static/styles"))
   .filter((f) => f.isFile)
   .map((f) => "/styles/" + f.name);
 
+const scripts = Array.from(Deno.readDirSync("static/scripts"))
+  .filter((f) => f.isFile)
+  .map((f) => "/scripts/" + f.name);
+
 export function Document({ children, title }: DocumentProps) {
   return (
     <html lang="en">
@@ -35,6 +39,10 @@ export function Document({ children, title }: DocumentProps) {
         ))}
         {styles.map((file) => (
           <link href={file} rel="stylesheet" />
+        ))}
+
+        {scripts.map((file) => (
+          <script src={file} type="module" />
         ))}
       </head>
 

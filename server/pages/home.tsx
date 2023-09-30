@@ -14,7 +14,7 @@ export async function home() {
 
   return (
     <Document>
-      <aside className="timeline"></aside>
+      {/* <aside className="timeline"></aside> */}
 
       <h1 class="title">Marissa & Isaac's Adventure</h1>
 
