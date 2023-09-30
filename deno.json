@@ -1,6 +1,6 @@
 {
   "tasks": {
-    "start": "deno run --allow-read --allow-net --allow-env --watch server/main.ts"
+    "start": "deno run --allow-read --allow-write --allow-net --allow-env --watch server/main.ts"
   },
   "compilerOptions": {
     "jsx": "react-jsx",

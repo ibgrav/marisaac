@@ -3,7 +3,6 @@ import { serveDir } from "std/http/file_server.ts";
 import render from "preact-render-to-string";
 import { home } from "./pages/home.tsx";
 
-const IS_DEV = Boolean(Deno.env.get("DENO_DEV"));
 const staticFiles = Array.from(Deno.readDirSync("static"));
 
 Deno.serve(async (req: Request) => {
@@ -32,7 +31,7 @@ Deno.serve(async (req: Request) => {
   }
 
   if (staticFiles.some((f) => url.pathname.slice(1).startsWith(f.name))) {
-    return serveDir(req, { fsRoot: "static", headers: IS_DEV ? [] : ["cache-control:max-age=31536000"] });
+    return serveDir(req, { fsRoot: "static", headers: ["cache-control:must-revalidate"] });
   }
 
   return new Response(null, { status: 404 });
