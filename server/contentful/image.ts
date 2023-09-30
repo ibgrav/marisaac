@@ -1,4 +1,4 @@
-import { ensureDir } from "std/fs/ensure_dir.ts";
+// import { ensureDir } from "std/fs/ensure_dir.ts";
 import { ContentfulAsset } from "../types.ts";
 
 type Image = {

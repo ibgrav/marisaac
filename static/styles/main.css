@@ -25,6 +25,7 @@ body {
   font-family: "Playfair Display", serif;
   color: rgb(var(--c-vanilla));
   background-color: rgb(var(--c-drab));
+  overflow-x: hidden;
 }
 
 img {

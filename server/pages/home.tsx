@@ -14,6 +14,8 @@ export async function home() {
 
   return (
     <Document>
+      <aside className="timeline"></aside>
+
       <h1 class="title">Marissa & Isaac's Adventure</h1>
 
       <main className="gallery">
@@ -21,18 +23,18 @@ export async function home() {
           const asset = resolveAsset(includes, link);
           const featured = (i + 1) % 3 === 0;
 
-          const tf = image(asset, { full: featured, ratio: "3:4" });
-          if (!tf) return null;
+          const data = image(asset, { full: featured, ratio: "3:4" });
+          if (!data) return null;
 
           return (
             <img
               key={i}
               loading="lazy"
-              src={tf.src}
-              width={tf.width + "px"}
-              height={tf.height + "px"}
+              src={data.src}
+              width={data.width + "px"}
+              height={data.height + "px"}
               className={featured ? "featured" : ""}
-              style={{ animationDelay: `${i * 100}ms`, backgroundImage: `url(${tf.placeholder})` }}
+              style={{ animationDelay: `${i * 100}ms`, backgroundImage: `url(${data.placeholder})` }}
             />
           );
         })}
