@@ -1,22 +1,31 @@
 .title {
   text-align: center;
-  margin: 0;
+  margin: 4px;
   padding: 0 4px;
   font-weight: 400;
   background: rgb(var(--c-drab), 0.9);
   border: 2px solid rgb(var(--c-vanilla));
   border-radius: 6px;
   font-size: 1.5em;
-  position: fixed;
-  top: 4px;
-  left: 4px;
   z-index: 99;
-  width: calc(100% - 20px);
   line-height: 60px;
 }
 
+body.scroll .title {
+  position: fixed;
+  width: calc(100% - 20px);
+  top: 0;
+  left: 0;
+  font-size: 1em;
+  line-height: 40px;
+  animation: fly-down 0.5s forwards;
+}
+body.scroll .gallery {
+  margin-top: 72px;
+}
+
 .gallery {
-  margin: 72px 4px 4px 4px;
+  margin: 4px 4px 4px 4px;
   display: grid;
   background-size: cover;
   grid-template-columns: repeat(12, 1fr);
@@ -39,11 +48,11 @@
 @media (min-width: 800px) {
   .title {
     font-size: 2em;
+    line-height: 80px;
   }
+
   .gallery {
-    padding: 0 0.5em;
-    gap: 0.5em;
-    grid-template-columns: repeat(24, 1fr);
+    margin: 92px 4px 4px 4px;
   }
 }
 
