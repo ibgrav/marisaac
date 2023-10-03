@@ -1,3 +1,4 @@
+import { Fragment } from "preact";
 import { query } from "../contentful/query.ts";
 import { Document } from "../templates/document.tsx";
 import { Album } from "../types.ts";
@@ -10,32 +11,43 @@ export async function home() {
     include: 10
   });
 
-  const images = albums.reduce((p, album) => p.concat(album.fields.images), [] as Album["fields"]["images"]);
+  let count = 0;
 
   return (
     <Document>
-      {/* <aside className="timeline"></aside> */}
+      <main className="album">
+        <script dangerouslySetInnerHTML={{ __html: `window._ALBUMS=${JSON.stringify(albums.map((a) => a.fields.title))};` }} />
 
-      <h1 class="title">Marissa & Isaac's Adventure</h1>
-
-      <main className="gallery">
-        {images.map((link, i) => {
-          const asset = resolveAsset(includes, link);
-          const featured = (i + 1) % 3 === 0;
-
-          const data = image(asset, { full: featured, ratio: "3:4" });
-          if (!data) return null;
-
+        {albums.map((album, i) => {
           return (
-            <img
-              key={i}
-              loading="lazy"
-              src={data.src}
-              width={data.width + "px"}
-              height={data.height + "px"}
-              className={featured ? "featured" : ""}
-              style={{ animationDelay: `${i * 100}ms`, backgroundImage: `url(${data.placeholder})` }}
-            />
+            <Fragment key={i}>
+              <section data-gallery={album.fields.title}>
+                <h2>{album.fields.title}</h2>
+              </section>
+
+              {album.fields.images.map((link) => {
+                count++;
+
+                const asset = resolveAsset(includes, link);
+                const featured = count % 3 === 0;
+
+                const data = image(asset, { ratio: "3:4" });
+                if (!data) return null;
+
+                return (
+                  <img
+                    key={count}
+                    data-gallery={album.fields.title}
+                    loading="lazy"
+                    src={data.src}
+                    width={data.width + "px"}
+                    height={data.height + "px"}
+                    className={featured ? "featured" : ""}
+                    style={{ animationDelay: `${count * 50}ms`, backgroundImage: `url(${data.placeholder})` }}
+                  />
+                );
+              })}
+            </Fragment>
           );
         })}
       </main>
