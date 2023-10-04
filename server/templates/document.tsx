@@ -1,17 +1,10 @@
 import { ComponentChild } from "preact";
+import { Styles } from "./styles/styles.tsx";
 
 interface DocumentProps {
   title?: string;
   children: ComponentChild;
 }
-
-const styles = Array.from(Deno.readDirSync("static/styles"))
-  .filter((f) => f.isFile)
-  .map((f) => "/styles/" + f.name);
-
-const scripts = Array.from(Deno.readDirSync("static/scripts"))
-  .filter((f) => f.isFile)
-  .map((f) => "/scripts/" + f.name);
 
 export function Document({ children, title }: DocumentProps) {
   return (
@@ -34,16 +27,9 @@ export function Document({ children, title }: DocumentProps) {
           rel="stylesheet"
         />
 
-        {styles.map((file) => (
-          <link rel="preload" href={file} as="style" />
-        ))}
-        {styles.map((file) => (
-          <link href={file} rel="stylesheet" />
-        ))}
+        <script src="/scripts/main.js" type="module" />
 
-        {scripts.map((file) => (
-          <script src={file} type="module" />
-        ))}
+        <Styles />
       </head>
 
       <body>

@@ -9,23 +9,18 @@ type Image = {
 };
 
 interface ImageArgs {
-  full?: boolean;
-  ratio?: "4:3" | "3:4" | "16:9";
+  width?: number;
+  quality?: number;
+  ratio?: "4:3" | "3:4" | "16:9" | "4:1" | "1:1";
+  format?: "webp" | "png" | "jpg";
+  fit?: "fill" | "scale" | "crop" | "thumb" | "pad";
+  focus?: "top" | "bottom" | "left" | "right" | "faces" | "center";
 }
-
-// const imageCache: Map<string, Image> = new Map();
-
-// await ensureDir("static/assets/images");
 
 export function image(asset?: ContentfulAsset, args?: ImageArgs): Image | undefined {
   if (typeof asset?.fields.file?.url !== "string") return undefined;
 
-  // const cacheKey = JSON.stringify({ asset, args });
-  // const cachedImage = imageCache.get(cacheKey);
-
-  // if (cachedImage) return cachedImage;
-
-  const { full, ratio } = args || {};
+  const { ratio, quality = 80, format = "webp", fit = "fill", focus = "faces", width } = args || {};
 
   const md: Image = { src: asset.fields.file.url, placeholder: asset.fields.file.url, width: 1, height: 1 };
 
@@ -36,24 +31,26 @@ export function image(asset?: ContentfulAsset, args?: ImageArgs): Image | undefi
 
   const url = new URL("https:" + md.src);
 
-  url.searchParams.set("fm", "webp");
-  url.searchParams.set("f", "faces");
-  url.searchParams.set("fit", "fill");
-  url.searchParams.set("q", full ? "80" : "60");
+  url.searchParams.set("fm", format);
+  url.searchParams.set("f", focus);
+  url.searchParams.set("fit", fit);
+  url.searchParams.set("q", quality.toString());
 
-  const width = full ? 1200 : 400;
+  if (width) md.width = width;
 
-  if (ratio === "4:3") {
-    md.height = width * 0.75;
+  if (ratio === "1:1") {
+    md.height = md.width;
+  } else if (ratio === "4:3") {
+    md.height = Math.floor(md.width * 0.75);
   } else if (ratio === "3:4") {
-    md.height = width * 1.33;
+    md.height = Math.floor(md.width * 1.33);
   } else if (ratio === "16:9") {
-    md.height = width * 0.5625;
+    md.height = Math.floor(md.width * 0.5625);
+  } else if (ratio === "4:1") {
+    md.height = Math.floor(md.width * 0.25);
   } else {
-    md.height = Math.floor(md.height * (width / md.width));
+    md.height = Math.floor(md.height * (md.width / md.width));
   }
-
-  md.width = width;
 
   url.searchParams.set("h", md.height.toString());
   url.searchParams.set("w", md.width.toString());
@@ -66,33 +63,5 @@ export function image(asset?: ContentfulAsset, args?: ImageArgs): Image | undefi
   md.src = url.href;
   md.placeholder = placeHolderUrl.href;
 
-  // cacheImages(cacheKey, md);
-
   return md;
 }
-
-// async function cacheImages(cacheKey: string, md: Image) {
-//   try {
-//     const data = new TextEncoder().encode(cacheKey);
-//     const hashArray = Array.from(new Uint8Array(await crypto.subtle.digest("SHA-256", data)));
-//     const filename = hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
-
-//     const src = await writeImage(filename, md.src);
-//     const placeholder = await writeImage(filename + "placeholder", md.placeholder);
-
-//     imageCache.set(cacheKey, { ...md, src, placeholder });
-//   } catch (e) {
-//     console.error(e);
-//   }
-// }
-
-// async function writeImage(filename: string, src: string) {
-//   const res = await fetch(src);
-
-//   const path = `/assets/images/${filename}`;
-//   console.log("writing image from", src, "to", path);
-
-//   await Deno.writeFile(`static/${path}`, new Uint8Array(await res.arrayBuffer()));
-
-//   return path;
-// }

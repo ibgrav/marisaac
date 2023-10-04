@@ -19,7 +19,7 @@ Deno.serve(async (req: Request) => {
   if (url.pathname === "/") {
     const body = render(await home());
 
-    return new Response(body, {
+    return new Response("<!DOCTYPE html>" + body, {
       status: 200,
       headers: { "content-type": "text/html" }
     });

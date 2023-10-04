@@ -1,5 +1,7 @@
 import { QueryResult, ContentfulEntry } from "../types.ts";
 
+const kv = await Deno.openKv();
+
 export async function query<T extends ContentfulEntry>(
   params: Record<string, string | number | string[]>
 ): Promise<QueryResult<T>> {
@@ -7,6 +9,11 @@ export async function query<T extends ContentfulEntry>(
     items: [],
     includes: { Entry: [], Asset: [] }
   };
+
+  const key = [JSON.stringify(params)];
+
+  const cached = await kv.get(key);
+  if (cached.value) return cached.value as QueryResult<T>;
 
   try {
     const preview = true;
@@ -28,7 +35,10 @@ export async function query<T extends ContentfulEntry>(
     const data = await res.json();
 
     if (data.items) result.items = data.items;
-    if (data.includes) result.includes = data.includes;
+    if (data.includes?.Entry) result.includes.Entry = data.includes.Entry;
+    if (data.includes?.Asset) result.includes.Asset = data.includes.Asset;
+
+    await kv.set(key, result);
   } catch (e) {
     console.error(e);
   }

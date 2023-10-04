@@ -6,8 +6,8 @@ export type QueryResult<T extends ContentfulEntry = ContentfulEntry> = {
 };
 
 export type Includes = {
-  Entry?: Link[];
-  Asset?: Link[];
+  Entry: Link[];
+  Asset: Link[];
 };
 
 export type ContentfulAsset = {
@@ -24,11 +24,19 @@ export type ContentfulAsset = {
 
 export type ContentfulEntry<F = unknown> = {
   sys: { id: string };
-  fields: F;
+  fields: Partial<F>;
 };
 
-export type Album = ContentfulEntry<{
-  slug: string;
+export type Location = ContentfulEntry<{
   title: string;
+  slug: string;
+  startDate: string;
+  endDate: string;
+  coordinates: { lon: number; lat: number };
+}>;
+
+export type Album = ContentfulEntry<{
+  title: string;
+  location: Link;
   images: Link[];
 }>;
