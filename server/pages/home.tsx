@@ -53,8 +53,6 @@ export async function home() {
 
   return (
     <Document>
-      <script src="/scripts/home.js" type="module" />
-
       {css`
         main {
           gap: 1em;
