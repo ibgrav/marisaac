@@ -12,6 +12,20 @@ export const global = css`
     font-weight: inherit;
   }
 
+  a {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+  }
+
+  button {
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+
   html {
     font-size: 16px;
     font-weight: 400;
@@ -33,16 +47,5 @@ export const global = css`
     object-position: center;
     background-size: contain;
     background-position: center;
-    filter: blur(5px);
-    animation-name: blur-in;
-    animation-duration: 500ms;
-    animation-fill-mode: forwards;
-  }
-
-  @media (prefers-reduced-motion) {
-    img {
-      opacity: 1;
-      animation: none;
-    }
   }
 `;

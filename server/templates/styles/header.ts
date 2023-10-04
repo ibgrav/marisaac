@@ -2,47 +2,54 @@ import { css } from "../../utils.tsx";
 
 export const header = css`
   body.scroll {
-    margin-top: 72px;
+    margin-top: calc(88px + 3em);
   }
 
-  h1 {
-    text-align: center;
-    margin: 4px;
-    padding: 0 4px;
-    font-weight: 400;
+  #header {
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2em 2em 1em 2em;
+    padding: 12px;
     background: rgb(var(--c-drab), 0.8);
     border: 2px solid rgb(var(--c-vanilla));
     border-radius: 6px;
-    font-size: 1.5em;
     z-index: 99;
-    line-height: 60px;
+    text-align: center;
   }
 
-  body.scroll h1 {
+  #header h1 {
+    font-size: 1.5em;
+  }
+
+  body.scroll #header {
+    width: 300px;
+    height: 20px;
+    margin: 0;
+    top: 8px;
+    left: calc(50% - 164px);
     position: fixed;
-    width: calc(100% - 20px);
-    left: 0;
-    top: 0;
-    font-size: 1em;
-    line-height: 40px;
+
     animation: fly-down 0.5s forwards;
   }
 
-  @media (min-width: 520px) {
-    body.scroll h1 {
-      max-width: 500px;
-      left: calc(50% - 260px);
-    }
+  body.scroll #header h1 {
+    font-size: 1.2em;
+  }
+
+  #header nav {
+    display: flex;
+    justify-content: space-evenly;
   }
 
   @media (min-width: 800px) {
     body.scroll {
-      margin-top: 92px;
+      margin-top: 136px;
     }
 
-    h1 {
+    /* #header {
       font-size: 2em;
-      line-height: 80px;
-    }
+    } */
   }
 `;

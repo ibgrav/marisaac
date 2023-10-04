@@ -33,7 +33,11 @@ export function Document({ children, title }: DocumentProps) {
       </head>
 
       <body>
-        <h1>Marissa & Isaac's Adventure</h1>
+        <div id="header">
+          <a href="/">
+            <h1>Marissa & Isaac's Adventure</h1>
+          </a>
+        </div>
 
         {children}
       </body>

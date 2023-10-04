@@ -5,18 +5,19 @@ const kv = await Deno.openKv();
 export async function query<T extends ContentfulEntry>(
   params: Record<string, string | number | string[]>
 ): Promise<QueryResult<T>> {
+  const preview = true;
+
   const result: QueryResult<T> = {
     items: [],
     includes: { Entry: [], Asset: [] }
   };
 
-  const key = [JSON.stringify(params)];
+  const key = ["query", preview, JSON.stringify(params)];
 
   const cached = await kv.get(key);
   if (cached.value) return cached.value as QueryResult<T>;
 
   try {
-    const preview = true;
     const spaceId = Deno.env.get("CONTENTFUL_SPACE_ID");
     const accessToken = preview ? Deno.env.get("CONTENTFUL_PREVIEW_TOKEN") : Deno.env.get("CONTENTFUL_DELIVERY_TOKEN");
 

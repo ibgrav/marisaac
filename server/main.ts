@@ -2,6 +2,9 @@ import "std/dotenv/load.ts";
 import { serveDir } from "std/http/file_server.ts";
 import render from "preact-render-to-string";
 import { home } from "./pages/home.tsx";
+import { htmlResponse } from "./utils.tsx";
+import { error404 } from "./pages/404.tsx";
+import { location } from "./pages/location.tsx";
 
 const staticFiles = Array.from(Deno.readDirSync("static"));
 
@@ -17,12 +20,12 @@ Deno.serve(async (req: Request) => {
   }
 
   if (url.pathname === "/") {
-    const body = render(await home());
+    return htmlResponse(render(await home()));
+  }
 
-    return new Response("<!DOCTYPE html>" + body, {
-      status: 200,
-      headers: { "content-type": "text/html" }
-    });
+  if (url.pathname.startsWith("/location/")) {
+    const slug = url.pathname.slice("/location/".length);
+    return htmlResponse(render(await location(slug)));
   }
 
   if (url.pathname === "/robots.txt") {
@@ -34,5 +37,5 @@ Deno.serve(async (req: Request) => {
     return serveDir(req, { fsRoot: "static", headers: ["cache-control:must-revalidate"] });
   }
 
-  return new Response(null, { status: 404 });
+  return htmlResponse(render(error404()), 404);
 });

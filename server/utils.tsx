@@ -10,3 +10,10 @@ export function css(strings: TemplateStringsArray, ...args: unknown[]) {
 
   return style(value);
 }
+
+export function htmlResponse(body: string, status = 200) {
+  return new Response("<!DOCTYPE html>" + body, {
+    status,
+    headers: { "content-type": "text/html" }
+  });
+}

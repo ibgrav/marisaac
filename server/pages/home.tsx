@@ -1,3 +1,4 @@
+import { getImages } from "../contentful/get-images.ts";
 import { image } from "../contentful/image.ts";
 import { query } from "../contentful/query.ts";
 import { resolveAsset } from "../contentful/resolve.ts";
@@ -14,23 +15,15 @@ export async function home() {
 
   const children = await Promise.all(
     locations.items.map(async (location) => {
-      const albums = await query<Album>({
-        content_type: "album",
-        "fields.location.sys.id": location.sys.id
-      });
-
-      const images: ContentfulAsset[] = [];
-
-      albums.items.forEach((album) => {
-        album.fields.images?.forEach((image) => {
-          const asset = resolveAsset(albums.includes, image);
-          if (asset) images.push(asset);
-        });
-      });
+      const images = await getImages(location);
 
       return (
         <section>
-          <h2>{location.fields.title}</h2>
+          <div className="title">
+            <a href={`/location/${location.fields.slug}`}>
+              <h2>{location.fields.title}</h2>
+            </a>
+          </div>
 
           <div className="album">
             {images.slice(0, 9).map((asset, i) => {
@@ -40,17 +33,16 @@ export async function home() {
               imageCount++;
 
               return (
-                <img
-                  key={i}
-                  loading="lazy"
-                  src={data.src}
-                  width={data.width + "px"}
-                  height={data.height + "px"}
-                  style={{
-                    animationDelay: `${imageCount * 50}ms`,
-                    backgroundImage: `url(${data.placeholder})`
-                  }}
-                />
+                <a href={`/location/${location.fields.slug}`}>
+                  <img
+                    key={i}
+                    loading="lazy"
+                    src={data.src}
+                    width={data.width + "px"}
+                    height={data.height + "px"}
+                    style={{ backgroundImage: `url(${data.placeholder})` }}
+                  />
+                </a>
               );
             })}
           </div>
@@ -61,19 +53,24 @@ export async function home() {
 
   return (
     <Document>
+      <script src="/scripts/home.js" type="module" />
+
       {css`
+        main {
+          gap: 1em;
+          display: grid;
+          margin: 0 1em;
+          grid-template-columns: 1fr;
+          padding-bottom: 4em;
+        }
+
         section {
-          padding: 1em 2em;
+          padding: 1em 0;
+          max-width: 300px;
+          margin: auto;
         }
 
-        a {
-          display: block;
-          text-decoration: none;
-          color: inherit;
-          position: relative;
-        }
-
-        h2 {
+        .title {
           text-align: center;
           font-size: 1.2em;
           margin: 0 8px 8px 8px;
@@ -81,7 +78,12 @@ export async function home() {
           border-bottom: 1px solid rgb(var(--c-vanilla));
         }
 
+        .title.stick {
+          margin-top: 26px;
+        }
+
         .album {
+          gap: 0.25em;
           display: grid;
           overflow: hidden;
           border-radius: 0.5em;
@@ -91,6 +93,13 @@ export async function home() {
         img {
           user-select: none;
           grid-column: span 1;
+          border-radius: 0.25em;
+        }
+
+        @media (min-width: 800px) {
+          main {
+            grid-template-columns: repeat(3, 1fr);
+          }
         }
       `}
 
