@@ -22,8 +22,8 @@ export async function location(preview: boolean, slug: string) {
       {css`
         h2 {
           font-size: 1.3em;
-          margin: 1em 0.25em 0.5em 0.25em;
-          border-bottom: 1px solid rgb(var(--c-vanilla));
+          margin: 1em 0.25em 1.5em 0.25em;
+          /* border-bottom: 1px solid rgb(var(--c-vanilla)); */
         }
 
         section {

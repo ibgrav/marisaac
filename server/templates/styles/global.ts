@@ -13,6 +13,7 @@ export const global = css`
   h5,
   h6 {
     margin: 0;
+    line-height: 1;
     font-size: inherit;
     font-weight: inherit;
   }
@@ -61,11 +62,14 @@ export const global = css`
   main {
     margin: 0 auto;
     max-width: 500px;
+    padding-bottom: 4em;
   }
 
   #title {
-    margin: 0.5em;
+    padding-bottom: 0.5em;
+    margin: 0.5em 0.5em 1.5em 0.5em;
     font-size: 1.5em;
     text-align: center;
+    border-bottom: 1px solid rgb(var(--c-vanilla));
   }
 `;
