@@ -5,8 +5,8 @@ import { Document } from "../templates/document.tsx";
 import { Location } from "../types.ts";
 import { css } from "../utils.tsx";
 
-export async function home() {
-  const locations = await query<Location>({
+export async function home(preview: boolean) {
+  const locations = await query<Location>(preview, {
     content_type: "location"
   });
 

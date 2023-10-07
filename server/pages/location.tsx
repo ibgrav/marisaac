@@ -6,8 +6,8 @@ import { Location } from "../types.ts";
 import { css } from "../utils.tsx";
 import { error404 } from "./404.tsx";
 
-export async function location(slug: string) {
-  const locations = await query<Location>({
+export async function location(preview: boolean, slug: string) {
+  const locations = await query<Location>(preview, {
     content_type: "location",
     "fields.slug": slug
   });

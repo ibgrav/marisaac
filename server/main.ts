@@ -11,13 +11,19 @@ const staticFiles = Array.from(Deno.readDirSync("static"));
 Deno.serve(async (req: Request) => {
   const url = new URL(req.url);
 
+  const preview = url.hostname !== "marisaac.site";
+
   if (url.pathname === "/") {
-    return htmlResponse(render(await home()));
+    return htmlResponse(render(await home(preview)));
   }
 
   if (url.pathname.startsWith("/location/")) {
     const slug = url.pathname.slice("/location/".length);
-    return htmlResponse(render(await location(slug)));
+    return htmlResponse(render(await location(preview, slug)));
+  }
+
+  if (url.pathname === "/debug") {
+    return new Response(JSON.stringify({ url, preview }), { status: 200 });
   }
 
   if (url.pathname === "/robots.txt") {
