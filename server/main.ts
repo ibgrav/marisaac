@@ -11,14 +11,6 @@ const staticFiles = Array.from(Deno.readDirSync("static"));
 Deno.serve(async (req: Request) => {
   const url = new URL(req.url);
 
-  if (url.pathname === "/debug") {
-    console.log(url);
-    return new Response(JSON.stringify({ url, headers: Array.from(req.headers.entries()) }), {
-      status: 200,
-      headers: { "content-type": "application/json" }
-    });
-  }
-
   if (url.pathname === "/") {
     return htmlResponse(render(await home()));
   }

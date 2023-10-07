@@ -55,13 +55,13 @@ export async function location(slug: string) {
 
         <section>
           {images.map((asset, i) => {
-            const featured = i % 5 === 0;
-
             const data = image(asset, { ratio: "3:4", width: 800 });
             if (!data) return null;
 
+            const full = image(asset, { width: 1920 });
+
             return (
-              <button>
+              <a href={full?.src}>
                 <img
                   key={i}
                   loading="lazy"
@@ -70,7 +70,7 @@ export async function location(slug: string) {
                   height={data.height + "px"}
                   style={{ backgroundImage: `url(${data.placeholder})` }}
                 />
-              </button>
+              </a>
             );
           })}
         </section>

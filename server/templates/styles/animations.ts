@@ -35,17 +35,4 @@ export const animations = css`
   .fly-down {
     animation: fly-down 500ms forwards;
   }
-
-  @keyframes blur-in {
-    from {
-      filter: blur(5px);
-    }
-    to {
-      filter: blur(0);
-    }
-  }
-
-  .blur-in {
-    animation: blur-in 500ms forwards;
-  }
 `;

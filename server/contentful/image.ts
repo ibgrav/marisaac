@@ -48,8 +48,8 @@ export function image(asset?: ContentfulAsset, args?: ImageArgs): Image | undefi
     md.height = Math.floor(md.width * 0.5625);
   } else if (ratio === "4:1") {
     md.height = Math.floor(md.width * 0.25);
-  } else {
-    md.height = Math.floor(md.height * (md.width / md.width));
+  } else if (width) {
+    md.height = Math.floor(md.height * (md.width / width));
   }
 
   url.searchParams.set("h", md.height.toString());

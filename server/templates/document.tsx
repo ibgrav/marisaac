@@ -1,5 +1,7 @@
 import { ComponentChild } from "preact";
-import { Styles } from "./styles/styles.tsx";
+import { variables } from "./styles/variables.ts";
+import { animations } from "./styles/animations.ts";
+import { global } from "./styles/global.ts";
 
 interface DocumentProps {
   title?: string;
@@ -29,17 +31,19 @@ export function Document({ children, title }: DocumentProps) {
 
         <script src="/scripts/main.js" type="module" />
 
-        <Styles />
+        {variables}
+        {animations}
+        {global}
       </head>
 
       <body>
-        <div id="header">
-          <a href="/">
+        <main>
+          <a id="title" href="/">
             <h1>Marissa & Isaac's Adventure</h1>
           </a>
-        </div>
 
-        {children}
+          {children}
+        </main>
       </body>
     </html>
   );
