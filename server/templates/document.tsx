@@ -2,6 +2,7 @@ import { ComponentChild } from "preact";
 import { variables } from "./styles/variables.ts";
 import { animations } from "./styles/animations.ts";
 import { global } from "./styles/global.ts";
+import { fonts } from "./styles/fonts.ts";
 
 interface DocumentProps {
   title?: string;
@@ -21,16 +22,11 @@ export function Document({ children, title }: DocumentProps) {
         <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
 
         <link rel="preconnect" href="https://images.ctfassets.net" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="crossorigin" />
-
-        <link
-          href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap"
-          rel="stylesheet"
-        />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
 
         <script src="/scripts/main.js" type="module" />
 
+        {fonts}
         {variables}
         {animations}
         {global}
