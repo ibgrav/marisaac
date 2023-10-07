@@ -52,7 +52,7 @@ export async function home(preview: boolean) {
           display: flex;
           flex-flow: column;
           gap: 1.5em;
-          margin-bottom: 2em;
+          margin-bottom: 4em;
         }
 
         section {
