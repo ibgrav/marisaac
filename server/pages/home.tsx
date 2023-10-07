@@ -28,6 +28,7 @@ export async function home(preview: boolean) {
                   key={i}
                   loading="lazy"
                   src={data.src}
+                  aria-hidden="true"
                   width={data.width + "px"}
                   height={data.height + "px"}
                   style={{ backgroundImage: `url(${data.placeholder})` }}

@@ -46,7 +46,7 @@ export async function location(preview: boolean, slug: string) {
 
         <section>
           {images.map((asset, i) => {
-            const data = image(asset, { ratio: "3:4", width: 800 });
+            const data = image(asset, { ratio: "3:4", width: 500 });
             if (!data) return null;
 
             return (
@@ -57,6 +57,7 @@ export async function location(preview: boolean, slug: string) {
                   src={data.src}
                   width={data.width + "px"}
                   height={data.height + "px"}
+                  alt={asset.fields.description || location.fields.title}
                   style={{ backgroundImage: `url(${data.placeholder})` }}
                 />
 
