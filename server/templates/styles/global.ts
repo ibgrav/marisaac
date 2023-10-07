@@ -36,11 +36,15 @@ export const global = css`
   }
 
   body {
-    margin: 0;
     font-family: "Playfair Display", serif;
     color: rgb(var(--c-vanilla));
     background-color: rgb(var(--c-drab));
     overflow-x: hidden;
+    margin: 0.5em;
+    padding: 0.5em;
+    border-radius: 0.5em;
+    min-height: calc(100vh - 1em);
+    border: 2px solid rgb(var(--c-vanilla));
   }
 
   img {
@@ -54,18 +58,8 @@ export const global = css`
   }
 
   main {
-    margin: 0.5em;
-    padding: 0.5em;
-    max-width: 420px;
-    border-radius: 0.5em;
-    min-height: calc(100vh - 1em);
-    border: 2px solid rgb(var(--c-vanilla));
-  }
-
-  @media (min-width: 436px) {
-    main {
-      margin: 0.5em auto;
-    }
+    margin: 0 auto;
+    max-width: 500px;
   }
 
   #title {
