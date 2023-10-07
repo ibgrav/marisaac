@@ -9,7 +9,9 @@ interface DocumentProps {
   children: ComponentChild;
 }
 
-export function Document({ children, title }: DocumentProps) {
+export function Document({ children, title = "" }: DocumentProps) {
+  const titles = ["Marissa & Isaac's Adventure"];
+
   return (
     <html lang="en">
       <head>
@@ -17,7 +19,7 @@ export function Document({ children, title }: DocumentProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="description" content="Marissa & Isaac's Adventure" />
 
-        <title>{title || "Marissa & Isaac's Adventure"}</title>
+        <title>{`Marissa & Isaac's Adventure`}</title>
 
         <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
 
@@ -33,7 +35,7 @@ export function Document({ children, title }: DocumentProps) {
       <body>
         <main>
           <a id="title" href="/">
-            <h1>Marissa & Isaac's Adventure</h1>
+            <h1>Marissa & Isaac's Adventures</h1>
           </a>
 
           {children}

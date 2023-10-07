@@ -46,7 +46,7 @@ export async function location(preview: boolean, slug: string) {
 
         <section>
           {images.map((asset, i) => {
-            const data = image(asset, { ratio: "3:4", width: 500 });
+            const data = image(asset, { ratio: "3:4", width: 800 });
             if (!data) return null;
 
             return (
