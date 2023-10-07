@@ -2,8 +2,8 @@ import { Album, ContentfulAsset, Location } from "../types.ts";
 import { query } from "./query.ts";
 import { resolveAsset } from "./resolve.ts";
 
-export async function getImages(location: Location) {
-  const albums = await query<Album>({
+export async function getImages(preview: boolean, location: Location) {
+  const albums = await query<Album>(preview, {
     content_type: "album",
     "fields.location.sys.id": location.sys.id
   });

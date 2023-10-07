@@ -13,6 +13,7 @@ export type Includes = {
 export type ContentfulAsset = {
   sys: { id: string };
   fields: {
+    description?: string;
     file?: {
       url: string;
       details?: {

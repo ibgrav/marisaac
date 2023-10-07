@@ -15,7 +15,7 @@ export async function location(preview: boolean, slug: string) {
   const location = locations.items[0];
   if (!location) return error404();
 
-  const images = await getImages(location);
+  const images = await getImages(preview, location);
 
   return (
     <Document title={location.fields.title}>
@@ -35,6 +35,10 @@ export async function location(preview: boolean, slug: string) {
         img {
           border-radius: 0.5em;
         }
+
+        p {
+          margin: 0.25em;
+        }
       `}
 
       <div id="container">
@@ -46,14 +50,18 @@ export async function location(preview: boolean, slug: string) {
             if (!data) return null;
 
             return (
-              <img
-                key={i}
-                loading="lazy"
-                src={data.src}
-                width={data.width + "px"}
-                height={data.height + "px"}
-                style={{ backgroundImage: `url(${data.placeholder})` }}
-              />
+              <div>
+                <img
+                  key={i}
+                  loading="lazy"
+                  src={data.src}
+                  width={data.width + "px"}
+                  height={data.height + "px"}
+                  style={{ backgroundImage: `url(${data.placeholder})` }}
+                />
+
+                {asset.fields.description && <p>{asset.fields.description}</p>}
+              </div>
             );
           })}
         </section>

@@ -12,7 +12,7 @@ export async function home(preview: boolean) {
 
   const children = await Promise.all(
     locations.items.map(async (location) => {
-      const images = await getImages(location);
+      const images = await getImages(preview, location);
 
       return (
         <section>
