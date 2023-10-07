@@ -61,7 +61,7 @@ export const global = css`
 
   main {
     margin: 0 auto;
-    max-width: 500px;
+    max-width: 700px;
   }
 
   #title {
