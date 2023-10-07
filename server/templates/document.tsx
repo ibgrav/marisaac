@@ -24,8 +24,6 @@ export function Document({ children, title }: DocumentProps) {
         <link rel="preconnect" href="https://images.ctfassets.net" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
 
-        <script src="/scripts/main.js" type="module" />
-
         {fonts}
         {variables}
         {animations}
