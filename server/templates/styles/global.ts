@@ -30,6 +30,11 @@ export const global = css`
     text-decoration: none;
     color: inherit;
     position: relative;
+    transition: transform 250ms;
+  }
+
+  a:active {
+    transform: scale(1.05);
   }
 
   button {
