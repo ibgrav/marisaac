@@ -3,6 +3,7 @@ import { css } from "../../utils.tsx";
 export const global = css`
   * {
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
   }
 
   p,
