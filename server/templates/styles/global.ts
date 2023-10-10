@@ -43,7 +43,7 @@ export const global = css`
     background-color: rgb(var(--c-drab));
     overflow-x: hidden;
     margin: 0.5em;
-    padding: 0.5em;
+    padding: 0em 0.5em 0.5em 0.5em;
     border-radius: 0.5em;
     min-height: calc(100vh - 1em);
     border: 2px solid rgb(var(--c-vanilla));
@@ -65,10 +65,11 @@ export const global = css`
   }
 
   #title {
-    padding-bottom: 0.5em;
+    padding: 0.5em 0;
     margin: 0.5em 0.5em 1.5em 0.5em;
     font-size: 1.5em;
     text-align: center;
-    border-bottom: 1px solid rgb(var(--c-vanilla));
+    border-radius: 6px;
+    border: 1px solid rgb(var(--c-vanilla));
   }
 `;
