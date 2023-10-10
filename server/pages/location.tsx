@@ -60,7 +60,7 @@ export async function location(preview: boolean, slug: string) {
         }
 
         figcaption {
-          background: rgba(var(--c-vanilla), 0.3);
+          background: rgba(var(--c-vanilla), 0.2);
           padding: 1.25em 1em 1em 1em;
           margin-top: -0.5em;
           border-bottom-left-radius: 6px;
