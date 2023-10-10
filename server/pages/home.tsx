@@ -51,7 +51,6 @@ export async function home(preview: boolean) {
         .container {
           display: flex;
           flex-flow: column;
-          gap: 1.5em;
           margin-bottom: 4em;
         }
 
@@ -63,7 +62,7 @@ export async function home(preview: boolean) {
 
         h2 {
           margin-top: -20%;
-          margin-bottom: 6vw;
+          margin-bottom: 10vw;
           font-size: 1.5em;
           text-align: center;
           text-shadow: 1px 1px 2px rgba(0, 0, 0, 1);
@@ -85,6 +84,13 @@ export async function home(preview: boolean) {
           top: 0;
           left: 0;
           background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(var(--c-drab), 1) 90%);
+        }
+
+        @media (min-width: 736px) {
+          h2 {
+            margin-top: -145px;
+            margin-bottom: 55px;
+          }
         }
       `}
 
