@@ -15,7 +15,7 @@ export async function home(preview: boolean) {
       const images = await getImages(preview, location);
 
       return (
-        <section>
+        <a href={`/location/${location.fields.slug}`}>
           <div className="album">
             <div className="bg" />
 
@@ -37,10 +37,8 @@ export async function home(preview: boolean) {
             })}
           </div>
 
-          <h2>
-            <a href={`/location/${location.fields.slug}`}>{location.fields.title}</a>
-          </h2>
-        </section>
+          <h2>{location.fields.title}</h2>
+        </a>
       );
     })
   );
@@ -54,18 +52,20 @@ export async function home(preview: boolean) {
           margin-bottom: 4em;
         }
 
-        section {
+        a {
           display: flex;
           flex-flow: column;
           justify-content: space-between;
         }
 
         h2 {
+          z-index: 10;
           margin-top: -20%;
           margin-bottom: 10vw;
           font-size: 1.5em;
           text-align: center;
-          text-shadow: 1px 1px 2px rgba(0, 0, 0, 1);
+          text-decoration: underline;
+          text-underline-offset: 0.25em;
         }
 
         .album {
@@ -86,10 +86,10 @@ export async function home(preview: boolean) {
           background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(var(--c-drab), 1) 90%);
         }
 
-        @media (min-width: 736px) {
+        @media (min-width: 740px) {
           h2 {
             margin-top: -145px;
-            margin-bottom: 55px;
+            margin-bottom: 75px;
           }
         }
       `}

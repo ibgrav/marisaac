@@ -20,6 +20,11 @@ export const global = css`
     font-weight: inherit;
   }
 
+  h1,
+  h2 {
+    text-shadow: 2px 1px 2px rgba(0, 0, 0, 0.8);
+  }
+
   a {
     display: block;
     text-decoration: none;
@@ -37,6 +42,12 @@ export const global = css`
   html {
     font-size: 16px;
     font-weight: 400;
+  }
+
+  @media (min-width: 740px) {
+    html {
+      font-size: 20px;
+    }
   }
 
   body {
@@ -71,6 +82,5 @@ export const global = css`
     margin: 0.5em 0.5em 0.75em 0.5em;
     font-size: 2em;
     text-align: center;
-    text-shadow: 2px 1px 2px rgba(0, 0, 0, 0.8);
   }
 `;
