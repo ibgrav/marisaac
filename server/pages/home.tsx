@@ -62,9 +62,11 @@ export async function home(preview: boolean) {
         }
 
         h2 {
-          margin-top: -66px;
-          font-size: 1.3em;
+          margin-top: -20%;
+          margin-bottom: 6vw;
+          font-size: 1.5em;
           text-align: center;
+          text-shadow: 1px 1px 2px rgba(0, 0, 0, 1);
         }
 
         .album {
@@ -73,6 +75,7 @@ export async function home(preview: boolean) {
           overflow: hidden;
           border-radius: 0.5em;
           grid-template-columns: repeat(4, 1fr);
+          box-shadow: 0px -3px 10px -10px black;
         }
 
         .bg {
