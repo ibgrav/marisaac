@@ -49,7 +49,7 @@ export async function home(preview: boolean) {
         .container {
           display: flex;
           flex-flow: column;
-          margin-bottom: 4em;
+          margin-bottom: 2em;
         }
 
         a {
