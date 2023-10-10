@@ -1,5 +1,27 @@
 {
   "version": "3",
+  "packages": {
+    "specifiers": {
+      "npm:@contentful/rich-text-html-renderer@16.2.0": "npm:@contentful/rich-text-html-renderer@16.2.0"
+    },
+    "npm": {
+      "@contentful/rich-text-html-renderer@16.2.0": {
+        "integrity": "sha512-yfZ8dLZebuQcPmeFOQvWcjORj52xCwSD/t8Hfizz5t8AJa8k4huzIYPY9DgAp6DPnvt7smQvM7r9QQ7ClftITg==",
+        "dependencies": {
+          "@contentful/rich-text-types": "@contentful/rich-text-types@16.3.0",
+          "escape-html": "escape-html@1.0.3"
+        }
+      },
+      "@contentful/rich-text-types@16.3.0": {
+        "integrity": "sha512-OfQmAu5bxE0CgQA3WlUleVej+ifFG/iXmB2DmUl4EyWyFue1aiIvfjxQhcDRSH4n1jUNMJ6L1wInZL8uV5m3TQ==",
+        "dependencies": {}
+      },
+      "escape-html@1.0.3": {
+        "integrity": "sha512-NiSupZ4OeuGwr68lGIeym/ksIZMJodUGOSCZ/FSnTxcrekbvqrgdUxlJOMpijaKZVjAJrWrGs/6Jy8OMuyj9ow==",
+        "dependencies": {}
+      }
+    }
+  },
   "remote": {
     "https://deno.land/std@0.202.0/assert/assert.ts": "9a97dad6d98c238938e7540736b826440ad8c1c1e54430ca4c4e623e585607ee",
     "https://deno.land/std@0.202.0/assert/assertion_error.ts": "4d0bde9b374dfbcbe8ac23f54f567b77024fb67dbb1906a852d67fe050d42f56",

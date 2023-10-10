@@ -1,3 +1,7 @@
+import type { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+
+export type Document = Parameters<typeof documentToHtmlString>[0];
+
 export type Link = { sys: { id: string } };
 
 export type QueryResult<T extends ContentfulEntry = ContentfulEntry> = {
@@ -29,8 +33,8 @@ export type ContentfulEntry<F = unknown> = {
 };
 
 export type Location = ContentfulEntry<{
-  title: string;
   slug: string;
+  title: string;
   startDate: string;
   endDate: string;
   coordinates: { lon: number; lat: number };
@@ -40,4 +44,12 @@ export type Album = ContentfulEntry<{
   title: string;
   location: Link;
   images: Link[];
+}>;
+
+export type Post = ContentfulEntry<{
+  slug: string;
+  date: string;
+  title: string;
+  location: Link;
+  content: Document;
 }>;

@@ -10,6 +10,7 @@
     "std/": "https://deno.land/std@0.202.0/",
     "preact": "https://esm.sh/preact@10.17.1",
     "preact/": "https://esm.sh/preact@10.17.1/",
-    "preact-render-to-string": "https://esm.sh/*preact-render-to-string@6.2.1"
+    "preact-render-to-string": "https://esm.sh/*preact-render-to-string@6.2.1",
+    "@contentful/rich-text-html-renderer": "npm:@contentful/rich-text-html-renderer@16.2.0"
   }
 }

@@ -2,28 +2,41 @@ import { getImages } from "../contentful/get-images.ts";
 import { image } from "../contentful/image.ts";
 import { query } from "../contentful/query.ts";
 import { Document } from "../templates/document.tsx";
-import { Location } from "../types.ts";
+import { Location, Post } from "../types.ts";
 import { css } from "../utils.tsx";
 import { error404 } from "./404.tsx";
 
 export async function location(preview: boolean, slug: string) {
   const locations = await query<Location>(preview, {
     content_type: "location",
-    "fields.slug": slug
+    "fields.slug": slug,
+    limit: 1
   });
 
   const location = locations.items[0];
   if (!location) return error404();
+
+  const posts = await query<Post>(preview, {
+    content_type: "post",
+    "fields.location.sys.id": location.sys.id
+  });
 
   const images = await getImages(preview, location);
 
   return (
     <Document title={location.fields.title}>
       {css`
+        .text {
+          margin: 1em 0.25em 1em 0.25em;
+        }
+
+        .text a {
+          margin-bottom: 0.5em;
+        }
+
         h2 {
           font-size: 1.3em;
-          margin: 1em 0.25em 1.5em 0.25em;
-          /* border-bottom: 1px solid rgb(var(--c-vanilla)); */
+          margin-bottom: 1.5em;
         }
 
         section {
@@ -42,7 +55,13 @@ export async function location(preview: boolean, slug: string) {
       `}
 
       <div id="container">
-        <h2>{location.fields.title}</h2>
+        <div className="text">
+          <h2>{location.fields.title}</h2>
+
+          {posts.items.map((post) => {
+            return <a href={`/post/${post.fields.slug}`}>{post.fields.title}</a>;
+          })}
+        </div>
 
         <section>
           {images.map((asset, i) => {
