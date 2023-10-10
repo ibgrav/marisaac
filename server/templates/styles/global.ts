@@ -68,7 +68,7 @@ export const global = css`
 
   #title {
     padding: 0.5em 0;
-    margin: 0.5em 0.5em 1.5em 0.5em;
+    margin: 0.5em 0.5em 0.75em 0.5em;
     font-size: 2em;
     text-align: center;
     text-shadow: 2px 1px 2px rgba(0, 0, 0, 0.8);
