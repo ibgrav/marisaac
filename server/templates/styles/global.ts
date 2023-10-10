@@ -33,7 +33,8 @@ export const global = css`
     transition: transform 250ms;
   }
 
-  a:active {
+  a:active,
+  a:target {
     transform: scale(1.05);
   }
 
