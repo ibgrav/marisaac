@@ -11,7 +11,8 @@ export const global = css`
   h3,
   h4,
   h5,
-  h6 {
+  h6,
+  figure {
     margin: 0;
     line-height: 1;
     font-size: inherit;

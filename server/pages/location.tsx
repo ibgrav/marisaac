@@ -47,10 +47,24 @@ export async function location(preview: boolean, slug: string) {
 
         img {
           border-radius: 0.5em;
+          box-shadow: 0px 5px 10px -8px black;
+        }
+
+        img.caption {
+          border-bottom-left-radius: 0;
+          border-bottom-right-radius: 0;
         }
 
         p {
           margin: 0.25em;
+        }
+
+        figcaption {
+          background: rgba(var(--c-vanilla), 0.3);
+          padding: 1.25em 1em 1em 1em;
+          margin-top: -0.5em;
+          border-bottom-left-radius: 6px;
+          border-bottom-right-radius: 6px;
         }
       `}
 
@@ -68,21 +82,29 @@ export async function location(preview: boolean, slug: string) {
             const data = image(asset, { width: 1000 });
             if (!data) return null;
 
-            return (
-              <div>
-                <img
-                  key={i}
-                  loading="lazy"
-                  src={data.src}
-                  width={data.width + "px"}
-                  height={data.height + "px"}
-                  alt={asset.fields.description || location.fields.title}
-                  style={{ backgroundImage: `url(${data.placeholder})` }}
-                />
-
-                {asset.fields.description && <p>{asset.fields.description}</p>}
-              </div>
+            const imageElement = (
+              <img
+                key={i}
+                loading="lazy"
+                src={data.src}
+                width={data.width + "px"}
+                height={data.height + "px"}
+                className={asset.fields.description ? "caption" : ""}
+                alt={asset.fields.description || location.fields.title}
+                style={{ backgroundImage: `url(${data.placeholder})` }}
+              />
             );
+
+            if (asset.fields.description) {
+              return (
+                <figure>
+                  {imageElement}
+                  <figcaption>{asset.fields.description}</figcaption>
+                </figure>
+              );
+            }
+
+            return imageElement;
           })}
         </section>
       </div>
