@@ -53,3 +53,8 @@ export type Post = ContentfulEntry<{
   location: Link;
   content: Document;
 }>;
+
+export type InlineImage = ContentfulEntry<{
+  align: "Full" | "Left" | "Right";
+  asset: ContentfulAsset;
+}>;

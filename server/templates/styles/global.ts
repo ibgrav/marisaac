@@ -76,6 +76,21 @@ export const global = css`
     object-position: center;
     background-size: contain;
     background-position: center;
+    border-radius: 0.5em;
+    box-shadow: 0px 5px 10px -8px black;
+  }
+
+  img.caption {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  figcaption {
+    background: rgba(var(--c-vanilla), 0.2);
+    padding: 1.25em 1em 1em 1em;
+    margin-top: -0.5em;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
   }
 
   main {
