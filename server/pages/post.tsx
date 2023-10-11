@@ -46,6 +46,11 @@ export async function post(preview: boolean, slug: string) {
           float: right;
           margin-bottom: 0.75em;
         }
+
+        figure.left figcaption,
+        figure.right figcaption {
+          padding: 1em 0.5em 0.5em 0.5em;
+        }
       `}
 
       <h2>{post.fields.title}</h2>
