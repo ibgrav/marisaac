@@ -115,7 +115,10 @@ export const global = css`
     margin: 0.5em 0.5em 0.75em 0.5em;
     font-size: 2em;
     text-align: center;
-    outline-color: transparent;
+  }
+
+  #title:focus {
+    outline: none !important;
   }
 
   #top {
