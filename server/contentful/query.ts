@@ -2,11 +2,6 @@ import { QueryResult, ContentfulEntry } from "../types.ts";
 
 const kv = await Deno.openKv();
 
-interface CacheData<T extends ContentfulEntry> {
-  ts: number;
-  result: QueryResult<T>;
-}
-
 export async function query<T extends ContentfulEntry>(
   preview = false,
   params: Record<string, string | number | string[]>
@@ -19,12 +14,8 @@ export async function query<T extends ContentfulEntry>(
   const key = ["query", JSON.stringify(params)];
 
   if (!preview) {
-    const cached = await kv.get<CacheData<T>>(key);
-    if (cached.value) {
-      if (Date.now() - cached.value.ts < 1000 * 60 * 30) {
-        return cached.value.result as QueryResult<T>;
-      }
-    }
+    const cached = await kv.get<QueryResult<T>>(key);
+    if (cached.value) return cached.value;
   }
 
   try {
@@ -49,7 +40,7 @@ export async function query<T extends ContentfulEntry>(
     if (data.includes?.Entry) result.includes.Entry = data.includes.Entry;
     if (data.includes?.Asset) result.includes.Asset = data.includes.Asset;
 
-    if (!preview) await kv.set(key, { ts: Date.now(), result });
+    if (!preview) await kv.set(key, result, { expireIn: 1000 * 60 * 10 });
   } catch (e) {
     console.error(e);
   }
