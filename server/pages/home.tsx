@@ -17,6 +17,8 @@ export async function home(preview: boolean) {
       const displayDate = formatLocationDate(location);
       const images = await getImages(preview, location);
 
+      if (images.length < 8) return null;
+
       return (
         <a href={`/location/${location.fields.slug}`}>
           <div className="album">
