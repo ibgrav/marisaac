@@ -11,7 +11,7 @@ export async function query<T extends ContentfulEntry>(
     includes: { Entry: [], Asset: [] }
   };
 
-  const key = ["query", JSON.stringify(params)];
+  const key = ["v2", "query", JSON.stringify(params)];
 
   if (!preview) {
     const cached = await kv.get<QueryResult<T>>(key);

@@ -10,7 +10,7 @@ export async function getImages(preview: boolean, location: Location) {
 
   const images: ContentfulAsset[] = [];
 
-  albums.items.forEach((album) => {
+  albums.items?.forEach((album) => {
     album.fields.images?.forEach((image) => {
       const asset = resolveAsset(albums.includes, image);
       if (asset) images.push(asset);
