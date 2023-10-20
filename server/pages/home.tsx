@@ -101,7 +101,7 @@ export async function home(preview: boolean) {
         }
 
         @media (min-width: 740px) {
-          h2 {
+          .title {
             margin-top: -145px;
             margin-bottom: 75px;
           }
