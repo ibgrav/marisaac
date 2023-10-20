@@ -21,7 +21,7 @@ export async function query<T extends ContentfulEntry>(
   if (!preview) {
     const cached = await kv.get<CacheData<T>>(key);
     if (cached.value) {
-      if (Date.now() - cached.value.ts < 1000 * 60 * 5) {
+      if (Date.now() - cached.value.ts < 1000 * 60 * 30) {
         return cached.value.result as QueryResult<T>;
       }
     }
