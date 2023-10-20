@@ -1,0 +1,20 @@
+{
+  "name": "@ibgrav/marisaac",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@contentful/rich-text-html-renderer": "16.2.0",
+    "preact": "10.18.1",
+    "wouter": "2.12.1"
+  },
+  "devDependencies": {
+    "@preact/preset-vite": "2.6.0",
+    "typescript": "5.2.2",
+    "vite": "4.5.0"
+  }
+}
