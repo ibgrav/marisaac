@@ -89,14 +89,20 @@ export const global = css`
   }
 
   figcaption {
-    background: rgba(var(--c-vanilla), 0.2);
-    padding: 1.25em 1em 1em 1em;
+    background: rgba(var(--c-vanilla), 0.1);
+    padding: 1em 0.5em 0.5em 0.5em;
     margin-top: -0.5em;
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
     line-height: 1.1;
     letter-spacing: 0.4px;
     font-size: 16px;
+  }
+
+  @media (min-width: 740px) {
+    figcaption {
+      padding: 1.25em 1em 1em 1em;
+    }
   }
 
   main {
