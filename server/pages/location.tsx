@@ -41,12 +41,6 @@ export async function location(preview: boolean, slug: string) {
           border-radius: 0.5em;
           box-shadow: 0px 5px 10px -8px black;
         }
-
-        figcaption {
-          line-height: 1.2;
-          letter-spacing: 0.4px;
-          font-size: 16px;
-        }
       `}
 
       <div id="container">

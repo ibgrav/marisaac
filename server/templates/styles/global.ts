@@ -94,6 +94,9 @@ export const global = css`
     margin-top: -0.5em;
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
+    line-height: 1.1;
+    letter-spacing: 0.4px;
+    font-size: 16px;
   }
 
   main {
@@ -106,14 +109,15 @@ export const global = css`
     margin: 0.5em 0.5em 0.75em 0.5em;
     font-size: 2em;
     text-align: center;
+    outline-color: transparent;
   }
 
   #top {
     position: fixed;
-    right: 1em;
-    bottom: 1em;
-    width: 20px;
-    height: 20px;
+    right: 1.5em;
+    bottom: 1.5em;
+    width: 1.5em;
+    height: 1.5em;
     border-radius: 50%;
     outline: 2px solid rgb(var(--c-vanilla));
   }
