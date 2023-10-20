@@ -85,12 +85,16 @@ export async function home(preview: boolean) {
         }
 
         .album {
+          gap: 4px;
           position: relative;
           display: grid;
           overflow: hidden;
           border-radius: 0.5em;
           grid-template-columns: repeat(4, 1fr);
           box-shadow: 0px -3px 10px -10px black;
+        }
+        .album img {
+          border-radius: 4px;
         }
 
         .bg {
