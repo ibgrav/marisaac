@@ -1,0 +1,9 @@
+{
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "src": "/.*",
+      "dest": "/index.html"
+    }
+  ]
+}
