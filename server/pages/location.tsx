@@ -26,14 +26,6 @@ export async function location(preview: boolean, slug: string) {
   return (
     <Document title={location.fields.title}>
       {css`
-        .text {
-          margin: 1em 0.25em 1em 0.25em;
-        }
-
-        .text a {
-          margin-bottom: 0.5em;
-        }
-
         h2 {
           font-size: 1.3em;
           margin-bottom: 1.5em;
@@ -50,19 +42,15 @@ export async function location(preview: boolean, slug: string) {
           box-shadow: 0px 5px 10px -8px black;
         }
 
-        p {
-          margin: 0.25em;
+        figcaption {
+          line-height: 1.2;
+          letter-spacing: 0.4px;
+          font-size: 16px;
         }
       `}
 
       <div id="container">
-        <div className="text">
-          <h2>{location.fields.title}</h2>
-
-          {posts.items.map((post) => {
-            return <a href={`/post/${post.fields.slug}`}>{post.fields.title}</a>;
-          })}
-        </div>
+        <h2>{location.fields.title}</h2>
 
         <section>
           {images.map((asset, i) => {

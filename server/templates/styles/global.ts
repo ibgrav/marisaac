@@ -48,11 +48,14 @@ export const global = css`
   html {
     font-size: 16px;
     font-weight: 400;
+    scroll-behavior: smooth;
+    font-smooth: auto;
+    -webkit-font-smoothing: subpixel-antialiased;
   }
 
   @media (min-width: 740px) {
     html {
-      font-size: 20px;
+      font-size: 18px;
     }
   }
 
@@ -103,5 +106,19 @@ export const global = css`
     margin: 0.5em 0.5em 0.75em 0.5em;
     font-size: 2em;
     text-align: center;
+  }
+
+  #top {
+    position: fixed;
+    right: 1em;
+    bottom: 1em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    outline: 2px solid rgb(var(--c-vanilla));
+  }
+
+  #top svg {
+    fill: rgb(var(--c-vanilla));
   }
 `;

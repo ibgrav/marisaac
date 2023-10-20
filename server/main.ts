@@ -5,7 +5,6 @@ import { home } from "./pages/home.tsx";
 import { htmlResponse } from "./utils.tsx";
 import { error404 } from "./pages/404.tsx";
 import { location } from "./pages/location.tsx";
-import { post } from "./pages/post.tsx";
 
 const staticFiles = Array.from(Deno.readDirSync("static"));
 
@@ -18,18 +17,9 @@ Deno.serve(async (req: Request) => {
     return htmlResponse(render(await home(preview)));
   }
 
-  if (url.pathname.startsWith("/post/")) {
-    const slug = url.pathname.slice("/post/".length);
-    return htmlResponse(render(await post(preview, slug)));
-  }
-
   if (url.pathname.startsWith("/location/")) {
     const slug = url.pathname.slice("/location/".length);
     return htmlResponse(render(await location(preview, slug)));
-  }
-
-  if (url.pathname === "/debug") {
-    return new Response(JSON.stringify({ url, preview }), { status: 200 });
   }
 
   if (url.pathname === "/robots.txt") {
