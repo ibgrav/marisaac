@@ -11,15 +11,14 @@ type CachedDate<T> = {
 };
 
 export async function contentfulGraphFetch<T>(query: string) {
-  const preview = false; //location.hostname !== "marisaac.site";
+  const preview = location.hostname !== "marisaac.site";
   const token = preview ? import.meta.env.VITE_PREVIEW_TOKEN : import.meta.env.VITE_DELIVERY_TOKEN;
 
   const cacheKey = JSON.stringify(query);
   const cached = sessionStorage.getItem(cacheKey);
-  console.log({ cacheKey, cached });
+
   if (cached) {
     const { result, ts } = JSON.parse(cached) as CachedDate<T>;
-    console.log({ ts, ten: Date.now() - 1000 * 60 * 10 });
     if (ts > Date.now() - 1000 * 60 * 10) return result;
     else sessionStorage.removeItem(cacheKey);
   }

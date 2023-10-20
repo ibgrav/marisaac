@@ -26,7 +26,7 @@ type AlbumsQuery = {
 
 const query = gql`
   query Album($preview: Boolean!) {
-    album: albumCollection(preview: $preview) {
+    album: albumCollection(preview: $preview, order: startDate_DESC) {
       items {
         slug
         title
