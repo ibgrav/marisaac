@@ -57,7 +57,7 @@ export async function location(preview: boolean, slug: string) {
             const imageElement = (
               <img
                 key={i}
-                loading="lazy"
+                loading={i === 0 ? "eager" : "lazy"}
                 src={data.src}
                 width={data.width + "px"}
                 height={data.height + "px"}
