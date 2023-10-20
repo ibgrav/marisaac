@@ -1,8 +1,9 @@
+import { formatLocationDate } from "../contentful/format-date.ts";
 import { getImages } from "../contentful/get-images.ts";
 import { image } from "../contentful/image.ts";
 import { query } from "../contentful/query.ts";
 import { Document } from "../templates/document.tsx";
-import { Location, Post } from "../types.ts";
+import { Location } from "../types.ts";
 import { css } from "../utils.tsx";
 import { error404 } from "./404.tsx";
 
@@ -16,11 +17,7 @@ export async function location(preview: boolean, slug: string) {
   const location = locations.items[0];
   if (!location) return error404();
 
-  const posts = await query<Post>(preview, {
-    content_type: "post",
-    "fields.location.sys.id": location.sys.id
-  });
-
+  const displayDate = formatLocationDate(location);
   const images = await getImages(preview, location);
 
   return (
@@ -29,6 +26,9 @@ export async function location(preview: boolean, slug: string) {
         h2 {
           font-size: 1.3em;
           margin-bottom: 1.5em;
+          display: flex;
+          flex-flow: row;
+          justify-content: space-between;
         }
 
         section {
@@ -44,7 +44,10 @@ export async function location(preview: boolean, slug: string) {
       `}
 
       <div id="container">
-        <h2>{location.fields.title}</h2>
+        <h2>
+          <span>{location.fields.title}</span>
+          <time dateTime={location.fields.startDate}>{displayDate}</time>
+        </h2>
 
         <section>
           {images.map((asset, i) => {

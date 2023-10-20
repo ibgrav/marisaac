@@ -1,3 +1,4 @@
+import { formatLocationDate } from "../contentful/format-date.ts";
 import { getImages } from "../contentful/get-images.ts";
 import { image } from "../contentful/image.ts";
 import { query } from "../contentful/query.ts";
@@ -7,11 +8,13 @@ import { css } from "../utils.tsx";
 
 export async function home(preview: boolean) {
   const locations = await query<Location>(preview, {
-    content_type: "location"
+    content_type: "location",
+    order: "-fields.startDate"
   });
 
   const children = await Promise.all(
     locations.items.map(async (location) => {
+      const displayDate = formatLocationDate(location);
       const images = await getImages(preview, location);
 
       return (
@@ -37,7 +40,10 @@ export async function home(preview: boolean) {
             })}
           </div>
 
-          <h2>{location.fields.title}</h2>
+          <div className="title">
+            <h2>{location.fields.title}</h2>
+            <time dateTime={location.fields.startDate}>{displayDate}</time>
+          </div>
         </a>
       );
     })
@@ -58,14 +64,22 @@ export async function home(preview: boolean) {
           justify-content: space-between;
         }
 
-        h2 {
+        .title {
           z-index: 10;
           margin-top: -20%;
           margin-bottom: 10vw;
-          font-size: 1.5em;
           text-align: center;
+        }
+
+        .title h2 {
+          font-size: 1.5em;
           text-decoration: underline;
           text-underline-offset: 0.25em;
+        }
+
+        .title time {
+          margin-top: 0.5em;
+          display: block;
         }
 
         .album {
