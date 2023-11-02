@@ -2,7 +2,6 @@ import "./location.css";
 
 import { formatAlbumDate } from "../contentful/format-date.ts";
 import { image } from "../contentful/image.ts";
-import { Page404 } from "./404.tsx";
 import { useAlbums } from "../contentful/use-albums.ts";
 import { useLocation } from "wouter";
 
@@ -16,7 +15,10 @@ export function PageLocation() {
 
   const album = albums?.find((album) => album.slug === location.slice(1));
 
-  if (!album) return <Page404 />;
+  if (!album) {
+    window.location.replace("/");
+    return null;
+  }
 
   const displayDate = formatAlbumDate(album);
 
