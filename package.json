@@ -13,6 +13,7 @@
     "wouter": "2.12.1"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "4.20231025.0",
     "@preact/preset-vite": "2.6.0",
     "typescript": "5.2.2",
     "vite": "4.5.0"
