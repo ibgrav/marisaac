@@ -18,8 +18,8 @@ type RecaptchaResponse = {
   success: boolean;
 };
 
-export const onRequest: PagesFunction<Env, string, Body> = async (ctx) => {
-  const { email, token } = ctx.data;
+export const onRequest: PagesFunction<Env, string> = async (ctx) => {
+  const { email, token } = (await ctx.request.json()) as Body;
 
   if (!email || !token) return new Response("Missing required arguments.", { status: 400 });
 
