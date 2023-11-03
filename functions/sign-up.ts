@@ -9,18 +9,19 @@ type Env = {
   VITE_DELIVERY_TOKEN: string;
 };
 
+type Body = {
+  email: string;
+  token: string;
+};
+
 type RecaptchaResponse = {
   success: boolean;
 };
 
-export const onRequest: PagesFunction<Env> = async (ctx) => {
-  const response400 = new Response("Something went wrong.", { status: 400 });
+export const onRequest: PagesFunction<Env, string, Body> = async (ctx) => {
+  const { email, token } = ctx.data;
 
-  const url = new URL(ctx.request.url);
-  const email = url.searchParams.get("email");
-  const token = url.searchParams.get("token");
-
-  if (!email || !token) return response400;
+  if (!email || !token) return new Response("Missing required arguments.", { status: 400 });
 
   const res = await fetch("https://www.google.com/recaptcha/api/siteverify", {
     method: "POST",
@@ -33,7 +34,7 @@ export const onRequest: PagesFunction<Env> = async (ctx) => {
 
   const data = (await res.json()) as RecaptchaResponse;
 
-  if (!data.success) return response400;
+  if (!data.success) return new Response("Failed reCAPTCHA.", { status: 400 });
 
   const client = contentful.createClient({
     accessToken: ctx.env.CONTENTFUL_ACCESS_TOKEN,

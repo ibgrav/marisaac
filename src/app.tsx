@@ -26,7 +26,11 @@ export function App() {
         try {
           const token = await window.grecaptcha.execute(import.meta.env.VITE_RECAPTCHA_SITE_KEY, { action: "submit" });
 
-          const res = await fetch(`/sign-up?email=${email}&token=${token}`);
+          const res = await fetch("/sign-up", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, token })
+          });
 
           if (res.status === 200) {
             status = await res.text();
