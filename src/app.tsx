@@ -35,9 +35,7 @@ export function App() {
             body: JSON.stringify({ email, token })
           });
 
-          if (res.status === 200) {
-            status = await res.text();
-          }
+          status = await res.text();
         } catch (e) {
           console.error(e);
         }
