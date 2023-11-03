@@ -2,19 +2,38 @@ import * as contentful from "contentful-management";
 
 type Env = {
   CONTENTFUL_ACCESS_TOKEN: string;
+  RECAPTCHA_SECRET_KEY: string;
   FOLLOWING_ID: string;
   VITE_SPACE_ID: string;
   VITE_PREVIEW_TOKEN: string;
   VITE_DELIVERY_TOKEN: string;
 };
 
+type RecaptchaResponse = {
+  success: boolean;
+};
+
 export const onRequest: PagesFunction<Env> = async (ctx) => {
+  const response400 = new Response("Something went wrong.", { status: 400 });
+
   const url = new URL(ctx.request.url);
   const email = url.searchParams.get("email");
+  const token = url.searchParams.get("token");
 
-  if (!email) {
-    return new Response("Something went wrong.", { status: 400 });
-  }
+  if (!email || !token) return response400;
+
+  const res = await fetch("https://www.google.com/recaptcha/api/siteverify", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({
+      secret: ctx.env.RECAPTCHA_SECRET_KEY,
+      response: token
+    })
+  });
+
+  const data = (await res.json()) as RecaptchaResponse;
+
+  if (!data.success) return response400;
 
   const client = contentful.createClient({
     accessToken: ctx.env.CONTENTFUL_ACCESS_TOKEN,

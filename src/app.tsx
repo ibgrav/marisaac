@@ -1,25 +1,42 @@
+import type { JSX } from "preact/jsx-runtime";
 import { Link, Route, Switch } from "wouter";
 import { PageHome } from "./pages/home";
 import { PageLocation } from "./pages/location";
 import { useState } from "preact/hooks";
 
+declare global {
+  interface Window {
+    grecaptcha: {
+      ready(callback: () => void): void;
+      execute(siteKey: string, options: { action: string }): Promise<string>;
+    };
+  }
+}
+
 export function App() {
   const [email, setEmail] = useState("");
 
-  const onSignUp = async () => {
+  const onSignUp = async (e: JSX.TargetedMouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
     if (email) {
-      let status = "Something went wrong.";
+      window.grecaptcha.ready(async () => {
+        let status = "Something went wrong.";
 
-      try {
-        const res = await fetch(`/sign-up?email=${email}`);
-        if (res.status === 200) {
-          status = await res.text();
+        try {
+          const token = await window.grecaptcha.execute(import.meta.env.VITE_RECAPTCHA_SITE_KEY, { action: "submit" });
+
+          const res = await fetch(`/sign-up?email=${email}&token=${token}`);
+
+          if (res.status === 200) {
+            status = await res.text();
+          }
+        } catch (e) {
+          console.error(e);
         }
-      } catch (e) {
-        console.error(e);
-      }
 
-      setEmail(status);
+        setEmail(status);
+      });
     }
   };
 
@@ -33,7 +50,7 @@ export function App() {
 
       <div class="follow">
         <input placeholder="Enter an Email" value={email} onChange={(e) => setEmail(e.currentTarget.value)} />
-        <button onClick={onSignUp}>Sign Up</button>
+        <button onClick={(e) => onSignUp(e)}>Sign Up</button>
       </div>
 
       <Switch>
