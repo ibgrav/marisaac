@@ -84,7 +84,7 @@ export const onRequest: PagesFunction<Env, string> = async (ctx) => {
     let entry = await env.getEntry(ctx.env.FOLLOWING_ID);
 
     let emails = ((entry.fields.emails?.["en-US"] as string) || "").split(",");
-    emails = emails.filter((e) => e);
+    emails = emails.filter((e) => e).map((e) => e.trim());
 
     if (!emails.includes(email)) {
       emails.push(email);
