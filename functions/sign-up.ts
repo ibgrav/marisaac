@@ -2,6 +2,7 @@ import * as contentful from "contentful-management";
 
 interface Env {
   CONTENTFUL_ACCESS_TOKEN: string;
+  FOLLOWING_ID: string;
   VITE_SPACE_ID: string;
   VITE_PREVIEW_TOKEN: string;
   VITE_DELIVERY_TOKEN: string;
@@ -46,8 +47,11 @@ export const onRequest: PagesFunction<Env> = async (ctx) => {
 
   const space = await client.getSpace(ctx.env.VITE_SPACE_ID);
   const env = await space.getEnvironment("master");
+  const entry = await env.getEntry(ctx.env.FOLLOWING_ID);
 
-  return new Response(JSON.stringify(env.sys), {
+  const emails = entry.fields.emails["en-US"] as string[];
+
+  return new Response(JSON.stringify(emails), {
     status: 200,
     headers: {
       "content-type": "application/json"
