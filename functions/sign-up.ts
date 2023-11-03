@@ -13,7 +13,7 @@ export const onRequest: PagesFunction<Env> = async (ctx) => {
   const email = url.searchParams.get("email");
 
   if (!email) {
-    return new Response(null, { status: 400 });
+    return new Response("Something went wrong.", { status: 400 });
   }
 
   const client = contentful.createClient({
@@ -68,10 +68,5 @@ export const onRequest: PagesFunction<Env> = async (ctx) => {
     await entry.publish();
   }
 
-  return new Response(JSON.stringify(entry), {
-    status: 200,
-    headers: {
-      "content-type": "application/json"
-    }
-  });
+  return new Response("Thanks for signing up!", { status: 200 });
 };

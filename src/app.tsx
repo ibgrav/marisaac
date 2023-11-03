@@ -8,9 +8,18 @@ export function App() {
 
   const onSignUp = async () => {
     if (email) {
-      const res = await fetch(`/sign-up?email=${email}`);
-      const data = await res.json();
-      console.log(data);
+      let status = "Something went wrong.";
+
+      try {
+        const res = await fetch(`/sign-up?email=${email}`);
+        if (res.status === 200) {
+          status = await res.text();
+        }
+      } catch (e) {
+        console.error(e);
+      }
+
+      setEmail(status);
     }
   };
 
