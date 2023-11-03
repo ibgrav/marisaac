@@ -80,7 +80,7 @@ export const onRequest: PagesFunction<Env, string> = async (ctx) => {
 
   const space = await client.getSpace(ctx.env.VITE_SPACE_ID);
   const env = await space.getEnvironment("master");
-  const entry = await env.getEntry(ctx.env.FOLLOWING_ID);
+  let entry = await env.getEntry(ctx.env.FOLLOWING_ID);
 
   let emails = ((entry.fields.emails?.["en-US"] as string) || "").split(",");
   emails = emails.filter((e) => e);
@@ -90,7 +90,7 @@ export const onRequest: PagesFunction<Env, string> = async (ctx) => {
 
     entry.fields.emails = { "en-US": emails.join(", ") };
 
-    await entry.update();
+    entry = await entry.update();
     await entry.publish();
   }
 
