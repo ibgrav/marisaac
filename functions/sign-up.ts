@@ -1,14 +1,21 @@
 import * as contentful from "contentful-management";
 
-interface Env {
+type Env = {
   CONTENTFUL_ACCESS_TOKEN: string;
   FOLLOWING_ID: string;
   VITE_SPACE_ID: string;
   VITE_PREVIEW_TOKEN: string;
   VITE_DELIVERY_TOKEN: string;
-}
+};
 
 export const onRequest: PagesFunction<Env> = async (ctx) => {
+  const url = new URL(ctx.request.url);
+  const email = url.searchParams.get("email");
+
+  if (!email) {
+    return new Response(null, { status: 400 });
+  }
+
   const client = contentful.createClient({
     accessToken: ctx.env.CONTENTFUL_ACCESS_TOKEN,
     adapter: async (config) => {
@@ -51,7 +58,12 @@ export const onRequest: PagesFunction<Env> = async (ctx) => {
 
   const emails = entry.fields.emails["en-US"] as string[];
 
-  return new Response(JSON.stringify(emails), {
+  if (!emails.includes(email)) {
+    entry.fields.emails["en-US"].push(email);
+    await entry.update();
+  }
+
+  return new Response(JSON.stringify(entry), {
     status: 200,
     headers: {
       "content-type": "application/json"
