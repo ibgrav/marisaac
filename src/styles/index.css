@@ -149,7 +149,8 @@ main {
 
 .follow {
   height: 40px;
-  margin-bottom: 1em;
+  max-width: 450px;
+  margin: 0 auto 1em auto;
   display: flex;
   flex-flow: row;
   gap: 1em;
@@ -167,6 +168,18 @@ input,
   border: 2px solid rgb(var(--c-vanilla));
 }
 
+input {
+  flex: 3;
+}
+
+.follow button {
+  flex: 1;
+}
+
 input::placeholder {
-  color: rgb(var(--c-vanilla));
+  color: rgb(var(--c-vanilla), 0.6);
+}
+
+.grecaptcha-badge {
+  display: none !important;
 }

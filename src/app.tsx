@@ -1,8 +1,51 @@
+import type { JSX } from "preact/jsx-runtime";
 import { Link, Route, Switch } from "wouter";
 import { PageHome } from "./pages/home";
 import { PageLocation } from "./pages/location";
+import { useState } from "preact/hooks";
+
+declare global {
+  interface Window {
+    grecaptcha: {
+      ready(callback: () => void): void;
+      execute(siteKey: string, options: { action: string }): Promise<string>;
+    };
+  }
+}
 
 export function App() {
+  const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState("");
+
+  const onSignUp = async (e: JSX.TargetedMouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    if (email) {
+      setLoading(true);
+
+      window.grecaptcha.ready(async () => {
+        let status = "Something went wrong.";
+
+        try {
+          const token = await window.grecaptcha.execute(import.meta.env.VITE_RECAPTCHA_SITE_KEY, { action: "submit" });
+
+          const res = await fetch("/sign-up", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, token })
+          });
+
+          status = await res.text();
+        } catch (e) {
+          console.error(e);
+        }
+
+        setLoading(false);
+        setEmail(status);
+      });
+    }
+  };
+
   return (
     <main>
       <Link href="/">
@@ -11,10 +54,14 @@ export function App() {
         </a>
       </Link>
 
-      {/* <div class="follow">
-        <input placeholder="Enter an Email" />
-        <button>Sign Up</button>
-      </div> */}
+      <div class="follow">
+        <input
+          placeholder="Enter your email to follow along..."
+          value={email}
+          onChange={(e) => setEmail(e.currentTarget.value)}
+        />
+        <button onClick={(e) => onSignUp(e)}>{loading ? "Loading..." : "Sign Up"}</button>
+      </div>
 
       <Switch>
         <Route path="/" component={PageHome} />
