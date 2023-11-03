@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@contentful/rich-text-html-renderer": "16.2.0",
+    "contentful-management": "11.4.0",
     "preact": "10.18.1",
     "wouter": "2.12.1"
   },
