@@ -34,7 +34,10 @@ export const onRequest: PagesFunction<Env, string> = async (ctx) => {
 
   const data = (await res.json()) as RecaptchaResponse;
 
-  if (!data.success) return new Response("Failed reCAPTCHA.", { status: 400 });
+  if (!data.success) {
+    console.error({ data, token });
+    return new Response("Failed reCAPTCHA.", { status: 400 });
+  }
 
   const client = contentful.createClient({
     accessToken: ctx.env.CONTENTFUL_ACCESS_TOKEN,
