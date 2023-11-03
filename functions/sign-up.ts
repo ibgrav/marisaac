@@ -25,11 +25,8 @@ export const onRequest: PagesFunction<Env, string> = async (ctx) => {
 
   const res = await fetch("https://www.google.com/recaptcha/api/siteverify", {
     method: "POST",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify({
-      secret: ctx.env.RECAPTCHA_SECRET_KEY,
-      response: token
-    })
+    body: "secret=" + ctx.env.RECAPTCHA_SECRET_KEY + "&response=" + token,
+    headers: { "Content-Type": "application/x-www-form-urlencoded" }
   });
 
   const data = (await res.json()) as RecaptchaResponse;

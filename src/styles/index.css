@@ -170,3 +170,7 @@ input,
 input::placeholder {
   color: rgb(var(--c-vanilla));
 }
+
+.grecaptcha-badge {
+  display: none !important;
+}
