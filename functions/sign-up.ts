@@ -56,7 +56,8 @@ export const onRequest: PagesFunction<Env> = async (ctx) => {
   const env = await space.getEnvironment("master");
   const entry = await env.getEntry(ctx.env.FOLLOWING_ID);
 
-  const emails = ((entry.fields.emails?.["en-US"] as string) || "").split(",");
+  let emails = ((entry.fields.emails?.["en-US"] as string) || "").split(",");
+  emails = emails.filter((e) => e);
 
   if (!emails.includes(email)) {
     emails.push(email);

@@ -11,6 +11,11 @@ export function App() {
         </a>
       </Link>
 
+      {/* <div class="follow">
+        <input placeholder="Enter an Email" />
+        <button>Sign Up</button>
+      </div> */}
+
       <Switch>
         <Route path="/" component={PageHome} />
         <Route component={PageLocation} />
