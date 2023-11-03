@@ -53,7 +53,11 @@ export function App() {
       </Link>
 
       <div class="follow">
-        <input placeholder="Enter an Email" value={email} onChange={(e) => setEmail(e.currentTarget.value)} />
+        <input
+          placeholder="Enter your email to follow along..."
+          value={email}
+          onChange={(e) => setEmail(e.currentTarget.value)}
+        />
         <button onClick={(e) => onSignUp(e)}>Sign Up</button>
       </div>
 
