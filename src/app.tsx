@@ -1,8 +1,19 @@
 import { Link, Route, Switch } from "wouter";
 import { PageHome } from "./pages/home";
 import { PageLocation } from "./pages/location";
+import { useState } from "preact/hooks";
 
 export function App() {
+  const [email, setEmail] = useState("");
+
+  const onSignUp = async () => {
+    if (email) {
+      const res = await fetch(`/sign-up?email=${email}`);
+      const data = await res.json();
+      console.log(data);
+    }
+  };
+
   return (
     <main>
       <Link href="/">
@@ -12,8 +23,8 @@ export function App() {
       </Link>
 
       <div class="follow">
-        <input placeholder="Enter an Email" />
-        <button>Sign Up</button>
+        <input placeholder="Enter an Email" value={email} onChange={(e) => setEmail(e.currentTarget.value)} />
+        <button onClick={onSignUp}>Sign Up</button>
       </div>
 
       <Switch>

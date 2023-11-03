@@ -62,9 +62,10 @@ export const onRequest: PagesFunction<Env> = async (ctx) => {
   if (!emails.includes(email)) {
     emails.push(email);
 
-    entry.fields.emails = { "en-US": emails.join(",") };
+    entry.fields.emails = { "en-US": emails.join(", ") };
 
     await entry.update();
+    await entry.publish();
   }
 
   return new Response(JSON.stringify(entry), {
