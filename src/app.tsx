@@ -14,12 +14,15 @@ declare global {
 }
 
 export function App() {
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
 
   const onSignUp = async (e: JSX.TargetedMouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     if (email) {
+      setLoading(true);
+
       window.grecaptcha.ready(async () => {
         let status = "Something went wrong.";
 
@@ -39,6 +42,7 @@ export function App() {
           console.error(e);
         }
 
+        setLoading(false);
         setEmail(status);
       });
     }
@@ -58,7 +62,7 @@ export function App() {
           value={email}
           onChange={(e) => setEmail(e.currentTarget.value)}
         />
-        <button onClick={(e) => onSignUp(e)}>Sign Up</button>
+        <button onClick={(e) => onSignUp(e)}>{loading ? "Loading..." : "Sign Up"}</button>
       </div>
 
       <Switch>

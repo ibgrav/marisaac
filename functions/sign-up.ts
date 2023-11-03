@@ -21,7 +21,13 @@ type RecaptchaResponse = {
 export const onRequest: PagesFunction<Env, string> = async (ctx) => {
   const { email, token } = (await ctx.request.json()) as Body;
 
-  if (!email || !token) return new Response("Missing required arguments.", { status: 400 });
+  if (!email || !token) {
+    return new Response("Missing required arguments.", { status: 400 });
+  }
+
+  if (/^\S+@\S+\.\S+$/.test(email) === false) {
+    return new Response("Invalid email address.", { status: 400 });
+  }
 
   const res = await fetch("https://www.google.com/recaptcha/api/siteverify", {
     method: "POST",

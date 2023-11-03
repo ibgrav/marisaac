@@ -177,7 +177,7 @@ input {
 }
 
 input::placeholder {
-  color: rgb(var(--c-vanilla));
+  color: rgb(var(--c-vanilla), 0.6);
 }
 
 .grecaptcha-badge {
