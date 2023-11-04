@@ -162,14 +162,14 @@ input {
   line-height: 1;
   font: inherit;
   background: none;
-  padding: 0.3em 0.8em;
+  padding: 0.3em 0.5em;
   border-radius: 0.25em;
   color: rgb(var(--c-vanilla));
   border: 2px solid rgb(var(--c-vanilla));
 }
 
 input {
-  flex: 3;
+  flex: 4;
 }
 
 .follow button {
