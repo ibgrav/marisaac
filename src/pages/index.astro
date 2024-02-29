@@ -1,0 +1,58 @@
+---
+import "../styles/home.css";
+
+import type { Album } from "@/types";
+import { image } from "@/contentful/image";
+import { formatAlbumDate } from "@/contentful/format-date";
+import Layout from "@/layout.astro";
+import { createContentfulClient } from "@/contentful/create-client";
+
+const client = createContentfulClient();
+
+const albums = await client.getEntries<Album>({
+  content_type: "album",
+});
+---
+
+<Layout>
+  <div class="home container">
+    {
+      albums.items.map((album) => {
+        const images = album.fields.images ?? [];
+
+        if (images.length < 8) return null;
+
+        return (
+          <a href={`/${album.fields.slug}`}>
+            <div class="album">
+              <div class="bg" />
+
+              {images.slice(0, 8).map((asset) => {
+                const data = image(asset, { ratio: "1:1", width: 200 });
+                if (!data) return null;
+
+                return (
+                  <img
+                    loading="lazy"
+                    src={data.src}
+                    aria-hidden="true"
+                    width={data.width + "px"}
+                    height={data.height + "px"}
+                    style={{ backgroundImage: `url(${data.placeholder})` }}
+                  />
+                );
+              })}
+            </div>
+
+            <div class="title">
+              <h2>{album.fields.title}</h2>
+              <time datetime={album.fields.startDate}>
+                {formatAlbumDate(album)}
+              </time>
+            </div>
+          </a>
+        );
+      })
+    }
+  </div>
+</Layout>
