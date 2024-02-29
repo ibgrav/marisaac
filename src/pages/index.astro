@@ -35,7 +35,7 @@ const albums = await client.getEntries<Album>({
 
                 return (
                   <img
-                    loading={i < 2 ? "eager" : "lazy"}
+                    loading={i < 5 ? "eager" : "lazy"}
                     src={data.src}
                     aria-hidden="true"
                     width={data.width + "px"}
