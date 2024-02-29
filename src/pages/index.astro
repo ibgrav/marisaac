@@ -10,6 +10,8 @@ import { createContentfulClient } from "@/contentful/create-client";
 const client = createContentfulClient();
 
 const albums = await client.getEntries<Album>({
+  include: 10,
+  limit: 1000,
   content_type: "album",
 });
 ---
