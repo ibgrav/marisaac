@@ -1,4 +1,4 @@
-import { ImageAsset } from "./use-albums";
+import type { Asset } from "contentful";
 
 type Image = {
   src: string;
@@ -16,16 +16,28 @@ interface ImageArgs {
   focus?: "top" | "bottom" | "left" | "right" | "faces" | "center";
 }
 
-export function image(asset?: ImageAsset, args: ImageArgs = {}): Image | undefined {
-  if (typeof asset?.url !== "string") return undefined;
+export function image(
+  asset?: Asset<"WITHOUT_UNRESOLVABLE_LINKS">,
+  args: ImageArgs = {}
+): Image | undefined {
+  if (typeof asset?.fields?.file?.url !== "string") return undefined;
 
-  const { ratio, quality = 80, format = "webp", fit = "fill", focus = "faces" } = args;
+  let assetUrl = asset.fields.file.url;
+  if (assetUrl.startsWith("//")) assetUrl = "https:" + assetUrl;
+
+  const {
+    ratio,
+    quality = 80,
+    format = "webp",
+    fit = "fill",
+    focus = "faces",
+  } = args;
 
   const md: Image = {
-    src: asset.url,
-    placeholder: asset.url,
+    src: assetUrl,
+    placeholder: assetUrl,
     width: args.width || 800,
-    height: args.width || 800
+    height: args.width || 800,
   };
 
   const url = new URL(md.src);
@@ -46,7 +58,10 @@ export function image(asset?: ImageAsset, args: ImageArgs = {}): Image | undefin
   } else if (ratio === "4:1") {
     md.height = Math.floor(md.width * 0.25);
   } else {
-    const assetRatio = (asset.height || 1) / (asset.width || 1);
+    const assetRatio =
+      (asset.fields.file?.details?.image?.height || 1) /
+      (asset.fields.file?.details?.image?.width || 1);
+
     md.height = Math.floor(md.height * assetRatio);
   }
 

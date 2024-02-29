@@ -1,0 +1,81 @@
+---
+import "@/styles/location.css";
+
+import type { Album } from "@/types";
+import { createContentfulClient } from "@/contentful/create-client";
+import { image } from "@/contentful/image";
+import { formatAlbumDate } from "@/contentful/format-date";
+import Layout from "@/layout.astro";
+
+export async function getStaticPaths() {
+  const client = createContentfulClient();
+
+  const albums = await client.getEntries<Album>({
+    include: 0,
+    limit: 1000,
+    content_type: "album",
+    select: ["fields.slug"],
+  });
+
+  return albums.items.map((item) => ({ params: { slug: item.fields.slug } }));
+}
+
+const { slug } = Astro.params as { slug: string };
+
+const client = createContentfulClient();
+
+const entries = await client.getEntries<Album>({
+  limit: 1,
+  include: 10,
+  content_type: "album",
+  "fields.slug": slug,
+});
+
+const album = entries.items[0];
+if (!album) throw new Error("missing album");
+
+const displayDate = formatAlbumDate(album);
+---
+
+<Layout>
+  <div class="location" id="container">
+    <h2>
+      <span>{album.fields.title}</span>
+      <time datetime={album.fields.startDate}>{displayDate}</time>
+    </h2>
+
+    <section>
+      {
+        album.fields.images?.map((asset, i) => {
+          if (!asset) throw new Error(`empty asset`);
+
+          const data = image(asset, { width: 1000 });
+          if (!data) return null;
+
+          const imageElement = (
+            <img
+              loading={i === 0 ? "eager" : "lazy"}
+              src={data.src}
+              width={data.width + "px"}
+              height={data.height + "px"}
+              class={asset.fields.description ? "caption" : ""}
+              alt={asset.fields.description || album.fields.title}
+              style={{ backgroundImage: `url(${data.placeholder})` }}
+            />
+          );
+
+          if (asset.fields.description) {
+            return (
+              <figure>
+                {imageElement}
+                <figcaption>{asset.fields.description}</figcaption>
+              </figure>
+            );
+          }
+
+          return imageElement;
+        })
+      }
+    </section>
+  </div>
+</Layout>
