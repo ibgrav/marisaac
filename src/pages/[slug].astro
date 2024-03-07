@@ -47,17 +47,21 @@ const displayDate = formatAlbumDate(album);
         album.fields.images?.map((asset, i) => {
           if (!asset) throw new Error(`empty asset`);
 
-          const data = image(asset, { width: 1000 });
-          if (!data) return null;
+          const mobile = image(asset, { width: 600 });
+          const desktop = image(asset, { width: 1200 });
+
+          if (!desktop || !mobile) return null;
 
           const imageElement = (
             <img
-              src={data.src}
-              width={data.width + "px"}
-              height={data.height + "px"}
+              src={desktop.src}
+              srcset={`${mobile.src} 600w, ${desktop.src}`}
+              sizes="(max-width: 600px) 600px"
+              style={{ backgroundImage: `url(${mobile.placeholder})` }}
+              width={mobile.width + "px"}
+              height={mobile.height + "px"}
               loading={i === 0 ? "eager" : "lazy"}
               alt={asset.fields.description || album.fields.title}
-              style={{ backgroundImage: `url(${data.placeholder})` }}
               class={asset.fields.description ? "rounded-b-none" : ""}
             />
           );
