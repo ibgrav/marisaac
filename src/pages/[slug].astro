@@ -62,6 +62,7 @@ const displayDate = formatAlbumDate(album);
               loading={i === 0 ? "eager" : "lazy"}
               alt={asset.fields.description || album.fields.title}
               class={asset.fields.description ? "rounded-b-none" : ""}
+              style={{ backgroundImage: `url(${mobile.placeholder})` }}
             />
           );
 
