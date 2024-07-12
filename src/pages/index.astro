@@ -12,6 +12,10 @@ const albums = await client.getEntries<Album>({
   limit: 1000,
   content_type: "album",
 });
+
+albums.items.sort((a, b) =>
+  b.fields.startDate.localeCompare(a.fields.startDate)
+);
 ---
 
 <Layout>
