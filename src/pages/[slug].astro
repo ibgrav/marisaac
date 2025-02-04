@@ -3,7 +3,7 @@ import type { Album } from "@/types";
 import { createContentfulClient } from "@/contentful/create-client";
 import { image } from "@/contentful/image";
 import { formatAlbumDate } from "@/contentful/format-date";
-import Layout from "@/layout.astro";
+import Layout from "@/layouts/travel.astro";
 
 export async function getStaticPaths() {
   const client = createContentfulClient();

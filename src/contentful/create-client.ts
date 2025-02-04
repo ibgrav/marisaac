@@ -1,7 +1,7 @@
-import { default as contentful } from "contentful";
+import { createClient } from "contentful";
 
 export function createContentfulClient() {
-  return contentful.createClient({
+  return createClient({
     space: import.meta.env.SPACE_ID,
     host: `${import.meta.env.DEV ? "preview" : "cdn"}.contentful.com`,
     accessToken: import.meta.env.DEV

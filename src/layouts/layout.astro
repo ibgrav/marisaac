@@ -1,0 +1,29 @@
+---
+import type { JSX } from "astro/jsx-runtime";
+
+type Props = {
+  title: string;
+  description: string;
+  bodyClassName?: string;
+  headLinks?: Record<string, string>[];
+};
+
+const { headLinks, title, bodyClassName, description } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+
+    <title>{title}</title>
+
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+
+    {headLinks?.map((props) => <link {...props} />)}
+  </head>
+  <body class={bodyClassName}>
+    <slot />
+  </body>
+</html>
