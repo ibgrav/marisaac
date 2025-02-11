@@ -32,7 +32,7 @@ albums.items.sort((a, b) =>
             class="flex flex-col justify-between"
           >
             <div class="gap-1 relative grid overflow-hidden rounded-lg grid-cols-4">
-              <div class="absolute w-full h-full top-0 left-0 bg-home-gradient" />
+              <div class="absolute w-full h-full top-0 left-0 bg-linear-180 from-transparent to-drab to-90%" />
 
               {images.slice(0, 8).map((asset) => {
                 const data = image(asset, { ratio: "1:1", width: 200 });
