@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+@theme {
+  --font-lora: "Lora", serif;
+}
+
+body {
+  text-shadow: 0px 0px 1px #61003e;
+}
