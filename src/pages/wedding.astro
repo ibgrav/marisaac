@@ -1,0 +1,62 @@
+---
+import "@/styles/wedding.css";
+import { Image } from "astro:assets";
+import hold from "src/assets/wedding/hold.png";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Marissa & Isaac Wedding" />
+
+    <title>Marissa & Isaac Wedding</title>
+
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400..700;1,400..700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="font-lora">
+    <Image
+      src={hold}
+      alt="Marissa and Isaac at ocean"
+      class="w-full h-screen object-cover fixed inset-0 -z-1 opacity-100 transition-opacity duration-[2s]"
+    />
+
+    <div
+      class="w-full pb-[60vh] px-2 bg-gradient-to-b from-transparent from-60% to-white"
+    >
+      <h1 class="text-6xl text-center pt-[10vh] text-white drop-shadow-xl">
+        Marissa <br />&<br /> Isaac
+      </h1>
+
+      <div class="pt-[40vh] flex flex-col gap-16 text-white text-center">
+        <time class="text-4xl drop-shadow-xl"> September 5th, 2025 </time>
+
+        <div>
+          <h2 class="text-2xl drop-shadow-xl">
+            The Wayfarer on Whidbey Island
+          </h2>
+          <a
+            class="text-lg underline underline-offset-4 drop-shadow-xl"
+            href="https://maps.app.goo.gl/YwcNLH65aYBXEQ4J9"
+            target="_blank"
+          >
+            5491 Bayview Rd, Langley, WA 98260
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="pt-[10vh] bg-gradient-to-b bg-white p-4 pb-16">
+      <!-- <details>
+        <summary>FAQ Question One</summary>
+        <div>FAQ Question one answer</div>
+      </details> -->
+    </div>
+  </body>
+</html>
