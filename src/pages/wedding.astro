@@ -1,10 +1,21 @@
 ---
 import "@/styles/wedding.css";
-import { Image } from "astro:assets";
-import hold from "src/assets/wedding/hold.png";
+import { getImage } from "astro:assets";
+import imageOneSource from "src/assets/wedding/1.jpg";
+import imageTwoSource from "src/assets/wedding/2.jpg";
+
+const imageOne = await getImage({
+  src: imageOneSource,
+  width: 1200,
+});
+
+const imageTwo = await getImage({
+  src: imageTwoSource,
+  width: 1200,
+});
 ---
 
-<html lang="en">
+<html lang="en" class="w-full">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -20,43 +31,73 @@ import hold from "src/assets/wedding/hold.png";
       rel="stylesheet"
     />
   </head>
-  <body class="font-lora">
-    <Image
-      src={hold}
-      alt="Marissa and Isaac at ocean"
-      class="w-full h-screen object-cover fixed inset-0 -z-1 opacity-100 transition-opacity duration-[2s]"
-    />
+  <body class="font-lora overflow-hidden w-full animate-fade-in">
+    <div class="fixed inset-0 w-full overflow-y-scroll">
+      <div
+        class="w-full px-2 bg-fixed bg-center bg-no-repeat bg-cover"
+        style={{ backgroundImage: `URL(${imageOne.src})` }}
+      >
+        <h1
+          class="pt-[10vh] p-2 text-6xl text-center drop-shadow-xl text-amber-50"
+        >
+          Marissa<br />&<br />Isaac
+        </h1>
 
-    <div
-      class="w-full pb-[60vh] px-2 bg-gradient-to-b from-transparent from-60% to-white"
-    >
-      <h1 class="text-6xl text-center pt-[10vh] text-white drop-shadow-xl">
-        Marissa <br />&<br /> Isaac
-      </h1>
-
-      <div class="pt-[40vh] flex flex-col gap-16 text-white text-center">
-        <time class="text-4xl drop-shadow-xl"> September 5th, 2025 </time>
-
-        <div>
-          <h2 class="text-2xl drop-shadow-xl">
-            The Wayfarer on Whidbey Island
-          </h2>
-          <a
-            class="text-lg underline underline-offset-4 drop-shadow-xl"
-            href="https://maps.app.goo.gl/YwcNLH65aYBXEQ4J9"
-            target="_blank"
+        <div class="pt-[40vh] pb-[20vh]">
+          <div
+            class="px-2 py-6 bg-amber-50 shadow-lg rounded-lg flex flex-col gap-8 text-center opacity-80"
           >
-            5491 Bayview Rd, Langley, WA 98260
-          </a>
+            <time class="text-4xl" datetime="2025-09-25">
+              September 5th, 2025
+            </time>
+
+            <div>
+              <h2 class="text-2xl">The Wayfarer on Whidbey Island</h2>
+
+              <a
+                class="text-lg underline underline-offset-4"
+                href="https://maps.app.goo.gl/YwcNLH65aYBXEQ4J9"
+                target="_blank"
+              >
+                5491 Bayview Rd, Langley, WA 98260
+              </a>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="pt-[10vh] bg-gradient-to-b bg-white p-4 pb-16">
-      <!-- <details>
-        <summary>FAQ Question One</summary>
-        <div>FAQ Question one answer</div>
-      </details> -->
+      <div
+        class="w-full px-2 bg-fixed bg-center bg-no-repeat bg-cover"
+        style={{ backgroundImage: `URL(${imageTwo.src})` }}
+      >
+        <h1
+          class="pt-[10vh] p-2 text-6xl text-center drop-shadow-xl text-amber-50"
+        >
+          Marissa<br />&<br />Isaac
+        </h1>
+
+        <div class="pt-[40vh] pb-[20vh]">
+          <div
+            class="px-2 py-6 bg-amber-50 shadow-lg rounded-lg flex flex-col gap-8 text-center opacity-80"
+          >
+            <time class="text-4xl" datetime="2025-09-25">
+              September 5th, 2025
+            </time>
+
+            <div>
+              <h2 class="text-2xl">The Wayfarer on Whidbey Island</h2>
+
+              <a
+                class="text-lg underline underline-offset-4"
+                href="https://maps.app.goo.gl/YwcNLH65aYBXEQ4J9"
+                target="_blank"
+              >
+                5491 Bayview Rd, Langley, WA 98260
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </body>
 </html>
