@@ -14,3 +14,15 @@
     }
   }
 }
+
+@layer base {
+  section {
+    @apply w-full px-2 max-w-[800px] mx-auto py-[10dvh];
+  }
+}
+
+@layer components {
+  .card {
+    @apply px-2 py-6 bg-amber-50 border border-cyan-800 shadow-lg rounded-lg opacity-80;
+  }
+}

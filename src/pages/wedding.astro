@@ -1,19 +1,8 @@
 ---
 import "@/styles/wedding.css";
 import { Image } from "astro:assets";
-import { getImage } from "astro:assets";
-import imageOneSource from "src/assets/wedding/1.jpg";
-import imageTwoSource from "src/assets/wedding/2.jpg";
-
-const imageOne = await getImage({
-  src: imageOneSource,
-  width: 1200,
-});
-
-const imageTwo = await getImage({
-  src: imageTwoSource,
-  width: 1200,
-});
+import imageOne from "src/assets/wedding/1.jpg";
+import imageTwo from "src/assets/wedding/2.jpg";
 
 const images = [imageOne, imageTwo];
 ---
@@ -35,15 +24,20 @@ const images = [imageOne, imageTwo];
     />
   </head>
   <body class="font-lora w-full">
-    <div class="w-full px-2 py-[50dvh] relative">
-      <Image
-        src={imageOneSource}
-        widths={[1200]}
-        loading="eager"
-        alt="Isaac & Marissa"
-        class="opacity-100 fixed w-[100dvw] h-[100dvh] inset-0 object-cover"
-      />
+    {
+      images.map((image, i) => (
+        <Image
+          src={image}
+          widths={[1200]}
+          loading={i === 0 ? "eager" : "lazy"}
+          alt="Isaac & Marissa"
+          class="fixed w-[100dvw] h-[100dvh] inset-0 object-cover transition-[opacity] duration-1000"
+          style={{ opacity: i === 0 ? 100 : 0 }}
+        />
+      ))
+    }
 
+    <section class="flex min-h-[100dvh] flex-col justify-between">
       <h1
         class="p-2 text-6xl text-center drop-shadow-xl text-amber-50"
         style={{ textShadow: "0px 0px 1px #61003e" }}
@@ -51,59 +45,62 @@ const images = [imageOne, imageTwo];
         Marissa<br />&<br />Isaac
       </h1>
 
-      <div class="pt-[40dvh]">
-        <div
-          class="px-2 py-6 bg-amber-50 border border-cyan-800 shadow-lg rounded-lg flex flex-col gap-8 text-center opacity-80"
-        >
-          <time class="text-4xl" datetime="2025-09-25">
-            September 5th, 2025
-          </time>
+      <div class="card flex flex-col gap-8 text-center">
+        <time class="text-4xl" datetime="2025-09-25">
+          September 5th, 2025
+        </time>
 
-          <div>
-            <h2 class="text-2xl">The Wayfarer on Whidbey Island</h2>
+        <div class="flex flex-col gap-2">
+          <h2 class="text-2xl">The Wayfarer<br />Whidbey Island</h2>
 
-            <a
-              class="text-lg underline underline-offset-4"
-              href="https://maps.app.goo.gl/YwcNLH65aYBXEQ4J9"
-              target="_blank"
-            >
-              5491 Bayview Rd, Langley, WA 98260
-            </a>
-          </div>
+          <a
+            class="text-lg underline underline-offset-4"
+            href="https://maps.app.goo.gl/YwcNLH65aYBXEQ4J9"
+            target="_blank"
+          >
+            5491 Bayview Rd, Langley, WA 98260
+          </a>
         </div>
       </div>
-    </div>
+    </section>
 
-    <div class="w-full px-2 py-[50dvh] relative">
-      <Image
-        src={imageTwoSource}
-        widths={[1200]}
-        loading="eager"
-        alt="Isaac & Marissa"
-        class="opacity-0 fixed w-[100dvw] h-[100dvh] inset-0 object-cover"
-      />
-
-      <div
-        class="bg-amber-50 shadow-lg rounded-lg border border-gray-400 opacity-80 py-16 px-2"
-      >
+    <section>
+      <div class="card">
         <h2 class="text-4xl text-center">Points of Interest</h2>
 
         <h3>Points of Interest</h3>
+        <h3>Points of Interest</h3><h3>Points of Interest</h3><h3>
+          Points of Interest
+        </h3><h3>Points of Interest</h3><h3>Points of Interest</h3><h3>
+          Points of Interest
+        </h3><h3>Points of Interest</h3><h3>Points of Interest</h3><h3>
+          Points of Interest
+        </h3><h3>Points of Interest</h3><h3>Points of Interest</h3><h3>
+          Points of Interest
+        </h3><h3>Points of Interest</h3><h3>Points of Interest</h3><h3>
+          Points of Interest
+        </h3><h3>Points of Interest</h3><h3>Points of Interest</h3><h3>
+          Points of Interest
+        </h3><h3>Points of Interest</h3><h3>Points of Interest</h3><h3>
+          Points of Interest
+        </h3><h3>Points of Interest</h3>
       </div>
-    </div>
+    </section>
 
     <script>
       const images = document.querySelectorAll("img");
 
-      window.addEventListener("scroll", (e) => {
-        const h = window.innerHeight; // window height
-        const y = window.scrollY; // current scroll
-
-        images.forEach((img, i) => {
-          const diff = h - Math.abs(y - h * (i * 1.5));
-          const opacity = diff / h;
-          img.style.opacity = opacity.toString();
-        });
+      document.querySelectorAll("section").forEach((section, s) => {
+        new IntersectionObserver(
+          ([entry]) => {
+            if (entry.isIntersecting) {
+              images.forEach((image, i) => {
+                image.style.opacity = i === s ? "100" : "0";
+              });
+            }
+          },
+          { threshold: 0.25 }
+        ).observe(section);
       });
     </script>
   </body>
