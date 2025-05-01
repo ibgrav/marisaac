@@ -26,7 +26,7 @@ const images = [imageOne, imageTwo, imageThree, imageFour, imageFive];
       rel="stylesheet"
     />
   </head>
-  <body class="font-lora w-full">
+  <body class="font-lora w-full flex flex-col gap-[40dvh] py-[10dvh]">
     {
       images.map((image, i) => (
         <Image
@@ -40,7 +40,7 @@ const images = [imageOne, imageTwo, imageThree, imageFour, imageFive];
       ))
     }
 
-    <section class="flex min-h-[100dvh] flex-col justify-between">
+    <section class="flex flex-col justify-between min-h-[calc(90dvh-0.5em)]">
       <h1
         class="p-2 text-6xl text-center drop-shadow-xl text-amber-50"
         style={{ textShadow: "0px 0px 1px #61003e" }}

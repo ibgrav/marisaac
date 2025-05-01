@@ -17,7 +17,7 @@
 
 @layer base {
   section {
-    @apply w-full px-2 max-w-[800px] mx-auto py-[10dvh];
+    @apply w-full px-2 max-w-[800px] mx-auto;
   }
 }
 
