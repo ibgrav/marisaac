@@ -1,5 +1,6 @@
 ---
 import "@/styles/wedding.css";
+import { Image } from "astro:assets";
 import { getImage } from "astro:assets";
 import imageOneSource from "src/assets/wedding/1.jpg";
 import imageTwoSource from "src/assets/wedding/2.jpg";
@@ -13,9 +14,11 @@ const imageTwo = await getImage({
   src: imageTwoSource,
   width: 1200,
 });
+
+const images = [imageOne, imageTwo];
 ---
 
-<html lang="en" class="w-full">
+<html lang="en" class="w-full bg-cyan-800 text-cyan-900">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -31,73 +34,77 @@ const imageTwo = await getImage({
       rel="stylesheet"
     />
   </head>
-  <body class="font-lora overflow-hidden w-full animate-fade-in">
-    <div class="fixed inset-0 w-full overflow-y-scroll">
-      <div
-        class="w-full px-2 bg-fixed bg-center bg-no-repeat bg-cover"
-        style={{ backgroundImage: `URL(${imageOne.src})` }}
+  <body class="font-lora w-full">
+    <div class="w-full px-2 py-[50dvh] relative">
+      <Image
+        src={imageOneSource}
+        widths={[1200]}
+        loading="eager"
+        alt="Isaac & Marissa"
+        class="opacity-100 fixed w-[100dvw] h-[100dvh] inset-0 object-cover"
+      />
+
+      <h1
+        class="p-2 text-6xl text-center drop-shadow-xl text-amber-50"
+        style={{ textShadow: "0px 0px 1px #61003e" }}
       >
-        <h1
-          class="pt-[10vh] p-2 text-6xl text-center drop-shadow-xl text-amber-50"
+        Marissa<br />&<br />Isaac
+      </h1>
+
+      <div class="pt-[40dvh]">
+        <div
+          class="px-2 py-6 bg-amber-50 border border-cyan-800 shadow-lg rounded-lg flex flex-col gap-8 text-center opacity-80"
         >
-          Marissa<br />&<br />Isaac
-        </h1>
+          <time class="text-4xl" datetime="2025-09-25">
+            September 5th, 2025
+          </time>
 
-        <div class="pt-[40vh] pb-[20vh]">
-          <div
-            class="px-2 py-6 bg-amber-50 shadow-lg rounded-lg flex flex-col gap-8 text-center opacity-80"
-          >
-            <time class="text-4xl" datetime="2025-09-25">
-              September 5th, 2025
-            </time>
+          <div>
+            <h2 class="text-2xl">The Wayfarer on Whidbey Island</h2>
 
-            <div>
-              <h2 class="text-2xl">The Wayfarer on Whidbey Island</h2>
-
-              <a
-                class="text-lg underline underline-offset-4"
-                href="https://maps.app.goo.gl/YwcNLH65aYBXEQ4J9"
-                target="_blank"
-              >
-                5491 Bayview Rd, Langley, WA 98260
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div
-        class="w-full px-2 bg-fixed bg-center bg-no-repeat bg-cover"
-        style={{ backgroundImage: `URL(${imageTwo.src})` }}
-      >
-        <h1
-          class="pt-[10vh] p-2 text-6xl text-center drop-shadow-xl text-amber-50"
-        >
-          Marissa<br />&<br />Isaac
-        </h1>
-
-        <div class="pt-[40vh] pb-[20vh]">
-          <div
-            class="px-2 py-6 bg-amber-50 shadow-lg rounded-lg flex flex-col gap-8 text-center opacity-80"
-          >
-            <time class="text-4xl" datetime="2025-09-25">
-              September 5th, 2025
-            </time>
-
-            <div>
-              <h2 class="text-2xl">The Wayfarer on Whidbey Island</h2>
-
-              <a
-                class="text-lg underline underline-offset-4"
-                href="https://maps.app.goo.gl/YwcNLH65aYBXEQ4J9"
-                target="_blank"
-              >
-                5491 Bayview Rd, Langley, WA 98260
-              </a>
-            </div>
+            <a
+              class="text-lg underline underline-offset-4"
+              href="https://maps.app.goo.gl/YwcNLH65aYBXEQ4J9"
+              target="_blank"
+            >
+              5491 Bayview Rd, Langley, WA 98260
+            </a>
           </div>
         </div>
       </div>
     </div>
+
+    <div class="w-full px-2 py-[50dvh] relative">
+      <Image
+        src={imageTwoSource}
+        widths={[1200]}
+        loading="eager"
+        alt="Isaac & Marissa"
+        class="opacity-0 fixed w-[100dvw] h-[100dvh] inset-0 object-cover"
+      />
+
+      <div
+        class="bg-amber-50 shadow-lg rounded-lg border border-gray-400 opacity-80 py-16 px-2"
+      >
+        <h2 class="text-4xl text-center">Points of Interest</h2>
+
+        <h3>Points of Interest</h3>
+      </div>
+    </div>
+
+    <script>
+      const images = document.querySelectorAll("img");
+
+      window.addEventListener("scroll", (e) => {
+        const h = window.innerHeight; // window height
+        const y = window.scrollY; // current scroll
+
+        images.forEach((img, i) => {
+          const diff = h - Math.abs(y - h * (i * 1.5));
+          const opacity = diff / h;
+          img.style.opacity = opacity.toString();
+        });
+      });
+    </script>
   </body>
 </html>
