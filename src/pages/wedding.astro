@@ -1,5 +1,6 @@
 ---
 import "@/styles/wedding.css";
+import WeddingSection from "@/templates/wedding-section.astro";
 import { Image } from "astro:assets";
 import imageOne from "src/assets/wedding/1.jpg";
 import imageTwo from "src/assets/wedding/2.jpg";
@@ -10,7 +11,7 @@ import imageFive from "src/assets/wedding/5.jpg";
 const images = [imageOne, imageTwo, imageThree, imageFour, imageFive];
 ---
 
-<html lang="en" class="w-full bg-cyan-800 text-cyan-900">
+<html lang="en" class="w-full bg-amber-950 text-amber-950">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -22,158 +23,113 @@ const images = [imageOne, imageTwo, imageThree, imageFour, imageFive];
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Kurale&family=Lora:ital,wght@0,400..700;1,400..700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Alice&family=Prata&display=swap"
       rel="stylesheet"
     />
   </head>
-  <body class="font-lora w-full flex flex-col gap-[40dvh] py-[10dvh]">
+  <body class="font-body">
     {
       images.map((image, i) => (
         <Image
           src={image}
-          widths={[1200]}
+          widths={[2400]}
           loading={i === 0 ? "eager" : "lazy"}
           alt="Isaac & Marissa"
-          class="fixed w-[100dvw] h-[100dvh] inset-0 object-cover transition-[opacity] duration-1000"
+          class="fixed -z-50 w-[100dvw] h-[100dvh] inset-0 object-cover transition-[opacity] duration-1000"
           style={{ opacity: i === 0 ? 100 : 0 }}
         />
       ))
     }
 
-    <section class="flex flex-col justify-between min-h-[calc(90dvh-0.5em)]">
-      <h1
-        class="p-2 text-6xl text-center drop-shadow-xl text-amber-50"
-        style={{ textShadow: "0px 0px 1px #61003e" }}
-      >
+    <section
+      class="p-8 text-center drop-shadow-xl text-amber-50 uppercase font-bold font-header mt-[2dvh] mb-[30dvh] flex flex-col gap-4"
+    >
+      <h1 class="text-6xl" style={{ textShadow: "0px 0px 1px #61003e" }}>
         Marissa<br />&<br />Isaac
       </h1>
 
-      <div class="card flex flex-col gap-8 text-center">
-        <time class="text-4xl" datetime="2025-09-25">
-          September 5th, 2025
-        </time>
+      <time
+        class="text-3xl"
+        datetime="2025-09-25"
+        style={{ textShadow: "0px 0px 1px #61003e" }}>September 5th, 2025</time
+      >
+    </section>
 
-        <div class="flex flex-col gap-2">
-          <h2 class="text-2xl">The Wayfarer<br />Whidbey Island</h2>
+    <div class="flex flex-col gap-32">
+      <WeddingSection title="Event Details">
+        <div class="flex flex-col gap-4 text-center">
+          <p class="text-lg">
+            Whidbey Island, WA
 
-          <a
-            class="text-lg underline underline-offset-4"
-            href="https://maps.app.goo.gl/YwcNLH65aYBXEQ4J9"
-            target="_blank"
-          >
-            5491 Bayview Rd, Langley, WA 98260
-          </a>
+            <a
+              class="block underline underline-offset-4"
+              href="https://maps.app.goo.gl/YwcNLH65aYBXEQ4J9"
+              target="_blank"
+            >
+              5491 Bayview Rd, Langley, WA 98260
+            </a>
+          </p>
+
+          <ul>
+            <li>Ceremony Time: 4:00 pm</li>
+            <li>Reception to follow</li>
+            <li>Dress Code: Garden Party, semi-formal</li>
+          </ul>
         </div>
-      </div>
-    </section>
+      </WeddingSection>
 
-    <section>
-      <div class="card">
-        <h2 class="text-4xl text-center">Points of Interest</h2>
+      <WeddingSection title="Wedding Party">
+        <div class="flex flex-col gap-4 text-center">
+          <div>
+            <h3 class="uppercase font-lg font-bold font-heading mb-1">
+              Bridesmaids
+            </h3>
+            <ul>
+              <li>Juliana Carlson (Mount) (MoH)</li>
+              <li>Diana Mount</li>
+              <li>Mary Shaffer</li>
+              <li>Morgan Olson</li>
+              <li>Sophia Urrutia</li>
+            </ul>
+          </div>
 
-        <h3>Points of Interest</h3>
-        <h3>Points of Interest</h3><h3>Points of Interest</h3><h3>
-          Points of Interest
-        </h3><h3>Points of Interest</h3><h3>Points of Interest</h3><h3>
-          Points of Interest
-        </h3><h3>Points of Interest</h3><h3>Points of Interest</h3><h3>
-          Points of Interest
-        </h3><h3>Points of Interest</h3><h3>Points of Interest</h3><h3>
-          Points of Interest
-        </h3><h3>Points of Interest</h3><h3>Points of Interest</h3><h3>
-          Points of Interest
-        </h3><h3>Points of Interest</h3><h3>Points of Interest</h3><h3>
-          Points of Interest
-        </h3><h3>Points of Interest</h3><h3>Points of Interest</h3><h3>
-          Points of Interest
-        </h3><h3>Points of Interest</h3>
-      </div>
-    </section>
+          <div>
+            <h3 class="uppercase font-lg font-bold font-heading mb-1">
+              Groomsmen
+            </h3>
+            <ul>
+              <li>Scot Bearss (BM)</li>
+              <li>Jonny Davis</li>
+              <li>Brian Graves</li>
+              <li>Ezra Jacobs</li>
+              <li>Dan White</li>
+            </ul>
+          </div>
+        </div>
+      </WeddingSection>
 
-    <section>
-      <div class="card">
-        <h2 class="text-4xl text-center">Points of Interest</h2>
+      <WeddingSection title="RSVP" />
 
-        <h3>Points of Interest</h3>
-        <h3>Points of Interest</h3><h3>Points of Interest</h3><h3>
-          Points of Interest
-        </h3><h3>Points of Interest</h3><h3>Points of Interest</h3><h3>
-          Points of Interest
-        </h3><h3>Points of Interest</h3><h3>Points of Interest</h3><h3>
-          Points of Interest
-        </h3><h3>Points of Interest</h3><h3>Points of Interest</h3><h3>
-          Points of Interest
-        </h3><h3>Points of Interest</h3><h3>Points of Interest</h3><h3>
-          Points of Interest
-        </h3><h3>Points of Interest</h3><h3>Points of Interest</h3><h3>
-          Points of Interest
-        </h3><h3>Points of Interest</h3><h3>Points of Interest</h3><h3>
-          Points of Interest
-        </h3><h3>Points of Interest</h3>
-      </div>
-    </section>
-
-    <section>
-      <div class="card">
-        <h2 class="text-4xl text-center">Points of Interest</h2>
-
-        <h3>Points of Interest</h3>
-        <h3>Points of Interest</h3><h3>Points of Interest</h3><h3>
-          Points of Interest
-        </h3><h3>Points of Interest</h3><h3>Points of Interest</h3><h3>
-          Points of Interest
-        </h3><h3>Points of Interest</h3><h3>Points of Interest</h3><h3>
-          Points of Interest
-        </h3><h3>Points of Interest</h3><h3>Points of Interest</h3><h3>
-          Points of Interest
-        </h3><h3>Points of Interest</h3><h3>Points of Interest</h3><h3>
-          Points of Interest
-        </h3><h3>Points of Interest</h3><h3>Points of Interest</h3><h3>
-          Points of Interest
-        </h3><h3>Points of Interest</h3><h3>Points of Interest</h3><h3>
-          Points of Interest
-        </h3><h3>Points of Interest</h3>
-      </div>
-    </section>
-
-    <section>
-      <div class="card">
-        <h2 class="text-4xl text-center">Points of Interest</h2>
-
-        <h3>Points of Interest</h3>
-        <h3>Points of Interest</h3><h3>Points of Interest</h3><h3>
-          Points of Interest
-        </h3><h3>Points of Interest</h3><h3>Points of Interest</h3><h3>
-          Points of Interest
-        </h3><h3>Points of Interest</h3><h3>Points of Interest</h3><h3>
-          Points of Interest
-        </h3><h3>Points of Interest</h3><h3>Points of Interest</h3><h3>
-          Points of Interest
-        </h3><h3>Points of Interest</h3><h3>Points of Interest</h3><h3>
-          Points of Interest
-        </h3><h3>Points of Interest</h3><h3>Points of Interest</h3><h3>
-          Points of Interest
-        </h3><h3>Points of Interest</h3><h3>Points of Interest</h3><h3>
-          Points of Interest
-        </h3><h3>Points of Interest</h3>
-      </div>
-    </section>
-
-    <script>
-      const images = document.querySelectorAll("img");
-
-      document.querySelectorAll("section").forEach((section, s) => {
-        new IntersectionObserver(
-          ([entry]) => {
-            if (entry.isIntersecting) {
-              images.forEach((image, i) => {
-                image.style.opacity = i === s ? "100" : "0";
-              });
-            }
-          },
-          { threshold: 0.25 }
-        ).observe(section);
-      });
-    </script>
+      <WeddingSection title="Accommodations & Points of Interest">
+        <div></div>
+      </WeddingSection>
+    </div>
   </body>
+
+  <script>
+    const images = document.querySelectorAll("img");
+
+    document.querySelectorAll("section").forEach((section, s) => {
+      new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            images.forEach((image, i) => {
+              image.style.opacity = i === s ? "100" : "0";
+            });
+          }
+        },
+        { threshold: 0.25 }
+      ).observe(section);
+    });
+  </script>
 </html>
