@@ -1,17 +1,28 @@
 ---
-interface Props {
+import type { JSX } from "astro/jsx-runtime";
+
+interface Props extends JSX.HTMLAttributes {
   title: string;
+  containerClassList?: string[];
 }
 
-const { title } = Astro.props;
+const {
+  title,
+  "class:list": classList,
+  containerClassList,
+  ...props
+} = Astro.props;
 ---
 
-<section class="z-10 relative px-4" id={title}>
+<section class:list={["z-10 relative px-4", classList]} id={title} {...props}>
   <div class="-z-10 left-0 top-0 absolute size-full opacity-50 bg-amber-50">
   </div>
 
   <div
-    class="z-20 bg-amber-50 shadow-lg my-4 mx-auto p-6 border border-amber-950 max-w-[600px]"
+    class:list={[
+      "z-20 bg-amber-50 shadow-lg my-4 mx-auto p-6 border border-amber-950 max-w-[600px]",
+      containerClassList,
+    ]}
   >
     <h2 class="text-4xl text-center font-heading font-bold mb-4">{title}</h2>
 

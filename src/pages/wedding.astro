@@ -7,8 +7,9 @@ import imageTwo from "src/assets/wedding/2.jpg";
 import imageThree from "src/assets/wedding/3.jpg";
 import imageFour from "src/assets/wedding/4.jpg";
 import imageFive from "src/assets/wedding/5.jpg";
+import imageSix from "src/assets/wedding/6.jpg";
 
-const images = [imageOne, imageTwo, imageThree, imageFour, imageFive];
+const images = [imageOne, imageTwo, imageThree, imageFour, imageFive, imageSix];
 ---
 
 <html lang="en" class="w-full bg-amber-950 text-amber-950">
@@ -53,7 +54,7 @@ const images = [imageOne, imageTwo, imageThree, imageFour, imageFive];
       </time>
     </div>
 
-    <div class="flex flex-col gap-64">
+    <div class="flex flex-col gap-96">
       <WeddingSection title="Event Details">
         <div class="flex flex-col gap-4 text-center">
           <p class="text-lg">
@@ -298,7 +299,7 @@ const images = [imageOne, imageTwo, imageThree, imageFour, imageFive];
         </p>
       </WeddingSection>
 
-      <WeddingSection title="RSVP">
+      <WeddingSection title="RSVP" containerClassList={["px-0"]}>
         <iframe
           class="size-full min-h-[100dvh]"
           src="https://docs.google.com/forms/d/e/1FAIpQLSeXMZRi329OL8x_My9dbj3OewJXpOn1tPMGz4XLdbZNl_pYgQ/viewform?embedded=true"
