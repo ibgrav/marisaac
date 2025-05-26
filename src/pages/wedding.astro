@@ -41,21 +41,19 @@ const images = [imageOne, imageTwo, imageThree, imageFour, imageFive];
       ))
     }
 
-    <section
-      class="p-8 text-center drop-shadow-xl text-amber-50 uppercase font-bold font-header mt-[2dvh] mb-[30dvh] flex flex-col gap-4"
+    <div
+      class="mt-[2dvh] mb-[10dvh] p-8 text-center drop-shadow-xl text-amber-50 uppercase font-bold font-header flex flex-col gap-4"
     >
-      <h1 class="text-6xl" style={{ textShadow: "0px 0px 1px #61003e" }}>
+      <h1 class="text-6xl">
         Marissa<br />&<br />Isaac
       </h1>
 
-      <time
-        class="text-3xl"
-        datetime="2025-09-25"
-        style={{ textShadow: "0px 0px 1px #61003e" }}>September 5th, 2025</time
-      >
-    </section>
+      <time datetime="2025-09-25" class="text-3xl mt-[30dvh]">
+        September 5th, 2025
+      </time>
+    </div>
 
-    <div class="flex flex-col gap-32">
+    <div class="flex flex-col gap-64">
       <WeddingSection title="Event Details">
         <div class="flex flex-col gap-4 text-center">
           <p class="text-lg">
@@ -70,7 +68,7 @@ const images = [imageOne, imageTwo, imageThree, imageFour, imageFive];
             </a>
           </p>
 
-          <ul>
+          <ul class="list-none ml-0">
             <li>Ceremony Time: 4:00 pm</li>
             <li>Reception to follow</li>
             <li>Dress Code: Garden Party, semi-formal</li>
@@ -81,10 +79,8 @@ const images = [imageOne, imageTwo, imageThree, imageFour, imageFive];
       <WeddingSection title="Wedding Party">
         <div class="flex flex-col gap-4 text-center">
           <div>
-            <h3 class="uppercase font-lg font-bold font-heading mb-1">
-              Bridesmaids
-            </h3>
-            <ul>
+            <h3>Bridesmaids</h3>
+            <ul class="list-none ml-0">
               <li>Juliana Carlson (Mount) (MoH)</li>
               <li>Diana Mount</li>
               <li>Mary Shaffer</li>
@@ -94,12 +90,10 @@ const images = [imageOne, imageTwo, imageThree, imageFour, imageFive];
           </div>
 
           <div>
-            <h3 class="uppercase font-lg font-bold font-heading mb-1">
-              Groomsmen
-            </h3>
-            <ul>
+            <h3>Groomsmen</h3>
+            <ul class="list-none ml-0">
               <li>Scot Bearss (BM)</li>
-              <li>Jonny Davis</li>
+              <li>Jonathan Davis</li>
               <li>Brian Graves</li>
               <li>Ezra Jacobs</li>
               <li>Dan White</li>
@@ -108,28 +102,227 @@ const images = [imageOne, imageTwo, imageThree, imageFour, imageFive];
         </div>
       </WeddingSection>
 
-      <WeddingSection title="RSVP" />
+      <WeddingSection title="Travel & Accommodations">
+        <div>
+          <h3>Travel</h3>
 
-      <WeddingSection title="Accommodations & Points of Interest">
-        <div></div>
+          <p>We recommend flying into Seattle and driving to Whidbey Island.</p>
+
+          <h4>Airport Options</h4>
+          <ul>
+            <li>
+              Seattle-Tacoma International Airport (SEA) – main airport, ~2
+              hours to Whidbey
+            </li>
+            <li>
+              Paine Field (PAE) – smaller, ~1.5 hours to Whidbey (limited
+              flights)
+            </li>
+          </ul>
+
+          <h4>Transportation</h4>
+          <ul>
+            <li>
+              A rental car is recommended for getting to and around the island
+            </li>
+            <li>
+              Mukilteo Ferry – Drive onto the ferry from Mukilteo to Clinton.
+              Check the{" "}
+              <a
+                target="_blank"
+                href="https://wsdot.com/ferries/schedule/scheduledetailbyroute.aspx?route=muk-cl"
+                >ferry schedule</a
+              >
+              {" and "}
+              <a
+                target="_blank"
+                href="https://wsdot.wa.gov/ferries/fares/FaresDetail.aspx?departingterm=5&arrivingterm=14"
+                >fare info</a
+              >.
+            </li>
+            <li>
+              Drive Around – Take the scenic Deception Pass Bridge route (no
+              ferry required).
+            </li>
+          </ul>
+
+          <h3>Accommodations</h3>
+
+          <p>We recommend staying in or near Langley.</p>
+
+          <h4>Langley</h4>
+          <ul>
+            <li>
+              <a href="https://www.innatlangley.com/" target="_blank"
+                >Inn at Langley</a
+              > – boutique hotel in town
+            </li>
+            <li>
+              <a href="https://saratogainnwhidbeyisland.com/" target="_blank"
+                >Saratoga Inn</a
+              > – charming and walkable to restaurants and shops
+            </li>
+          </ul>
+          <h4>Coupleville</h4>
+          <ul>
+            <li>
+              <a href="https://www.captainwhidbey.com/" target="_blank"
+                >Captain Whidbey Inn</a
+              > – historic lodge on the water
+            </li>
+            <li>
+              <a href="https://www.anchorage-inn.com/" target="_blank"
+                >Anchorage Inn</a
+              > – cozy bed & breakfast
+            </li>
+          </ul>
+          <p>
+            Traveling with a Group? We recommend booking an Airbnb or VRBO for
+            more space and shared lodging. There are a lot of options!
+          </p>
+        </div>
+      </WeddingSection>
+
+      <WeddingSection title="Points of Interest">
+        <h3>Parks</h3>
+
+        <ul>
+          <li>
+            <a
+              href="https://parks.wa.gov/find-parks/state-parks/deception-pass-state-park"
+              target="_blank"
+            >
+              Deception Pass State Park
+            </a> – Dramatic cliffs, beaches, and forested hikes
+          </li>
+          <li>
+            <a href="https://parks.wa.gov/508/Fort-Casey" target="_blank">
+              Fort Casey Historical State Park
+            </a> – Historic military fort with stunning views
+          </li>
+          <li>
+            <a href="https://www.nps.gov/ebla/index.htm" target="_blank">
+              Ebey's Landing National Historical Reserve
+            </a> – Scenic coastal bluff trail with historic charm
+          </li>
+        </ul>
+
+        <h3>Shopping</h3>
+
+        <ul>
+          <li>
+            <a href="https://www.visitlangley.com/" target="_blank">
+              Downtown Langley
+            </a> – Charming shops, galleries, and cafés
+          </li>
+          <li>
+            <a href="https://www.coupevillechamber.com/" target="_blank">
+              Downtown Coupeville
+            </a> – Quaint waterfront shopping and dining
+          </li>
+        </ul>
+
+        <h3>Food & Drink</h3>
+
+        <ul>
+          <li>
+            <a href="https://www.whidbeydistillery.com/" target="_blank">
+              Whidbey Island Distillery
+            </a> – Sample locally made spirits, including their famous blackberry
+            liqueur
+          </li>
+          <li>
+            <a href="https://www.spoileddogwinery.com/" target="_blank">
+              Spoiled Dog Winery
+            </a> – Enjoy a tasting of estate-grown Pinot Noir in a peaceful setting
+          </li>
+          <li>
+            <a href="https://www.lavenderwind.com/" target="_blank">
+              Lavender Wind Farm
+            </a> – Stroll through lavender fields and shop for handmade products
+          </li>
+          <li>
+            <a href="https://www.chocolateflowerfarm.com/" target="_blank">
+              Chocolate Flower Farm
+            </a> – Visit this whimsical farm for unique chocolate treats and garden
+            goods
+          </li>
+        </ul>
+      </WeddingSection>
+
+      <WeddingSection title="Registry">
+        <p>
+          We are incredibly grateful to be celebrating our wedding with you. We
+          appreciate you coming from far and wide to be with us for this special
+          occasion! Your attendance is as good a gift as any, but for those who
+          would like, we have linked our Venmo/Paypal below as cash gift options
+          if you would like to contribute to our honeymoon fund. We’ve listed
+          some of the experiences we’re planning below. Your gift will help us
+          make the most of this special trip to Costa Rica—and we’ll be sure to
+          toast to you along the way!
+        </p>
+
+        <ul>
+          <li>Zip-lining through the Monteverde Cloud Forest</li>
+          <li>Surf lessons (and wipeouts!) in Nosara</li>
+          <li>A snorkeling tour in crystal-clear waters</li>
+          <li>Fresh fruit, beachside cocktails, and sunset dinners</li>
+          <li>Gas for our road trip around the country</li>
+          <li>A coffee farm tour and tasting (we’re big fans!)</li>
+        </ul>
+
+        <div
+          class="flex flex-row gap-8 text-center items-center justify-center text-xl my-4"
+        >
+          <a href="#" target="_blank">Venmo</a>
+          <a href="#" target="_blank">Paypal</a>
+        </div>
+      </WeddingSection>
+
+      <WeddingSection title="The Couple">
+        <p>
+          Like most romantic meet-cutes of our generation, we met on Hinge and
+          bonded over a shared love of beer, coffee, and long walks (yes,
+          really—we’ll walk anywhere within a three-mile radius). Less than a
+          year in, we both quit our jobs and set off to spend 99 days exploring
+          Europe. Some people called it bold—we called it a great first test
+          (and maybe true love). Now we’re back in Seattle, happily caffeinated
+          and always wandering (aka urban hiking), usually in search of our next
+          favorite coffee shop. Turns out, swiping right was just the beginning.
+        </p>
+
+        <p>
+          Visit <a href="https://marisaac.site" target="_blank">
+            marisaac.site
+          </a> to see our travels, from Europe to Japan.
+        </p>
+      </WeddingSection>
+
+      <WeddingSection title="RSVP">
+        <iframe
+          class="size-full min-h-[100dvh]"
+          src="https://docs.google.com/forms/d/e/1FAIpQLSeXMZRi329OL8x_My9dbj3OewJXpOn1tPMGz4XLdbZNl_pYgQ/viewform?embedded=true"
+        ></iframe>
       </WeddingSection>
     </div>
+
+    <script>
+      const images = document.querySelectorAll("img");
+
+      let timeout: number | NodeJS.Timeout;
+
+      window.addEventListener("scroll", () => {
+        clearTimeout(timeout);
+
+        const parts = document.body.offsetHeight / images.length;
+
+        timeout = setTimeout(() => {
+          images.forEach((image, i) => {
+            const current = Math.floor(window.scrollY / parts);
+            image.style.opacity = i === current ? "100" : "0";
+          });
+        }, 50);
+      });
+    </script>
   </body>
-
-  <script>
-    const images = document.querySelectorAll("img");
-
-    document.querySelectorAll("section").forEach((section, s) => {
-      new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            images.forEach((image, i) => {
-              image.style.opacity = i === s ? "100" : "0";
-            });
-          }
-        },
-        { threshold: 0.25 }
-      ).observe(section);
-    });
-  </script>
 </html>

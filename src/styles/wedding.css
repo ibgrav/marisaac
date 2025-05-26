@@ -15,3 +15,27 @@
     }
   }
 }
+
+@layer base {
+  section {
+    a {
+      @apply underline;
+    }
+
+    ul {
+      @apply list-disc ml-4 mb-2;
+    }
+
+    h3 {
+      @apply uppercase font-header font-bold text-lg mt-3 mb-2;
+    }
+
+    h4 {
+      @apply uppercase font-header font-bold mt-2 mb-1;
+    }
+
+    p {
+      @apply mb-2;
+    }
+  }
+}

@@ -6,10 +6,13 @@ interface Props {
 const { title } = Astro.props;
 ---
 
-<section class="z-10 relative" id={title}>
-  <div class="-z-10 absolute size-full opacity-50 bg-amber-50"></div>
+<section class="z-10 relative px-4" id={title}>
+  <div class="-z-10 left-0 top-0 absolute size-full opacity-50 bg-amber-50">
+  </div>
 
-  <div class="z-20 bg-amber-50 m-4 p-6 border border-amber-950">
+  <div
+    class="z-20 bg-amber-50 shadow-lg my-4 mx-auto p-6 border border-amber-950 max-w-[600px]"
+  >
     <h2 class="text-4xl text-center font-heading font-bold mb-4">{title}</h2>
 
     <slot />
