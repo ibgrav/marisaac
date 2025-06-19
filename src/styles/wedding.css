@@ -35,7 +35,7 @@
     }
 
     h3 {
-      @apply uppercase font-header font-bold text-lg mt-3 mb-2;
+      @apply uppercase text-center font-header font-bold text-lg mt-4 mb-2;
     }
 
     h4 {
