@@ -10,6 +10,16 @@ import imageFive from "src/assets/wedding/5.jpg";
 import imageSix from "src/assets/wedding/6.jpg";
 
 const images = [imageOne, imageTwo, imageThree, imageFour, imageFive, imageSix];
+
+const Sections = {
+  "Event Details": "Event Details",
+  "Wedding Party": "Wedding Party",
+  RSVP: "RSVP",
+  "Travel & Accommodations": "Travel & Accommodations",
+  "Points of Interest": "Points of Interest",
+  Registry: "Registry",
+  "The Couple": "The Couple",
+} as const;
 ---
 
 <html lang="en" class="w-full bg-amber-950 text-amber-950">
@@ -42,6 +52,12 @@ const images = [imageOne, imageTwo, imageThree, imageFour, imageFive, imageSix];
       ))
     }
 
+    <header
+      class="flex flex-row gap-x-4 gap-y-1 p-4 justify-center text-lg flex-wrap whitespace-nowrap"
+    >
+      {Object.keys(Sections).map((link) => <a href={`#${link}`}>{link}</a>)}
+    </header>
+
     <div
       class="mt-[2dvh] mb-[10dvh] p-8 text-center drop-shadow-xl text-amber-50 uppercase font-bold font-header flex flex-col gap-4"
     >
@@ -55,7 +71,7 @@ const images = [imageOne, imageTwo, imageThree, imageFour, imageFive, imageSix];
     </div>
 
     <div class="flex flex-col gap-96">
-      <WeddingSection title="Event Details">
+      <WeddingSection title={Sections["Event Details"]}>
         <div class="flex flex-col gap-4 text-center">
           <p class="text-lg">
             Whidbey Island, WA
@@ -77,7 +93,7 @@ const images = [imageOne, imageTwo, imageThree, imageFour, imageFive, imageSix];
         </div>
       </WeddingSection>
 
-      <WeddingSection title="Wedding Party">
+      <WeddingSection title={Sections["Wedding Party"]}>
         <div class="flex flex-col gap-4 text-center">
           <div>
             <h3>Bridesmaids</h3>
@@ -103,7 +119,15 @@ const images = [imageOne, imageTwo, imageThree, imageFour, imageFive, imageSix];
         </div>
       </WeddingSection>
 
-      <WeddingSection title="Travel & Accommodations">
+      <WeddingSection title={Sections["RSVP"]} containerClassList={["px-0"]}>
+        <iframe
+          class="size-full"
+          style={{ minHeight: "970px" }}
+          src="https://docs.google.com/forms/d/e/1FAIpQLSeXMZRi329OL8x_My9dbj3OewJXpOn1tPMGz4XLdbZNl_pYgQ/viewform?embedded=true"
+        ></iframe>
+      </WeddingSection>
+
+      <WeddingSection title={Sections["Travel & Accommodations"]}>
         <div>
           <h3>Travel</h3>
 
@@ -124,7 +148,10 @@ const images = [imageOne, imageTwo, imageThree, imageFour, imageFive, imageSix];
           <h4>Transportation</h4>
           <ul>
             <li>
-              A rental car is recommended for getting to and around the island
+              A rental car is recommended for getting to and around the island,
+              there is no consistent rideshare options (
+              <a href="https://southwhidbeytaxi.com/">taxi options</a>
+              ).
             </li>
             <li>
               Mukilteo Ferry – Drive onto the ferry from Mukilteo to Clinton.
@@ -132,18 +159,21 @@ const images = [imageOne, imageTwo, imageThree, imageFour, imageFive, imageSix];
               <a
                 target="_blank"
                 href="https://wsdot.com/ferries/schedule/scheduledetailbyroute.aspx?route=muk-cl"
-                >ferry schedule</a
               >
+                ferry schedule
+              </a>
               {" and "}
               <a
                 target="_blank"
                 href="https://wsdot.wa.gov/ferries/fares/FaresDetail.aspx?departingterm=5&arrivingterm=14"
-                >fare info</a
-              >.
+              >
+                fare info
+              </a>.
             </li>
             <li>
-              Drive Around – Take the scenic Deception Pass Bridge route (no
-              ferry required).
+              Driving Option – Take the scenic Deception Pass Bridge route (no
+              ferry required, if you haven’t been here, it is highly
+              recommended!)
             </li>
           </ul>
 
@@ -184,7 +214,7 @@ const images = [imageOne, imageTwo, imageThree, imageFour, imageFive, imageSix];
         </div>
       </WeddingSection>
 
-      <WeddingSection title="Points of Interest">
+      <WeddingSection title={Sections["Points of Interest"]}>
         <h3>Parks</h3>
 
         <ul>
@@ -251,16 +281,16 @@ const images = [imageOne, imageTwo, imageThree, imageFour, imageFive, imageSix];
         </ul>
       </WeddingSection>
 
-      <WeddingSection title="Registry">
+      <WeddingSection title={Sections["Registry"]}>
         <p>
           We are incredibly grateful to be celebrating our wedding with you. We
           appreciate you coming from far and wide to be with us for this special
-          occasion! Your attendance is as good a gift as any, but for those who
-          would like, we have linked our Venmo/Paypal below as cash gift options
-          if you would like to contribute to our honeymoon fund. We’ve listed
-          some of the experiences we’re planning below. Your gift will help us
-          make the most of this special trip to Costa Rica—and we’ll be sure to
-          toast to you along the way!
+          occasion, your attendance is as good a gift as any! If you feel moved
+          to contribute, we’ve linked our Venmo and PayPal below as options to
+          support our honeymoon fund. We’ve shared a few of the experiences
+          we’re planning for our trip to Costa Rica, and any support will help
+          us enjoy them to the fullest. But truly, just having you with us means
+          the world.
         </p>
 
         <ul>
@@ -280,7 +310,7 @@ const images = [imageOne, imageTwo, imageThree, imageFour, imageFive, imageSix];
         </div>
       </WeddingSection>
 
-      <WeddingSection title="The Couple">
+      <WeddingSection title={Sections["The Couple"]}>
         <p>
           Like most romantic meet-cutes of our generation, we met on Hinge and
           bonded over a shared love of beer, coffee, and long walks (yes,
@@ -297,13 +327,6 @@ const images = [imageOne, imageTwo, imageThree, imageFour, imageFive, imageSix];
             marisaac.site
           </a> to see our travels, from Europe to Japan.
         </p>
-      </WeddingSection>
-
-      <WeddingSection title="RSVP" containerClassList={["px-0"]}>
-        <iframe
-          class="size-full min-h-[100dvh]"
-          src="https://docs.google.com/forms/d/e/1FAIpQLSeXMZRi329OL8x_My9dbj3OewJXpOn1tPMGz4XLdbZNl_pYgQ/viewform?embedded=true"
-        ></iframe>
       </WeddingSection>
     </div>
 

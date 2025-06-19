@@ -17,6 +17,10 @@
 }
 
 @layer base {
+  html {
+    @apply scroll-smooth;
+  }
+
   section {
     a {
       @apply underline;
