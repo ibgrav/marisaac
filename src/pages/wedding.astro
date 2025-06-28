@@ -314,11 +314,8 @@ const Sections = {
         <div
           class="flex flex-row gap-8 text-center items-center justify-center text-xl my-4"
         >
-          <a target="_blank" href="#">Venmo</a>
-          <a
-            target="_blank"
-            href="https://www.paypal.com/paypalme/marissaisaacwedding"
-          >
+          <a target="_blank" href={import.meta.env.PUBLIC_VENMO_LINK}>Venmo</a>
+          <a target="_blank" href={import.meta.env.PUBLIC_PAYPAL_LINK}>
             Paypal
           </a>
         </div>
