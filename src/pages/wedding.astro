@@ -1,28 +1,13 @@
 ---
 import "@/styles/wedding.css";
-import WeddingSection from "@/templates/wedding-section.astro";
 import { Image } from "astro:assets";
-import imageOne from "src/assets/wedding/1.jpg";
-import imageTwo from "src/assets/wedding/2.jpg";
-import imageThree from "src/assets/wedding/3.jpg";
-import imageFour from "src/assets/wedding/4.jpg";
-import imageFive from "src/assets/wedding/5.jpg";
-import imageSix from "src/assets/wedding/6.jpg";
 
-const images = [imageOne, imageTwo, imageThree, imageFour, imageFive, imageSix];
-
-const Sections = {
-  "Event Details": "Event Details",
-  "Wedding Party": "Wedding Party",
-  RSVP: "RSVP",
-  "Travel & Lodging": "Travel & Lodging",
-  "Points of Interest": "Points of Interest",
-  Registry: "Registry",
-  "The Couple": "The Couple",
-} as const;
+const album = import.meta.glob("src/assets/wedding/album/*.jpg", {
+  eager: true,
+}) as Record<string, { default: ImageMetadata }>;
 ---
 
-<html lang="en" class="w-full bg-amber-950 text-amber-950">
+<html lang="en" class="w-full bg-emerald-900 h-full">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -31,332 +16,77 @@ const Sections = {
     <title>Marissa & Isaac Wedding</title>
 
     <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Alice&family=Prata&display=swap"
-      rel="stylesheet"
-    />
   </head>
-  <body class="font-body">
-    {
-      images.map((image, i) => (
-        <Image
-          src={image}
-          widths={[2400]}
-          loading={i === 0 ? "eager" : "lazy"}
-          alt="Isaac & Marissa"
-          class="fixed -z-50 w-[100dvw] h-[100dvh] inset-0 object-cover transition-[opacity] duration-1000"
-          style={{ opacity: i === 0 ? 100 : 0 }}
-        />
-      ))
-    }
-
-    <header
-      class="flex flex-row gap-x-4 gap-y-1 p-4 justify-center text-lg flex-wrap whitespace-nowrap"
-    >
-      {Object.keys(Sections).map((link) => <a href={`#${link}`}>{link}</a>)}
-    </header>
-
+  <body class="font-body relative h-full">
     <div
-      class="mt-[2dvh] mb-[10dvh] p-8 text-center drop-shadow-xl text-amber-50 uppercase font-bold font-header flex flex-col gap-4"
+      class="py-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-2 container mx-auto"
     >
-      <h1 class="text-6xl">
-        Marissa<br />&<br />Isaac
-      </h1>
+      {
+        Object.values(album).map(({ default: image }) => {
+          console.log(image);
+          return (
+            <button class="cursor-pointer">
+              <Image
+                src={image}
+                loading="lazy"
+                alt="Marissa & Isaac Wedding"
+                width={600}
+                class="thumbnail w-full h-full object-cover rounded-lg hover:scale-[1.02] hover:shadow-lg"
+              />
 
-      <time datetime="2025-09-25" class="text-3xl mt-[30dvh]">
-        September 5th, 2025
-      </time>
+              <div class="fullsize w-full h-full">
+                <Image
+                  src={image}
+                  loading="lazy"
+                  alt="Marissa & Isaac Wedding"
+                  width={1920}
+                  class="w-full h-full object-cover rounded-lg"
+                />
+              </div>
+            </button>
+          );
+        })
+      }
     </div>
 
-    <div class="flex flex-col gap-96">
-      <WeddingSection title={Sections["Event Details"]}>
-        <div class="flex flex-col gap-4 text-center">
-          <p class="text-lg">
-            Whidbey Island, WA
+    <style>
+      button .fullsize {
+        display: none;
+      }
+      button.active .fullsize {
+        display: block;
+      }
 
-            <a
-              class="block underline underline-offset-4"
-              href="https://maps.app.goo.gl/YwcNLH65aYBXEQ4J9"
-              target="_blank"
-            >
-              5491 Bayview Rd, Langley, WA 98260
-            </a>
-          </p>
+      button.active .fullsize {
+        position: fixed;
+        background-color: rgba(0, 0, 0, 0.6);
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 100;
+      }
 
-          <ul class="list-none ml-0">
-            <li>September 5th, 2025</li>
-            <li>Ceremony Time: 4:00 pm</li>
-            <li>Reception to follow</li>
-            <li>
-              Dress Code: Garden Party, semi-formal, <a
-                target="_blank"
-                href="https://www.pinterest.com/marmountain/marissa-isaac-wedding-dress-code/"
-                >inspiration</a
-              >
-            </li>
-          </ul>
-        </div>
-      </WeddingSection>
-
-      <WeddingSection title={Sections["Wedding Party"]}>
-        <div class="flex flex-col gap-4 text-center">
-          <div>
-            <h3>Bridesmaids</h3>
-            <ul class="list-none ml-0">
-              <li>Juliana Carlson (Mount) (MoH)</li>
-              <li>Diana Mount</li>
-              <li>Mary Shaffer</li>
-              <li>Morgan Olson</li>
-              <li>Sophia Urrutia</li>
-              <li>Danielle Openiano (Officiant)</li>
-            </ul>
-          </div>
-
-          <div>
-            <h3>Groomsmen</h3>
-            <ul class="list-none ml-0">
-              <li>Scot Bearss (BM)</li>
-              <li>Jonathan Davis</li>
-              <li>Brian Graves</li>
-              <li>Ezra Jacobs</li>
-              <li>Dan White</li>
-            </ul>
-          </div>
-        </div>
-      </WeddingSection>
-
-      <WeddingSection title={Sections["RSVP"]} containerClassList={["px-0"]}>
-        <iframe
-          class="size-full"
-          style={{ minHeight: "1010px" }}
-          src="https://docs.google.com/forms/d/e/1FAIpQLSeXMZRi329OL8x_My9dbj3OewJXpOn1tPMGz4XLdbZNl_pYgQ/viewform?embedded=true"
-        ></iframe>
-      </WeddingSection>
-
-      <WeddingSection title={Sections["Travel & Lodging"]}>
-        <div>
-          <h3>Travel</h3>
-
-          <p>We recommend flying into Seattle and driving to Whidbey Island.</p>
-
-          <h4>Airport Options</h4>
-          <ul>
-            <li>
-              Seattle-Tacoma International Airport (SEA) – main airport, ~2
-              hours to Whidbey
-            </li>
-            <li>
-              Paine Field (PAE) – smaller, ~1.5 hours to Whidbey (limited
-              flights)
-            </li>
-          </ul>
-
-          <h4>Transportation</h4>
-          <ul>
-            <li>
-              A rental car is recommended for getting to and around the island,
-              there is no consistent rideshare options (<a
-                target="_blank"
-                href="https://southwhidbeytaxi.com/">taxi options</a
-              >).
-            </li>
-            <li>
-              Mukilteo Ferry – Drive onto the ferry from Mukilteo to Clinton.
-              Check the{" "}
-              <a
-                target="_blank"
-                href="https://wsdot.com/ferries/schedule/scheduledetailbyroute.aspx?route=muk-cl"
-              >
-                ferry schedule
-              </a>
-              {" and "}
-              <a
-                target="_blank"
-                href="https://wsdot.wa.gov/ferries/fares/FaresDetail.aspx?departingterm=5&arrivingterm=14"
-              >
-                fare info
-              </a>.
-            </li>
-            <li>
-              Driving Option – Take the scenic Deception Pass Bridge route (no
-              ferry required, if you haven’t been here, it is highly
-              recommended!)
-            </li>
-          </ul>
-
-          <h3>Lodging</h3>
-
-          <p>We recommend staying in or near Langley.</p>
-
-          <h4>Langley</h4>
-          <ul>
-            <li>
-              <a href="https://www.innatlangley.com/" target="_blank">
-                Inn at Langley
-              </a> – boutique hotel in town
-            </li>
-            <li>
-              <a href="https://www.saratogainnlangley.com/" target="_blank">
-                Saratoga Inn
-              </a> – charming and walkable to restaurants and shops
-            </li>
-          </ul>
-          <h4>Coupleville</h4>
-          <ul>
-            <li>
-              <a href="https://www.captainwhidbey.com/" target="_blank">
-                Captain Whidbey Inn
-              </a> – historic lodge on the water
-            </li>
-            <li>
-              <a href="https://www.anchorage-inn.com/" target="_blank">
-                Anchorage Inn
-              </a> – cozy bed & breakfast
-            </li>
-          </ul>
-          <p>
-            Traveling with a Group? We recommend booking an Airbnb or VRBO for
-            more space and shared lodging. There are a lot of options!
-          </p>
-        </div>
-      </WeddingSection>
-
-      <WeddingSection title={Sections["Points of Interest"]}>
-        <h3>Parks</h3>
-
-        <ul>
-          <li>
-            <a
-              href="https://parks.wa.gov/find-parks/state-parks/deception-pass-state-park"
-              target="_blank"
-            >
-              Deception Pass State Park
-            </a> – Dramatic cliffs, beaches, and forested hikes
-          </li>
-          <li>
-            <a href="https://parks.wa.gov/508/Fort-Casey" target="_blank">
-              Fort Casey Historical State Park
-            </a> – Historic military fort with stunning views
-          </li>
-          <li>
-            <a href="https://www.nps.gov/ebla/index.htm" target="_blank">
-              Ebey's Landing National Historical Reserve
-            </a> – Scenic coastal bluff trail with historic charm
-          </li>
-        </ul>
-
-        <h3>Shopping</h3>
-
-        <ul>
-          <li>
-            <a href="https://www.visitlangley.com/" target="_blank">
-              Downtown Langley
-            </a> – Charming shops, galleries, and cafés
-          </li>
-          <li>
-            <a href="https://www.coupevillechamber.com/" target="_blank">
-              Downtown Coupeville
-            </a> – Quaint waterfront shopping and dining
-          </li>
-        </ul>
-
-        <h3>Food & Drink</h3>
-
-        <ul>
-          <li>
-            <a href="https://www.whidbeydistillery.com/" target="_blank">
-              Whidbey Island Distillery
-            </a> – Sample locally made spirits, including their famous blackberry
-            liqueur
-          </li>
-          <li>
-            <a href="https://www.spoileddogwinery.com/" target="_blank">
-              Spoiled Dog Winery
-            </a> – Enjoy a tasting of estate-grown Pinot Noir in a peaceful setting
-          </li>
-          <li>
-            <a href="https://www.lavenderwind.com/" target="_blank">
-              Lavender Wind Farm
-            </a> – Stroll through lavender fields and shop for handmade products
-          </li>
-          <li>
-            <a href="https://www.chocolateflowerfarm.com/" target="_blank">
-              Chocolate Flower Farm
-            </a> – Visit this whimsical farm for unique chocolate treats and garden
-            goods
-          </li>
-        </ul>
-      </WeddingSection>
-
-      <WeddingSection title={Sections["Registry"]}>
-        <p>
-          We are incredibly grateful to be celebrating our wedding with you. We
-          appreciate you coming from far and wide to be with us for this special
-          occasion, your attendance is as good a gift as any! If you feel moved
-          to contribute, we’ve linked our Venmo and PayPal below as options to
-          support our honeymoon fund. We’ve shared a few of the experiences
-          we’re planning for our trip to Costa Rica, and any support will help
-          us enjoy them to the fullest. But truly, just having you with us means
-          the world.
-        </p>
-
-        <ul>
-          <li>Zip-lining through the Monteverde Cloud Forest</li>
-          <li>Surf lessons (and wipeouts!) in Nosara</li>
-          <li>A snorkeling tour in crystal-clear waters</li>
-          <li>Fresh fruit, beachside cocktails, and sunset dinners</li>
-          <li>Gas for our road trip around the country</li>
-          <li>A coffee farm tour and tasting (we’re big fans!)</li>
-        </ul>
-
-        <div
-          class="flex flex-row gap-8 text-center items-center justify-center text-xl my-4"
-        >
-          <a target="_blank" href={import.meta.env.PUBLIC_VENMO_LINK}>Venmo</a>
-          <a target="_blank" href={import.meta.env.PUBLIC_PAYPAL_LINK}>
-            Paypal
-          </a>
-        </div>
-      </WeddingSection>
-
-      <WeddingSection title={Sections["The Couple"]}>
-        <p>
-          Like most romantic meet-cutes of our generation, we met on Hinge and
-          bonded over a shared love of beer, coffee, and long walks (yes,
-          really—we’ll walk anywhere within a three-mile radius). Less than a
-          year in, we both quit our jobs and set off to spend 99 days exploring
-          Europe. Some people called it bold—we called it a great first test
-          (and maybe true love). Now we’re back in Seattle, happily caffeinated
-          and always wandering (aka urban hiking), usually in search of our next
-          favorite coffee shop. Turns out, swiping right was just the beginning.
-        </p>
-
-        <p>
-          Visit <a href="https://marisaac.site" target="_blank">
-            marisaac.site
-          </a> to see our travels, from Europe to Japan.
-        </p>
-      </WeddingSection>
-    </div>
+      button.active .fullsize img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        scale: 1;
+        width: auto;
+        height: 90%;
+        margin: 0 auto;
+      }
+    </style>
 
     <script>
-      const images = document.querySelectorAll("img");
+      const buttons = document.querySelectorAll("button");
 
-      let timeout: number | NodeJS.Timeout;
-
-      window.addEventListener("scroll", () => {
-        clearTimeout(timeout);
-
-        const parts = document.body.offsetHeight / images.length;
-
-        timeout = setTimeout(() => {
-          images.forEach((image, i) => {
-            const current = Math.floor(window.scrollY / parts);
-            image.style.opacity = i === current ? "100" : "0";
-          });
-        }, 50);
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+          document.body.classList.toggle("overflow-hidden");
+          button.classList.toggle("active");
+        });
       });
     </script>
   </body>
