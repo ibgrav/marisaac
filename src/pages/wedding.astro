@@ -23,7 +23,6 @@ const album = import.meta.glob("src/assets/wedding/album/*.jpg", {
     >
       {
         Object.values(album).map(({ default: image }) => {
-          console.log(image);
           return (
             <button class="cursor-pointer">
               <Image
