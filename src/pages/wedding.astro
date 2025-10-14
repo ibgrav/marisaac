@@ -17,9 +17,20 @@ const album = import.meta.glob("src/assets/wedding/album/*.jpg", {
 
     <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
   </head>
-  <body class="font-body relative h-full">
+  <body
+    class="font-body relative h-full max-w-[60rem] mx-auto flex flex-col gap-2 p-2"
+  >
+    <video
+      width="320"
+      height="240"
+      controls
+      class="w-full h-11/12 object-cover rounded-lg"
+    >
+      <source src="/assets/wedding.webm" type="video/webm" />
+    </video>
+
     <div
-      class="py-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-2 container mx-auto"
+      class="pb-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-2"
     >
       {
         Object.values(album).map(({ default: image }) => {
