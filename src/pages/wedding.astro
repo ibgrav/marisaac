@@ -1,6 +1,14 @@
 ---
 import "@/styles/wedding.css";
+import { getImage } from "astro:assets";
 import { Image } from "astro:assets";
+import placeholderImage from "@/assets/wedding/placeholder.jpg";
+
+const placeholder = await getImage({
+  src: placeholderImage,
+  quality: 80,
+  format: "webp",
+});
 
 const album = import.meta.glob("src/assets/wedding/album/*.jpg", {
   eager: true,
@@ -21,10 +29,11 @@ const album = import.meta.glob("src/assets/wedding/album/*.jpg", {
     class="font-body relative h-full max-w-[60rem] mx-auto flex flex-col gap-2 p-2"
   >
     <video
+      controls
       width="320"
       height="240"
-      controls
       class="w-full h-11/12 object-cover rounded-lg"
+      poster={placeholder.src}
     >
       <source src="https://assets.marisaac.site/wedding.mp4" type="video/mp4" />
     </video>
